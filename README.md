@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/aqrln/maojian.svg?branch=master)](https://travis-ci.org/aqrln/maojian)
+[![Build Status on Windows](https://ci.appveyor.com/api/projects/status/0ltmpw01ew634anr/branch/master?svg=true)](https://ci.appveyor.com/project/aqrln/maojian/branch/master)
 [![Dependency Status](https://david-dm.org/aqrln/maojian/status.svg)](https://david-dm.org/aqrln/maojian)
 [![DevDependency Status](https://david-dm.org/aqrln/maojian/dev-status.svg)](https://david-dm.org/aqrln/maojian?type=dev)
 
