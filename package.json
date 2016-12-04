@@ -1,0 +1,25 @@
+{
+  "name": "maojian",
+  "version": "0.0.1",
+  "description": "Simple to use test runner and framework producing TAP output",
+  "main": "maojian.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aqrln/maojian.git"
+  },
+  "keywords": [
+    "test",
+    "unit-testing",
+    "tdd",
+    "tap"
+  ],
+  "author": "Alexey Orlenko <eaglexrlnk@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aqrln/maojian/issues"
+  },
+  "homepage": "https://github.com/aqrln/maojian#readme"
+}

@@ -1,0 +1,11 @@
+# Node.js and NPM
+node_modules
+*.log
+*.cpuprofile
+*.heapsnapshot
+
+# Development helpers
+dev/
+
+# OS-specific files
+.DS_Store
