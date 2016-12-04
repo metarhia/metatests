@@ -5,7 +5,7 @@
   "main": "maojian.js",
   "scripts": {
     "test": "npm run lint",
-    "lint": "eslint ."
+    "lint": "eslint . && remark -q ."
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,9 @@
   },
   "homepage": "https://github.com/aqrln/maojian#readme",
   "devDependencies": {
-    "eslint": "^3.11.1"
+    "eslint": "^3.11.1",
+    "remark-cli": "^2.1.0",
+    "remark-lint": "^5.2.0",
+    "remark-validate-links": "^5.0.0"
   }
 }
