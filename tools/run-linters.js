@@ -13,6 +13,10 @@ if (nodeMajorVersion < 4) {
 var projectDir = path.resolve(__dirname, '..');
 
 function runLinter(linterName, args, callback) {
+  if (process.platform === 'win32') {
+    linterName += '.cmd';
+  }
+
   var linter = childProcess.spawn(linterName, args, {
     cwd: projectDir,
     stdio: 'inherit'
