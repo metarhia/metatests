@@ -1,8 +1,8 @@
 # maojian
 
-[![Dependency Status](https://david-dm.org/aqrln/maojian/status.svg)](https://david-dm.org/aqrln/maojian)
-[![DevDependency Status](https://david-dm.org/aqrln/maojian/dev-status.svg)](https://david-dm.org/aqrln/maojian?type=dev)
-[![Dependency CI Status](https://dependencyci.com/github/aqrln/maojian/badge)](https://dependencyci.com/github/aqrln/maojian)
+[![bitHound Dependencies](https://www.bithound.io/github/aqrln/maojian/badges/dependencies.svg)](https://www.bithound.io/github/aqrln/maojian/master/dependencies/npm)
+[![bitHound Dev Dependencies](https://www.bithound.io/github/aqrln/maojian/badges/devDependencies.svg)](https://www.bithound.io/github/aqrln/maojian/master/dependencies/npm)
+[![bitHound Code](https://www.bithound.io/github/aqrln/maojian/badges/code.svg)](https://www.bithound.io/github/aqrln/maojian)
 
 [![Build Status](https://travis-ci.org/aqrln/maojian.svg?branch=master)](https://travis-ci.org/aqrln/maojian)
 [![Build Status on Windows](https://ci.appveyor.com/api/projects/status/0ltmpw01ew634anr/branch/master?svg=true)](https://ci.appveyor.com/project/aqrln/maojian/branch/master)
