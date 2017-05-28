@@ -13,12 +13,6 @@ Welcome there, stranger.
 `maojian` is (will be, to be exact) an extremely simple to use test framework
 and runner built on the following principles:
 
-* No `describe`/`it`/`expect`/`should`/etc BDD bullshit. Especially no language
-  chains that are counterproductive to write, don't add any readability to
-  tests if you know JavaScript or any other programming language with C-like
-  syntax and still don't allow to read them (never mention writing) if you
-  don't, and require dirty hacks to implement internally.
-
 * Test cases are files, tests are functions (or arrays, more on that later).
 
 * Assertions are done using the built-in Node.js `assert` module. The framework
