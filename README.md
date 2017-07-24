@@ -1,12 +1,11 @@
 # maojian
 
-[![bitHound Dependencies](https://www.bithound.io/github/aqrln/maojian/badges/dependencies.svg)](https://www.bithound.io/github/aqrln/maojian/master/dependencies/npm)
-[![bitHound Dev Dependencies](https://www.bithound.io/github/aqrln/maojian/badges/devDependencies.svg)](https://www.bithound.io/github/aqrln/maojian/master/dependencies/npm)
-[![bitHound Code](https://www.bithound.io/github/aqrln/maojian/badges/code.svg)](https://www.bithound.io/github/aqrln/maojian)
+[![bitHound Dependencies][bithound-deps-badge]][bithound-deps-url]
+[![bitHound Dev Dependencies][bithound-devdeps-badge]][bithound-deps-url]
+[![bitHound Code][bithound-code-badge]][bithound-url]
 
-[![Build Status](https://travis-ci.org/aqrln/maojian.svg?branch=master)](https://travis-ci.org/aqrln/maojian)
-[![Build Status on Windows](https://ci.appveyor.com/api/projects/status/0ltmpw01ew634anr/branch/master?svg=true)](https://ci.appveyor.com/project/aqrln/maojian/branch/master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/897a8bc3d9c84aec9f8524fde4c9929a)](https://www.codacy.com/app/eaglexrlnk/maojian)
+[![Travis Build Status][travis-badge]][travis-url]
+[![AppVeyor Build Status][appveyor-badge]][appveyor-url]
 
 Welcome there, stranger.
 
@@ -59,3 +58,13 @@ and runner built on the following principles:
   in its output.
 
 The development has just started. Stay tuned for `0.1.0` if you are interested.
+
+[bithound-deps-badge]: https://www.bithound.io/github/metarhia/maojian/badges/dependencies.svg
+[bithound-devdeps-badge]: https://www.bithound.io/github/metarhia/maojian/badges/devDependencies.svg
+[bithound-code-badge]: https://www.bithound.io/github/metarhia/maojian/badges/code.svg
+[bithound-deps-url]: https://www.bithound.io/github/metarhia/maojian/master/dependencies/npm
+[bithound-url]: https://www.bithound.io/github/metarhia/maojian
+[travis-badge]: https://travis-ci.org/metarhia/maojian.svg?branch=master
+[travis-url]: https://travis-ci.org/metarhia/maojian
+[appveyor-badge]: https://ci.appveyor.com/api/projects/status/vvysb66gccem97dq/branch/master?svg=true
+[appveyor-url]: https://ci.appveyor.com/project/metarhia/maojian
