@@ -1,30 +1,43 @@
 {
   "name": "maojian",
-  "version": "0.0.1",
-  "description": "Simple to use test runner and framework producing TAP output",
-  "main": "maojian.js",
-  "scripts": {
-    "test": "npm run lint",
-    "lint": "node tools/run-linters"
-  },
+  "version": "0.0.2",
+  "author": "Alexey Orlenko <eaglexrlnk@gmail.com>",
+  "description": "Simple to use test engine by Metarhia",
+  "license": "MIT",
+  "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aqrln/maojian.git"
+    "url": "https://github.com/metarhia/maojian"
   },
   "keywords": [
     "test",
+    "testing",
+    "unittesting",
     "unit-testing",
     "tdd",
-    "tap"
+    "tap",
+    "metarhia"
   ],
-  "author": "Alexey Orlenko <eaglexrlnk@gmail.com>",
-  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/aqrln/maojian/issues"
+    "url": "https://github.com/metarhia/maojian/issues"
   },
-  "homepage": "https://github.com/aqrln/maojian#readme",
+  "main": "./maojian.js",
+  "bin": {
+    "maojian": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "npm run lint",
+    "lint": "eslint ."
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "metarhia-common": "^0.0.14",
+    "metasync": "^0.3.4"
+  },
   "devDependencies": {
-    "eslint": "^3.11.1",
+    "eslint": "^4.3.0",
     "remark-cli": "^2.1.0",
     "remark-lint": "^5.2.0",
     "remark-validate-links": "^5.0.0"
