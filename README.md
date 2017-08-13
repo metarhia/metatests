@@ -1,11 +1,11 @@
 # maojian
 
-[![bitHound Dependencies][bithound-deps-badge]][bithound-deps-url]
-[![bitHound Dev Dependencies][bithound-devdeps-badge]][bithound-deps-url]
-[![bitHound Code][bithound-code-badge]][bithound-url]
-
-[![Travis Build Status][travis-badge]][travis-url]
-[![AppVeyor Build Status][appveyor-badge]][appveyor-url]
+[![TravisCI](https://travis-ci.org/metarhia/maojian.svg?branch=master)](https://travis-ci.org/metarhia/maojian)
+[![bitHound](https://www.bithound.io/github/metarhia/maojian/badges/score.svg)](https://www.bithound.io/github/metarhia/maojian)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/79d81f700ad441568d1dc6cca687ea77)](https://www.codacy.com/app/metarhia/maojian)
+[![NPM Version](https://badge.fury.io/js/metarhia-maojian.svg)](https://badge.fury.io/js/metarhia-maojian)
+[![NPM Downloads/Month](https://img.shields.io/npm/dm/metarhia-maojian.svg)](https://www.npmjs.com/package/metarhia-maojian)
+[![NPM Downloads](https://img.shields.io/npm/dt/metarhia-maojian.svg)](https://www.npmjs.com/package/metarhia-maojian)
 
 Welcome there, stranger.
 
@@ -59,12 +59,6 @@ and runner built on the following principles:
 
 The development has just started. Stay tuned for `0.1.0` if you are interested.
 
-[bithound-deps-badge]: https://www.bithound.io/github/metarhia/maojian/badges/dependencies.svg
-[bithound-devdeps-badge]: https://www.bithound.io/github/metarhia/maojian/badges/devDependencies.svg
-[bithound-code-badge]: https://www.bithound.io/github/metarhia/maojian/badges/code.svg
-[bithound-deps-url]: https://www.bithound.io/github/metarhia/maojian/master/dependencies/npm
-[bithound-url]: https://www.bithound.io/github/metarhia/maojian
-[travis-badge]: https://travis-ci.org/metarhia/maojian.svg?branch=master
-[travis-url]: https://travis-ci.org/metarhia/maojian
-[appveyor-badge]: https://ci.appveyor.com/api/projects/status/vvysb66gccem97dq/branch/master?svg=true
-[appveyor-url]: https://ci.appveyor.com/project/metarhia/maojian
+## Contributors
+
+  - See github for full [contributors list](https://github.com/metarhia/maojian/graphs/contributors)
