@@ -150,5 +150,6 @@ module.exports = {
   case: defineCase,
   test: executeTest,
   print: printReport,
-  namespace: addNamespace
+  namespace: addNamespace,
+  speed: require('./lib/speed')
 };
