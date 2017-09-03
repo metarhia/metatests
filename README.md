@@ -3,9 +3,9 @@
 [![TravisCI](https://travis-ci.org/metarhia/maojian.svg?branch=master)](https://travis-ci.org/metarhia/maojian)
 [![bitHound](https://www.bithound.io/github/metarhia/maojian/badges/score.svg)](https://www.bithound.io/github/metarhia/maojian)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/79d81f700ad441568d1dc6cca687ea77)](https://www.codacy.com/app/metarhia/maojian)
-[![NPM Version](https://badge.fury.io/js/maojian.svg)](https://badge.fury.io/js/maojian)
-[![NPM Downloads/Month](https://img.shields.io/npm/dm/maojian.svg)](https://www.npmjs.com/package/maojian)
-[![NPM Downloads](https://img.shields.io/npm/dt/maojian.svg)](https://www.npmjs.com/package/maojian)
+[![NPM Version](https://badge.fury.io/js/metarhia-maojian.svg)](https://badge.fury.io/js/metarhia-maojian)
+[![NPM Downloads/Month](https://img.shields.io/npm/dm/metarhia-maojian.svg)](https://www.npmjs.com/package/metarhia-maojian)
+[![NPM Downloads](https://img.shields.io/npm/dt/metarhia-maojian.svg)](https://www.npmjs.com/package/metarhia-maojian)
 
 Welcome there, stranger.
 
