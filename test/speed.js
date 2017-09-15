@@ -50,13 +50,13 @@ function newPrototype() {
   return new ProtoItem('world', 100500, true);
 }
 
-const ClassItem = class {
+class ClassItem {
   constructor(hello, size, flag) {
     this.hello = hello;
     this.size = size;
     this.flag = flag;
   }
-};
+}
 
 function newClass() {
   return new ClassItem('world', 100500, true);
@@ -86,16 +86,18 @@ function itemFactory(hello, size, flag) {
   return { hello, size, flag };
 }
 
+const makeTest = ([fn, ...usedFns]) => ({ fn, preSrcCode: usedFns.join(';') });
+
 maojian.speed('Benchmark example', 2000000, [
-  closureInstance,
-  defineObject,
-  defineArray,
-  defineArrayOfString,
-  defineArrayOfNumber,
-  mixinObject,
-  newPrototype,
-  newClass,
-  newObject,
-  objectCreate,
-  callFactory
-]);
+  [closureInstance, makeClosure],
+  [defineObject],
+  [defineArray],
+  [defineArrayOfString],
+  [defineArrayOfNumber],
+  [mixinObject],
+  [newPrototype, ProtoItem],
+  [newClass, ClassItem],
+  [newObject],
+  [objectCreate],
+  [callFactory, itemFactory],
+].map(makeTest));
