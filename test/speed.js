@@ -98,4 +98,18 @@ maojian.speed('Benchmark example', 2000000, [
   newObject,
   objectCreate,
   callFactory
-]);
+], [], __filename);
+
+module.exports = {
+  closureInstance,
+  defineObject,
+  defineArray,
+  defineArrayOfString,
+  defineArrayOfNumber,
+  mixinObject,
+  newPrototype,
+  newClass,
+  newObject,
+  objectCreate,
+  callFactory,
+};
