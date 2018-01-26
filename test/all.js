@@ -2,4 +2,3 @@
 
 require('./declarative');
 require('./imperative');
-require('./speed');

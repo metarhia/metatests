@@ -26,7 +26,7 @@
     "maojian": "./bin/cli.js"
   },
   "scripts": {
-    "test": "npm run lint && node ./test/all",
+    "test": "npm run lint && node ./test/all && node ./test/speed",
     "lint": "eslint ."
   },
   "engines": {
@@ -34,9 +34,10 @@
   },
   "dependencies": {
     "metarhia-common": "^0.0.24",
-    "metasync": "^0.3.4"
+    "metasync": "^0.3.19",
+    "npm": "^5.6.0"
   },
   "devDependencies": {
-    "eslint": "^4.3.0"
+    "eslint": "^4.16.0"
   }
 }
