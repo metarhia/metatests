@@ -13,4 +13,4 @@ const twiceLongFunction = callback => {
 speed('Speed test', 1000, [], [
   baseFunction,
   twiceLongFunction
-], module);
+]);

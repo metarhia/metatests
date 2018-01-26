@@ -32,4 +32,4 @@ speed('Speed test', 10000, [
 ], [
   baseFunctionAsync,
   twiceLongFunctionAsync
-], module);
+]);

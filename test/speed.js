@@ -86,7 +86,7 @@ function itemFactory(hello, size, flag) {
   return { hello, size, flag };
 }
 
-maojian.speed('Benchmark example', 2000000, [
+maojian.speed('Benchmark example', 200000, [
   closureInstance,
   defineObject,
   defineArray,
@@ -98,4 +98,4 @@ maojian.speed('Benchmark example', 2000000, [
   newObject,
   objectCreate,
   callFactory
-], [], module);
+]);
