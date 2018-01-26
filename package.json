@@ -33,7 +33,7 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "metarhia-common": "^0.0.21",
+    "metarhia-common": "^0.0.24",
     "metasync": "^0.3.4"
   },
   "devDependencies": {
