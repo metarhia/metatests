@@ -98,4 +98,4 @@ maojian.speed('Benchmark example', 2000000, [
   newObject,
   objectCreate,
   callFactory
-], [], [], module);
+]);
