@@ -10,7 +10,7 @@ const twiceLongFunction = callback => {
   setTimeout(callback, 2000);
 };
 
-maojian.speed('Speed test', 1000, [], [
+maojian.speed('Speed test', module, 1000, [], [
   baseFunction,
   twiceLongFunction
-], ['v8.0.0', 'v7.0.0', 'v9.5.0']);
+], ['8.0.0', '7.0', '9']);
