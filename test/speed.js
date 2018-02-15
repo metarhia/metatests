@@ -100,5 +100,5 @@ maojian.speed('Benchmark example', [
   callFactory
 ], {
   count: 2000000,
-  anomalyPercent: 2
+  MAX_ANOMALY_PERCENT: 2
 });
