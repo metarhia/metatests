@@ -6,13 +6,13 @@ const baseFunction = callback => {
   setTimeout(callback, 1000);
 };
 
-const twiceLongFunction = callback => {
+const twiceAsLongFunction = callback => {
   setTimeout(callback, 2000);
 };
 
 maojian.speed('Speed test', [[
   baseFunction,
-  twiceLongFunction
+  twiceAsLongFunction
 ]], {
   count: 100000,
   MAX_ANOMALY_PERCENT: 1,
