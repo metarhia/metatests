@@ -1,6 +1,6 @@
 {
   "name": "maojian",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Alexey Orlenko <eaglexrlnk@gmail.com>",
   "description": "Simple to use test engine by Metarhia",
   "license": "MIT",
@@ -33,10 +33,10 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "metarhia-common": "^0.0.21",
-    "metasync": "^0.3.4"
+    "metarhia-common": "^0.0.25",
+    "metasync": "^0.3.20"
   },
   "devDependencies": {
-    "eslint": "^4.3.0"
+    "eslint": "^4.18.1"
   }
 }
