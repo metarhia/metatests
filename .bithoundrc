@@ -1,0 +1,13 @@
+{
+  "critics": {
+    "wc": {
+      "limit": 40000
+    }
+  },
+  "ignore": [
+    "test/**"
+  ],
+  "test": [
+    "test/**"
+  ]
+}

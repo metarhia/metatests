@@ -1,8 +1,8 @@
 'use strict';
 
-const maojian = require('..');
+const metatest = require('..');
 
-maojian.test('Imperative example', (test) => {
+metatest.test('Imperative example', (test) => {
   test.strictSame(1, 1);
   test.end();
 });

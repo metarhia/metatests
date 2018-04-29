@@ -5,7 +5,7 @@ const metasync = require('metasync');
 
 const walk = require('../lib/walk');
 
-console.log('Maojian CLI Stub');
+console.log('Metatest CLI Stub');
 
 walk('../test', (err, files) => {
   metasync.for(files).each((file, next) => {

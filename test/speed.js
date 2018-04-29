@@ -1,6 +1,6 @@
 'use strict';
 
-const maojian = require('..');
+const metatest = require('..');
 
 function makeClosure(hello, size, flag) {
   return () => {
@@ -86,7 +86,7 @@ function itemFactory(hello, size, flag) {
   return { hello, size, flag };
 }
 
-maojian.speed('Benchmark example', 2000000, [
+metatest.speed('Benchmark example', 2000000, [
   closureInstance,
   defineObject,
   defineArray,
