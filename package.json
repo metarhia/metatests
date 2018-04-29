@@ -1,5 +1,5 @@
 {
-  "name": "@metarhia/metatest",
+  "name": "metatests",
   "version": "0.1.0",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "description": "Simple to use test engine for Metarhia technology stack",
@@ -7,7 +7,7 @@
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/metarhia/metatest"
+    "url": "https://github.com/metarhia/metatests"
   },
   "keywords": [
     "test",
@@ -19,11 +19,11 @@
     "metarhia"
   ],
   "bugs": {
-    "url": "https://github.com/metarhia/metatest/issues"
+    "url": "https://github.com/metarhia/metatests/issues"
   },
-  "main": "./metatest.js",
+  "main": "./metatests.js",
   "bin": {
-    "metatest": "./bin/cli.js"
+    "metatests": "./bin/cli.js"
   },
   "scripts": {
     "test": "npm run lint && node ./test/all",

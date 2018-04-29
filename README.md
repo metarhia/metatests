@@ -1,13 +1,13 @@
-# metatest
+# metatests
 
-[![TravisCI](https://travis-ci.org/metarhia/metatest.svg?branch=master)](https://travis-ci.org/metarhia/metatest)
-[![bitHound](https://www.bithound.io/github/metarhia/metatest/badges/score.svg)](https://www.bithound.io/github/metarhia/metatest)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/79d81f700ad441568d1dc6cca687ea77)](https://www.codacy.com/app/metarhia/metatest)
-[![NPM Version](https://badge.fury.io/js/metatest.svg)](https://badge.fury.io/js/metatest)
-[![NPM Downloads/Month](https://img.shields.io/npm/dm/metatest.svg)](https://www.npmjs.com/package/metatest)
-[![NPM Downloads](https://img.shields.io/npm/dt/metatest.svg)](https://www.npmjs.com/package/metatest)
+[![TravisCI](https://travis-ci.org/metarhia/metatests.svg?branch=master)](https://travis-ci.org/metarhia/metatests)
+[![bitHound](https://www.bithound.io/github/metarhia/metatests/badges/score.svg)](https://www.bithound.io/github/metarhia/metatests)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/79d81f700ad441568d1dc6cca687ea77)](https://www.codacy.com/app/metarhia/metatests)
+[![NPM Version](https://badge.fury.io/js/metatests.svg)](https://badge.fury.io/js/metatests)
+[![NPM Downloads/Month](https://img.shields.io/npm/dm/metatests.svg)](https://www.npmjs.com/package/metatests)
+[![NPM Downloads](https://img.shields.io/npm/dt/metatests.svg)](https://www.npmjs.com/package/metatests)
 
-`metatest` is an extremely simple to use test framework and runner for Metarhia
+`metatests` is an extremely simple to use test framework and runner for Metarhia
 technology stack built on the following principles:
 
 * Test cases are files, tests are either imperative (functions) or declarative
@@ -49,4 +49,4 @@ technology stack built on the following principles:
 
 ## Contributors
 
-  - See github for full [contributors list](https://github.com/metarhia/metatest/graphs/contributors)
+  - See github for full [contributors list](https://github.com/metarhia/metatests/graphs/contributors)
