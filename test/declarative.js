@@ -1,12 +1,12 @@
 'use strict';
 
-const maojian = require('..');
+const metatest = require('..');
 
 const f1 = x => x * 2;
 
-maojian.namespace({ submodule: { f1 } });
+metatest.namespace({ submodule: { f1 } });
 
-maojian.case('Declarative example', {
+metatest.case('Declarative example', {
   'submodule.f1': [
     [1, 2],
     [2, 4],

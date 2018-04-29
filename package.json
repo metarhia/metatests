@@ -1,13 +1,13 @@
 {
-  "name": "maojian",
-  "version": "0.0.5",
-  "author": "Alexey Orlenko <eaglexrlnk@gmail.com>",
-  "description": "Simple to use test engine by Metarhia",
+  "name": "metatest",
+  "version": "0.1.0",
+  "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
+  "description": "Simple to use test engine for Metarhia technology stack",
   "license": "MIT",
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/metarhia/maojian"
+    "url": "https://github.com/metarhia/metatest"
   },
   "keywords": [
     "test",
@@ -19,11 +19,11 @@
     "metarhia"
   ],
   "bugs": {
-    "url": "https://github.com/metarhia/maojian/issues"
+    "url": "https://github.com/metarhia/metatest/issues"
   },
-  "main": "./maojian.js",
+  "main": "./metatest.js",
   "bin": {
-    "maojian": "./bin/cli.js"
+    "metatest": "./bin/cli.js"
   },
   "scripts": {
     "test": "npm run lint && node ./test/all",
@@ -33,10 +33,10 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "metarhia-common": "^0.0.25",
-    "metasync": "^0.3.20"
+    "metarhia-common": "^0.0.27",
+    "metasync": "^0.3.24"
   },
   "devDependencies": {
-    "eslint": "^4.18.1"
+    "eslint": "^4.19.1"
   }
 }
