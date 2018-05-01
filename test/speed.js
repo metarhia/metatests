@@ -1,44 +1,32 @@
 'use strict';
 
-const metatest = require('..');
+const mt = require('..');
 
-function makeClosure(hello, size, flag) {
-  return () => {
-    console.log(hello, size, flag);
-  };
-}
+const makeClosure = (hello, size, flag) => () => {
+  console.log(hello, size, flag);
+};
 
-function closureInstance() {
-  return makeClosure('world', 100500, true);
-}
+const closureInstance = () => makeClosure('world', 100500, true);
 
-function defineArray() {
-  return ['world', 100500, true];
-}
+const defineArray = () => ['world', 100500, true];
 
-function defineArrayOfString() {
-  return ['world', 'world', 'world'];
-}
+const defineArrayOfString = () => ['world', 'world', 'world'];
 
-function defineArrayOfNumber() {
-  return [100500, 100500, 100500];
-}
+const defineArrayOfNumber = () => [100500, 100500, 100500];
 
-function defineObject() {
-  return {
-    hello: 'world',
-    size: 100500,
-    flag: true
-  };
-}
+const defineObject = () => ({
+  hello: 'world',
+  size: 100500,
+  flag: true
+});
 
-function mixinObject() {
+const mixinObject = () => {
   const obj = {};
   obj.hello = 'world';
   obj.size = 100500;
   obj.flag = true;
   return obj;
-}
+};
 
 function ProtoItem(hello, size, flag) {
   this.hello = hello;
@@ -46,9 +34,7 @@ function ProtoItem(hello, size, flag) {
   this.flag = flag;
 }
 
-function newPrototype() {
-  return new ProtoItem('world', 100500, true);
-}
+const newPrototype = () => new ProtoItem('world', 100500, true);
 
 const ClassItem = class {
   constructor(hello, size, flag) {
@@ -58,35 +44,29 @@ const ClassItem = class {
   }
 };
 
-function newClass() {
-  return new ClassItem('world', 100500, true);
-}
+const newClass = () => new ClassItem('world', 100500, true);
 
-function newObject() {
+const newObject = () => {
   const obj = new Object();
   obj.hello = 'world';
   obj.size = 100500;
   obj.flag = true;
   return obj;
-}
+};
 
-function objectCreate() {
-  const obj = Object.create(objectCreate.prototype);
+const objectCreate = () => {
+  const obj = Object.create(null);
   obj.hello = 'world';
   obj.size = 100500;
   obj.flag = true;
   return obj;
-}
+};
 
-function callFactory() {
-  return itemFactory('world', 100500, true);
-}
+const itemFactory = (hello, size, flag) => ({ hello, size, flag });
 
-function itemFactory(hello, size, flag) {
-  return { hello, size, flag };
-}
+const callFactory = () => itemFactory('world', 100500, true);
 
-metatest.speed('Benchmark example', 2000000, [
+mt.speed('Benchmark example', 2000000, [
   closureInstance,
   defineObject,
   defineArray,
