@@ -28,7 +28,7 @@ technology stack built on the following principles:
   without extra boilerplate code using DSL based on arrays.
 
   ```javascript
-  test.case({
+  mt.case({
     // ...
     'utils.duration': [
       ['1d',     86400000 ],
@@ -42,7 +42,7 @@ technology stack built on the following principles:
   });
   ```
 
-  ([Prior art](https://github.com/metarhia/impress/blob/master/tests/unittests/api.common.test.js))
+  ([Prior art](https://github.com/metarhia/impress/blob/a457976b86f6a846c922f9435ab33f20dfaaad30/tests/unittests/api.common.test.js))
 
 * The framework must work in Node.js and browsers (using Webpack or any other
   module bundler that supports CommonJS modules and emulates Node.js globals).

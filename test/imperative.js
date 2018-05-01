@@ -1,8 +1,8 @@
 'use strict';
 
-const metatest = require('..');
+const mt = require('..');
 
-metatest.test('Imperative example', (test) => {
+mt.test('Imperative example', (test) => {
   test.strictSame(1, 1);
   test.end();
 });

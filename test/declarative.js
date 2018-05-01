@@ -1,12 +1,12 @@
 'use strict';
 
-const metatest = require('..');
+const mt = require('..');
 
 const f1 = x => x * 2;
 
-metatest.namespace({ submodule: { f1 } });
+mt.namespace({ submodule: { f1 } });
 
-metatest.case('Declarative example', {
+mt.case('Declarative example', {
   'submodule.f1': [
     [1, 2],
     [2, 4],
