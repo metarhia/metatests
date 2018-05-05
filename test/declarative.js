@@ -159,7 +159,7 @@ mt.case('Metarhia common library', {
     ['',                          0],
   ],
   'net.isIP': [
-    ['127.0.0.1',         6],
+    ['127.0.0.1',         4],
     ['10.0.0.1',          4],
     ['192.168.1.10',      4],
     ['domain.com',        0],
@@ -169,7 +169,7 @@ mt.case('Metarhia common library', {
     ['2001:db8:85a3:0:0:8a2e:370:7334',         6],
     ['2001:db8:85a3::8a2e:370:7334',            6],
     ['0:0:0:0:0:0:0:1',                         6],
-    ['::1',                                     4],
+    ['::1',                                     6],
   ],
   'common.escapeRegExp': [
     ['/path/to/res?search=this.that&a=b', '\\\\/path\\\\/to\\\\/res\\\\?search=this\\\\.that&a=b'],
