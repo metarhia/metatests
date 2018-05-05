@@ -2,6 +2,9 @@
 
 const common = require('metarhia-common');
 
+const speed = require('./lib/speed');
+const test = require('./lib/test');
+
 const report = {
   modules: 0,
   targets: 0,
@@ -120,15 +123,6 @@ const defineCase = (
   }
 };
 
-const executeTest = (caption, execute) => {
-  console.log('Test: ' + caption);
-  execute({
-    test: common.emptiness,
-    strictSame: common.emptiness,
-    end: common.emptiness,
-  });
-};
-
 const printReport = () => {
   const errCount = report.errors;
   console.log(
@@ -148,8 +142,7 @@ const printReport = () => {
 
 module.exports = {
   case: defineCase,
-  test: executeTest,
+  test, speed,
   print: printReport,
-  namespace: addNamespace,
-  speed: require('./lib/speed')
+  namespace: addNamespace
 };
