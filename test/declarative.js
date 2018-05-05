@@ -1,11 +1,12 @@
 'use strict';
 
 const mt = require('..');
+const net = require('net');
 const common = require('metarhia-common');
 
 const f1 = x => x * 2;
 
-mt.namespace({ submodule: { f1 }, common });
+mt.namespace({ submodule: { f1 }, common, net });
 
 mt.case('Declarative example', {
   'submodule.f1': [
@@ -158,12 +159,17 @@ mt.case('Metarhia common library', {
     ['',                          0],
   ],
   'net.isIP': [
-    ['127.0.0.1',         4],
+    ['127.0.0.1',         6],
     ['10.0.0.1',          4],
     ['192.168.1.10',      4],
     ['domain.com',        0],
     ['127.0.0.com',       0],
     ['',                  0],
+    ['2001:0db8:85a3:0000:0000:8a2e:0370:7334', 6],
+    ['2001:db8:85a3:0:0:8a2e:370:7334',         6],
+    ['2001:db8:85a3::8a2e:370:7334',            6],
+    ['0:0:0:0:0:0:0:1',                         6],
+    ['::1',                                     4],
   ],
   'common.escapeRegExp': [
     ['/path/to/res?search=this.that&a=b', '\\\\/path\\\\/to\\\\/res\\\\?search=this\\\\.that&a=b'],

@@ -5,7 +5,7 @@ const common = require('metarhia-common');
 const speed = require('./lib/speed');
 const test = require('./lib/test');
 
-const report = {
+const results = {
   modules: 0,
   targets: 0,
   functions: 0,
@@ -31,7 +31,7 @@ const defineCase = (
   // last Array item is an expected result (to compare)
   // or function (pass result to compare)
 ) => {
-  report.modules++;
+  results.modules++;
 
   let conditions, target, targetType, targetValue, definition, msg, cmp,
       parameters, sParameters, expected, sExpected, expectedType,
@@ -47,20 +47,20 @@ const defineCase = (
       methodName = functionPath[2];
       if (!classes.includes(className)) {
         classes.push(className);
-        report.classes++;
+        results.classes++;
       }
       targetType = 'method';
     } else {
       target = common.getByPath(namespaces[0], functionName);
       targetType = typeof(target);
     }
-    if (targetType === 'function') report.functions++;
-    else if (targetType === 'method') report.methods++;
-    else report.values++;
-    report.targets++;
+    if (targetType === 'function') results.functions++;
+    else if (targetType === 'method') results.methods++;
+    else results.values++;
+    results.targets++;
 
     for (let i = 0; i < conditions.length; i++) {
-      report.tests++;
+      results.tests++;
       definition = conditions[i];
 
       expected = definition.pop();
@@ -107,42 +107,42 @@ const defineCase = (
       if (targetType === 'function' || targetType === 'method') {
         msg += '(' + sParameters.substring(1, sParameters.length - 1) + ')';
       }
-      msg += ', expected: ' + sExpected + ', result: ' + sResult + ' ';
+      msg += '\n       Type: declarative';
+      msg += '\n   Expected: ' + sExpected;
+      msg += '\n     Actual: ' + sResult;
 
       if (expectedType === 'function') cmp = expected(result);
       else cmp = (sResult === sExpected);
 
-      if (cmp) {
-        report.passed++;
-        console.log(msg + 'ok');
-      } else {
-        report.errors++;
-        console.log(msg + 'error');
+      if (!cmp) {
+        results.errors++;
+        console.log('Test failed: ' + msg + '\n');
       }
     }
   }
 };
 
-const printReport = () => {
-  const errCount = report.errors;
+const report = () => {
+  const errCount = results.errors;
+  const result = errCount === 0 ? 'PASSED' : 'FAILED';
   console.log(
-    '\nTest finished with following results:' +
-    '\n  Modules:   ' + report.modules +
-    '\n  Targets:   ' + report.targets +
-    '\n  Functions: ' + report.functions +
-    '\n  Values:    ' + report.values +
-    '\n  Classes:   ' + report.classes +
-    '\n  Methods:   ' + report.methods +
-    '\n  Tests:     ' + report.tests +
-    '\n  Passed:    ' + report.passed +
-    '\n  Errors:    ' + report.errors +
-    '\nResult: ' + errCount === 0 ? 'PASSED' : 'FAILED'
+    'Test finished with following results:' +
+    '\n  Modules:   ' + results.modules +
+    '\n  Targets:   ' + results.targets +
+    '\n  Functions: ' + results.functions +
+    '\n  Values:    ' + results.values +
+    '\n  Classes:   ' + results.classes +
+    '\n  Methods:   ' + results.methods +
+    '\n  Tests:     ' + results.tests +
+    '\n  Passed:    ' + results.passed +
+    '\n  Errors:    ' + results.errors +
+    '\nResult: ' + result + '\n'
   );
 };
 
 module.exports = {
   case: defineCase,
   test, speed,
-  print: printReport,
+  report,
   namespace: addNamespace
 };
