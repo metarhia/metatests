@@ -13,11 +13,11 @@ mt.test('assert', (test) => {
 });
 
 mt.test('assertNot', (test) => {
-  test.assertNot(1);
+  test.assertNot(0);
   test.end();
 });
 
 mt.test('same', (test) => {
-  test.same(1, 1);
+  test.same(1, '1');
   test.end();
 });
