@@ -1,10 +1,10 @@
 'use strict';
 
-const mt = require('..');
+const metatests = require('..');
 
 require('./compare');
 require('./declarative');
 require('./imperative');
 require('./speed');
 
-mt.report();
+metatests.report();
