@@ -1,6 +1,6 @@
 'use strict';
 
-const mt = require('..');
+const metatests = require('..');
 
 const makeClosure = (hello, size, flag) => () => {
   console.log(hello, size, flag);
@@ -66,7 +66,7 @@ const itemFactory = (hello, size, flag) => ({ hello, size, flag });
 
 const callFactory = () => itemFactory('world', 100500, true);
 
-mt.speed('Benchmark example', 2000000, [
+metatests.speed('Benchmark example', 2000000, [
   closureInstance,
   defineObject,
   defineArray,

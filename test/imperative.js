@@ -1,23 +1,23 @@
 'use strict';
 
-const mt = require('..');
+const metatests = require('..');
 
-mt.test('strictSame', (test) => {
+metatests.test('strictSame', (test) => {
   test.strictSame(1, 1);
   test.end();
 });
 
-mt.test('assert', (test) => {
+metatests.test('assert', (test) => {
   test.assert(1);
   test.end();
 });
 
-mt.test('assertNot', (test) => {
+metatests.test('assertNot', (test) => {
   test.assertNot(0);
   test.end();
 });
 
-mt.test('same', (test) => {
+metatests.test('same', (test) => {
   test.same(1, '1');
   test.end();
 });
