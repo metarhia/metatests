@@ -1,7 +1,5 @@
 'use strict';
 
-const metatests = require('..');
-
 metatests.test('strictSame', (test) => {
   test.strictSame(1, 1);
   test.end();

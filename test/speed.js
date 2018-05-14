@@ -1,7 +1,5 @@
 'use strict';
 
-const metatests = require('..');
-
 const makeClosure = (hello, size, flag) => () => {
   console.log(hello, size, flag);
 };
