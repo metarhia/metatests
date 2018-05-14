@@ -1,10 +1,9 @@
 'use strict';
 
 const metatests = require('..');
+global.metatests = metatests;
 
-require('./compare');
-require('./declarative');
-require('./imperative');
-require('./speed');
+['compare', 'declarative', 'imperative', 'speed']
+  .map(name => require('./' + name));
 
 metatests.report();
