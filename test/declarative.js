@@ -9,7 +9,7 @@ metatests.case('Declarative example', {
   'submodule.f1': [
     [1, 2],
     [2, 4],
-    [3, 7],
+    [3, 6],
   ],
   'submodule.f2': [
     [1, 4],
