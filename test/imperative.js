@@ -30,3 +30,13 @@ metatests.test('type', (test) => {
   test.type(new Date(), 'object');
   test.end();
 });
+
+metatests.test('sequential tests 1', (test) => {
+  setTimeout(() => {
+    test.end();
+  }, 1000);
+});
+
+metatests.test('sequential tests 2', (test) => {
+  test.end();
+});
