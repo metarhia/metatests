@@ -45,8 +45,8 @@ assert(!equal(['1'], [2]));
 assert(equal(['1'], ['1']));
 assert(!equal(['1'], ['2']));
 
-assert(equal([,,,], [,,,]));
-assert(!equal([,,,], [,,,,,]));
+assert(equal([,,,], [,,,])); // eslint-disable-line
+assert(!equal([,,,], [,,,,,])); // eslint-disable-line
 
 assert(equal([1, 2, 3], [1, 2, 3]));
 assert(!equal([1, 2, 3], [3, 2, 1]));
@@ -111,8 +111,8 @@ assert(!strictEqual(['1'], [2]));
 assert(strictEqual(['1'], ['1']));
 assert(!strictEqual(['1'], ['2']));
 
-assert(strictEqual([,,,], [,,,]));
-assert(!strictEqual([,,,], [,,,,,]));
+assert(strictEqual([,,,], [,,,])); // eslint-disable-line
+assert(!strictEqual([,,,], [,,,,,])); // eslint-disable-line
 
 assert(strictEqual([1, 2, 3], [1, 2, 3]));
 assert(!strictEqual([1, 2, 3], [3, 2, 1]));
