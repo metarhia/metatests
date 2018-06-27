@@ -1,6 +1,6 @@
 {
   "name": "metatests",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "description": "Simple to use test engine for Metarhia technology stack",
   "license": "MIT",
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "metarhia-common": "^0.0.27",
-    "metasync": "^0.3.27"
+    "metasync": "^0.3.28"
   },
   "devDependencies": {
     "eslint": "^4.19.1"
