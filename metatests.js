@@ -1,8 +1,25 @@
 'use strict';
 
-const metatests = {};
+const declarativeTest = require('./lib/declarative-test');
+const { equal, strictEqual } = require('./lib/compare');
+const reporters = require('./lib/report');
+const runner = require('./lib/runner');
+const { speed } = require('./lib/speed.js');
+const { ImperativeTest, test, testSync, testAsync } =
+  require('./lib/imperative-test');
+const { walk } = require('./lib/walk');
 
-['compare', 'namespaces', 'report', 'test', 'case',  'speed', 'walk']
-  .map(name => require('./lib/' + name)(metatests));
-
-module.exports = metatests;
+module.exports = {
+  case: declarativeTest.case,
+  DeclarativeTest: declarativeTest.DeclarativeTest,
+  equal,
+  strictEqual,
+  reporters,
+  runner,
+  speed,
+  ImperativeTest,
+  test,
+  testSync,
+  testAsync,
+  walk,
+};

@@ -1,7 +1,8 @@
 'use strict';
 
 const assert = require('assert');
-const { equal, strictEqual } = global.metatests;
+
+const { equal, strictEqual } = require('..');
 
 assert(equal(1, 1));
 assert(!equal(1, 2));
