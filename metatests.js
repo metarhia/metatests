@@ -7,9 +7,8 @@ const runner = require('./lib/runner');
 const { speed } = require('./lib/speed.js');
 const { ImperativeTest, test, testSync, testAsync } =
   require('./lib/imperative-test');
-const { walk } = require('./lib/walk');
 
-module.exports = {
+const metatests = {
   case: declarativeTest.case,
   DeclarativeTest: declarativeTest.DeclarativeTest,
   equal,
@@ -20,6 +19,20 @@ module.exports = {
   ImperativeTest,
   test,
   testSync,
-  testAsync,
-  walk,
+  testAsync
 };
+
+if (process.browser) {
+  metatests.runner.instance.on('finish', () => {
+    console.log('Tests finished. Waiting for unfinished tests after end...\n');
+    setTimeout(() => {
+      /* eslint-disable no-undef */
+      __karma__.info({ total: 1 });
+      __karma__.result({ success: !metatests.runner.hasFailures });
+      __karma__.complete();
+      /* eslint-enable */
+    }, 5000);
+  });
+}
+
+module.exports = metatests;
