@@ -179,3 +179,15 @@ metatests.testSync('isError with error provided', (test) => {
   const actual = new TypeError();
   test.isError(actual, new TypeError());
 });
+
+metatests.testSync('testSync must return a test', (test) => {
+  const t = metatests.testSync();
+  test.ok(t);
+  t.end();
+});
+
+metatests.testSync('testAsync must return a test', (test) => {
+  const t = metatests.testAsync();
+  test.ok(t);
+  t.end();
+});
