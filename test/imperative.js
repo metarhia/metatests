@@ -192,3 +192,21 @@ metatests.testSync('testAsync must return a test', (test) => {
   test.ok(t);
   t.end();
 });
+
+metatests.test('must catch unhandledExeptions', (test) => {
+  const error = new Error('Error');
+  const t = new metatests.ImperativeTest('Throwing test', () => {
+    throw error;
+  }, { async: false });
+
+  setTimeout(() => {
+    test.assert(t.done, 'must finish');
+    test.assertNot(t.success, 'must be failed');
+    const res = t.results[0];
+    test.strictSame(res.type, 'unhandledExeption');
+    test.assertNot(res.success);
+    test.strictSame(res.message, error.message);
+    test.strictSame(res.stack, error.stack);
+    test.end();
+  }, 1);
+});
