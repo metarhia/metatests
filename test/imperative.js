@@ -96,9 +96,10 @@ metatests.testSync('test nested parallel', (test) => {
   test.testSync('nested parallel 1', test => test.strictSame(++i, 2));
   test.testSync('nested parallel 2', test => test.strictSame(++i, 3));
   test.testSync('nested parallel 3', test => test.strictSame(++i, 4));
-  setTimeout(() => {
+  // first nextTick to run, second to end, therefore check on third
+  process.nextTick(() => process.nextTick(() => process.nextTick(() => {
     if (!test.done) test.fail('Parallel subtests must run in parallel');
-  }, 1);
+  })));
 }, { parallelSubtests: true });
 
 metatests.testSync('beforeEach', (test) => {
