@@ -132,13 +132,11 @@ metatests.test('afterEach', (test) => {
     i = 42;
     callback();
   });
-  test.testSync(() => {
+  const t = test.testSync(() => {
     test.pass('must call test');
     i = 13;
   });
-  setTimeout(() => {
-    test.strictSame(i, 42);
-  }, 1);
+  t.on('done', () => test.strictSame(i, 42));
 });
 
 metatests.testSync('test must fail if assertion failed', test => {
