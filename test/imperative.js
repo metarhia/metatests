@@ -263,3 +263,16 @@ metatests.test('must call done listener after test end', test => {
   t.on('done', () => test.pass('must be called'));
   test.end();
 });
+
+metatests.test('must support timeout', test => {
+  const t = new metatests.ImperativeTest('Timing out test',
+    () => {},
+    { timeout: 1 }
+  );
+  t.on('done', () => {
+    test.strictSame(t.results[0].type, 'timeout');
+    test.assertNot(t.results[0].success);
+    test.assertNot(t.success);
+    test.end();
+  });
+});
