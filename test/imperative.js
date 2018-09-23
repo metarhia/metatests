@@ -38,6 +38,18 @@ metatests.testSync('sequential, must be possible to call end', (test) => {
   test.end();
 });
 
+metatests.testSync('sequential tests must be ordered and sequential', test => {
+  let i = 0;
+  test.testSync('Seq1', () => test.strictSame(i++, 0));
+  test.testSync('Seq2', () => test.strictSame(i++, 1));
+  test.testSync('Seq3', () => test.strictSame(i++, 2));
+  process.nextTick(() => process.nextTick(() => process.nextTick(() => {
+    if (test.done) {
+      test.fail('must not end before each subtest finishes (in order)');
+    }
+  })));
+});
+
 metatests.test('test plan', (test) => {
   test.plan(2);
   test.type(new Date(), 'Date');
@@ -89,6 +101,12 @@ metatests.testAsync('nested test that ends after each subtest', (t1) => {
 metatests.testSync('todo must not fail', (test) => {
   test.strictSame(13, 42);
 }, { todo: true });
+
+metatests.testSync('must not be todo by default', test => {
+  const t = new metatests.ImperativeTest();
+  test.assertNot(t.todo);
+  t.end();
+});
 
 metatests.testSync('test nested parallel', (test) => {
   let i = 0;
@@ -169,6 +187,22 @@ metatests.testSync('throw with type error (compare to Error)', (test) => {
   test.throws(() => { throw new TypeError(message); }, new Error(message));
 });
 
+metatests.testSync('doesNotThrow failure', test => {
+  const t = new metatests.ImperativeTest();
+  t.doesNotThrow(() => { throw new Error(); }, 'message');
+  t.end();
+  test.assertNot(t.success);
+  test.strictSame(t.results[0].type, 'doesNotThrow');
+  test.strictSame(t.results[0].message, 'message');
+});
+
+metatests.testSync('doesNotThrow success', test => {
+  const t = new metatests.ImperativeTest();
+  t.doesNotThrow(() => {}, 'message');
+  t.end();
+  test.assert(t.success);
+});
+
 metatests.testSync('isError no error provided', (test) => {
   const actual = new Error();
   test.isError(actual);
@@ -207,4 +241,25 @@ metatests.test('must catch unhandledExeptions', (test) => {
     test.strictSame(res.stack, error.stack);
     test.end();
   }, 1);
+});
+
+metatests.test('test.testAsync must be async', test => {
+  const t = new metatests.ImperativeTest(
+    'Sync test',
+    undefined,
+    { async: false });
+  t.testAsync('async test', () => setTimeout(() => t.end(), 10));
+  process.nextTick(() => process.nextTick(() => process.nextTick(() => {
+    if (t.done) {
+      test.fail('must not finish before t.end() call');
+    }
+  })));
+  t.on('done', () => test.end());
+});
+
+metatests.test('must call done listener after test end', test => {
+  const t = new metatests.ImperativeTest('Ended test');
+  t.end();
+  t.on('done', () => test.pass('must be called'));
+  test.end();
 });
