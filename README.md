@@ -27,9 +27,9 @@ technology stack built on the following principles:
   without extra boilerplate code using DSL based on arrays.
 
   ```javascript
-  mt.case({
+  mt.case('Test utils.duration', { common }, {
     // ...
-    'utils.duration': [
+    'common.duration': [
       ['1d',     86400000 ],
       ['10h',    36000000 ],
       ['7m',     420000   ],
