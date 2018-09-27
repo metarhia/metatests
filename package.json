@@ -27,6 +27,7 @@
   },
   "scripts": {
     "test": "npm run lint && ./bin/cli.js test",
+    "perf": "./bin/cli.js benchmarks",
     "lint": "eslint ."
   },
   "engines": {
