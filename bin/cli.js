@@ -18,6 +18,8 @@ const cliOptions = [
   [ '--node-only <patterns>',    'Node only tests patterns', splitOpts, [] ],
   [ '--exclude <patterns>',      'Exclude tests patterns', splitOpts, [] ],
   [ '--browsers <values>',       'Browsers to run', splitOpts, [] ],
+  [ '--reporter <value>',        'Reporter name'],
+  [ '--log-level <value>',       'Log level'],
   [ '-l, --browser-log <value>', 'Browser log level' ],
   [ '-p, --browser-port <n>',    'Browser port' ],
   [ '-c, --config <value>',      'Config file' ],
@@ -38,6 +40,23 @@ const browserLaunchers = {
   'IE':             'karma-ie-launcher',
   'Opera':          'karma-opera-launcher',
   'Safari':         'karma-safari-launcher',
+};
+
+const logLevels = {
+  quiet: [0, 'disable'],
+  default: [1, 'error'],
+  debug: [2, 'debug'],
+};
+
+const isLogAtLeast = (level1, level2) => {
+  if (!logLevels[level1]) level1 = 'default';
+  if (!logLevels[level2]) level2 = 'default';
+  return logLevels[level1][0] >= logLevels[level2][0];
+};
+
+const convertLogLevel = level => {
+  if (!logLevels[level]) level = 'default';
+  return logLevels[level][1];
 };
 
 const merge = (arr1 = [], arr2 = []) => common.merge(arr1, arr2);
@@ -78,7 +97,7 @@ const loadFiles = files => {
     })
     .forEach(file => {
       if (fs.statSync(file).isDirectory()) {
-        const subfiles = fs.readdirSync(file).map(f => `${file}/${f}`);
+        const subfiles = fs.readdirSync(file).map(f => path.join(file, f));
         result.push(...loadFiles(subfiles));
       } else if (common.fileExt(file) === 'js') {
         result.push(file);
@@ -117,10 +136,16 @@ const removeNodePackages = (config, ...packages) => {
   });
 };
 
-const getReporter = () => {
+const getReporter = logLevel => {
   const browsers = [];
   const reporter = function(base) {
     base(this);
+    if (logLevel === 'disable') {
+      this.onBrowserError = () => {};
+      this.onBrowserLog = () => {};
+      return;
+    }
+
     this.onBrowserLog = (browser, log) => {
       if (typeof log !== 'string') log = JSON.stringify(log);
       else log = log.slice(1, log.length - 1);
@@ -142,7 +167,7 @@ const getBrowserConfig = conf => {
     files: [],
     plugins: [
       'karma-webpack',
-      { 'reporter:meta': ['type', getReporter()] },
+      { 'reporter:meta': ['type', getReporter(conf.browser.logLevel)] },
     ],
     reporters: [ 'meta' ],
     basePath: process.env.PWD,
@@ -155,7 +180,6 @@ const getBrowserConfig = conf => {
   const adapter = path.resolve('./build/adapter.js');
   config.files.push(adapter);
   config.preprocessors[adapter] = ['webpack'];
-
   const nodePackages = [ 'fs', 'child_process' ];
 
   removeNodePackages(config, ...nodePackages);
@@ -174,8 +198,8 @@ const getEnvironment = (config, program) => {
   if (!config.environments || config.environments.length === 0) {
     config.environments = [ 'node' ];
   }
-  config.environments = Array.from(new Set(config.environments));
 
+  config.environments = Array.from(new Set(config.environments));
   const environments = ['node', 'browser'];
   config.environments.forEach(env => {
     if (!environments.includes(env)) {
@@ -197,18 +221,20 @@ const getConfig = () => {
 
   config.files = merge(config.files, program.args);
   config.files = loadFiles(config.files);
-
   config.exclude = merge(config.exclude, program.exclude);
   config.files = exclude(config.files, config.exclude);
   config.nodeOnly = merge(config.nodeOnly, program.nodeOnly);
   config.browserOnly = merge(config.browserOnly, program.browserOnly);
+  config.logLevel = program.logLevel || 'default';
+  config.reporter = program.logLevel || program.reporter || 'default';
 
   if (config.environments.includes('browser')) {
     config.browser = config.browser || {};
-
-    config.browser.browsers = merge(
-      config.browser.browsers, program.browsers);
-    config.browser.logLevel = program.browserLog || config.browser.logLevel;
+    config.browser.browsers = merge(config.browser.browsers, program.browsers);
+    config.browser.logLevel = program.browserLog ||
+      (program.logLevel ?
+        convertLogLevel(program.logLevel) :
+        config.browser.logLevel);
     config.browser.port = +program.browserPort || config.browser.port;
     config.browser = getBrowserConfig(config);
   }
@@ -216,11 +242,16 @@ const getConfig = () => {
 };
 
 const runNode = (config, cb) => {
+  if (config.logLevel === 'quiet') metatests.runner.instance.removeReporter();
   metatests.runner.instance.on('finish', () => {
-    console.log('Tests finished. Waiting for unfinished tests after end...\n');
+    if (isLogAtLeast(config.logLevel, 'default')) {
+      console.log('Tests finished. Waiting for unfinished tests after end\n');
+    }
     setTimeout(() => cb(metatests.runner.instance.hasFailures ? 1 : 0), 5000);
   });
-  console.log(`\nNode ${process.version} (v8 ${process.versions.v8}):`);
+  if (isLogAtLeast(config.logLevel, 'default')) {
+    console.log(`\nNode ${process.version} (v8 ${process.versions.v8}):`);
+  }
   merge(config.files, config.nodeOnly)
     .map(name => require(path.resolve('./' + name)));
 };
@@ -250,9 +281,13 @@ const runBrowser = (config, cb) => {
 
 const runBoth = (config, cb) => {
   runBrowser(config, codeB => {
-    console.log('Metatests in browser finished with code', codeB);
+    if (isLogAtLeast(config.logLevel, 'default')) {
+      console.log('Metatests in browser finished with code', codeB);
+    }
     runNode(config, codeN => {
-      console.log('Metatests in node finished with code', codeN);
+      if (isLogAtLeast(config.logLevel, 'default')) {
+        console.log('Metatests in node finished with code', codeN);
+      }
       cb(codeB + codeN);
     });
   });
@@ -264,8 +299,9 @@ const onExit = code => {
 };
 
 const config = getConfig();
-console.log('Metatest CLI Stub');
-console.log(`Metatests final config:\n${JSON.stringify(config, null, 2)}\n`);
+if (isLogAtLeast(config.logLevel, 'debug')) {
+  console.log(`Metatests final config:\n${JSON.stringify(config, null, 2)}\n`);
+}
 
 if (!config.files.length) {
   program.outputHelp(help => 'No test files specified\n\n' + help);
