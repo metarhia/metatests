@@ -276,3 +276,28 @@ metatests.test('must support timeout', test => {
     test.end();
   });
 });
+
+metatests.test('\'fail\' result must not contain actual/expected', test => {
+  const t = new metatests.ImperativeTest('Failing test', t => t.fail('msg'));
+  t.on('done', () => {
+    test.strictSame(t.results[0].type, 'fail');
+    test.strictSame(t.results[0].message, 'msg');
+    test.assertNot(t.results[0].hasOwnProperty('actual'));
+    test.assertNot(t.results[0].hasOwnProperty('expected'));
+    test.end();
+  });
+});
+
+metatests.test('\'pass\' result must not contain actual/expected', test => {
+  const t = new metatests.ImperativeTest('Pass test', t => {
+    t.pass('msg');
+    t.end();
+  });
+  t.on('done', () => {
+    test.strictSame(t.results[0].type, 'pass');
+    test.strictSame(t.results[0].message, 'msg');
+    test.assertNot(t.results[0].hasOwnProperty('actual'));
+    test.assertNot(t.results[0].hasOwnProperty('expected'));
+    test.end();
+  });
+});
