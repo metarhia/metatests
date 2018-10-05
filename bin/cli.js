@@ -4,10 +4,16 @@
 const metatests = require('..');
 const program = require('commander');
 const common = require('metarhia-common');
-const karma = require('karma');
 const yaml = require('yaml').default;
 const path = require('path');
 const fs = require('fs');
+let karma;
+
+try {
+  karma = require('karma');
+} catch (err) {
+  console.log('Karma is not installed');
+}
 
 const splitOpts = v => v.split(',');
 
@@ -229,6 +235,10 @@ const getConfig = () => {
   config.reporter = program.logLevel || program.reporter || 'default';
 
   if (config.environments.includes('browser')) {
+    if (!karma) {
+      console.log('Cann\'t run tests in browser: karma is not installed');
+      process.exit(1);
+    }
     config.browser = config.browser || {};
     config.browser.browsers = merge(config.browser.browsers, program.browsers);
     config.browser.logLevel = program.browserLog ||

@@ -36,6 +36,11 @@
   "dependencies": {
     "eslint-config-metarhia": "^6.0.0",
     "eslint-plugin-import": "^2.14.0",
+    "commander": "^2.18.0",
+    "metarhia-common": "^0.0.33",
+    "yaml": "^1.0.0"
+  },
+  "peerDependencies": {
     "karma": "^3.0.0",
     "karma-webpack": "^3.0.0",
     "metarhia-common": "0.0.36",
