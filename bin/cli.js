@@ -32,12 +32,12 @@ const karmaLogLevels = {
 };
 
 const browserLaunchers = {
-  'Chrome':    'karma-chrome-launcher',
-  'Firefox':   'karma-firefox-launcher',
-  'IE':        'karma-ie-launcher',
-  'Opera':     'karma-opera-launcher',
-  'PhantomJS': 'karma-phantomjs-launcher',
-  'Safari':    'karma-safari-launcher'
+  'Chrome':         'karma-chrome-launcher',
+  'ChromeHeadless': 'karma-chrome-launcher',
+  'Firefox':        'karma-firefox-launcher',
+  'IE':             'karma-ie-launcher',
+  'Opera':          'karma-opera-launcher',
+  'Safari':         'karma-safari-launcher'
 };
 
 const merge = (arr1 = [], arr2 = []) => common.merge(arr1, arr2);
@@ -98,7 +98,7 @@ const setKarmaBrowsers = (config, ...browsers) => {
       process.exit(1);
     }
     config.browsers.push(browser);
-    config.plugins.push(launcher);
+    if (!config.plugins.includes(launcher)) config.plugins.push(launcher);
   });
 };
 
