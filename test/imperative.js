@@ -86,10 +86,10 @@ metatests.testAsync('nested test that ends after each subtest', t1 => {
   t1.testSync('sequential subtest', t2 => {
     t2.strictSame(++i, 2);
   });
-  setTimeout(() => {
+  process.nextTick(() => process.nextTick(() => {
     t1.strictSame(++i, 3);
     t1.endAfterSubtests();
-  }, 2);
+  }));
   t1.testAsync('delayed subtest', t3 => {
     setTimeout(() => {
       t3.strictSame(++i, 4);
