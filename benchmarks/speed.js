@@ -17,7 +17,7 @@ const defineArrayOfNumber = () => [100500, 100500, 100500];
 const defineObject = () => ({
   hello: 'world',
   size: 100500,
-  flag: true
+  flag: true,
 });
 
 const mixinObject = () => {
@@ -77,5 +77,5 @@ metatests.speed('Benchmark example', 2000000, [
   newClass,
   newObject,
   objectCreate,
-  callFactory
+  callFactory,
 ]);

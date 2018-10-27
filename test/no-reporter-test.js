@@ -23,7 +23,7 @@ if (process.argv[2] === 'child-success') {
   test.plan(2);
   ['child-success', 'child-failure'].forEach(name => {
     const child = spawn(process.execPath, [__filename, name], {
-      stdio: 'inherit'
+      stdio: 'inherit',
     });
     child.on('exit', code => {
       test.strictSame(code, 0, `must not fail for ${name}`);

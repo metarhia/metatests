@@ -17,5 +17,5 @@ metatests.case('Declarative example', namespace, {
     [1, 4],
     [2, 5],
     [3, 6],
-  ]
+  ],
 });
