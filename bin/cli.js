@@ -20,7 +20,7 @@ const cliOptions = [
   [ '--browsers <values>',       'Browsers to run', splitOpts, [] ],
   [ '-l, --browser-log <value>', 'Browser log level' ],
   [ '-p, --browser-port <n>',    'Browser port' ],
-  [ '-c, --config <value>',      'Config file' ]
+  [ '-c, --config <value>',      'Config file' ],
 ];
 
 const karmaLogLevels = {
@@ -28,7 +28,7 @@ const karmaLogLevels = {
   'error':   [ 'LOG_ERROR', 'errors-only' ],
   'warn':    [ 'LOG_WARN', 'minimal' ],
   'info':    [ 'LOG_INFO', 'normal' ],
-  'debug':   [ 'LOG_DEBUG', 'verbose' ]
+  'debug':   [ 'LOG_DEBUG', 'verbose' ],
 };
 
 const browserLaunchers = {
@@ -37,7 +37,7 @@ const browserLaunchers = {
   'Firefox':        'karma-firefox-launcher',
   'IE':             'karma-ie-launcher',
   'Opera':          'karma-opera-launcher',
-  'Safari':         'karma-safari-launcher'
+  'Safari':         'karma-safari-launcher',
 };
 
 const merge = (arr1 = [], arr2 = []) => common.merge(arr1, arr2);
@@ -73,6 +73,7 @@ const loadFiles = files => {
       } else {
         console.error('File does not exist:', file);
         process.exit(1);
+        return '';
       }
     })
     .forEach(file => {
@@ -111,7 +112,9 @@ const setKarmaLogLevel = (config, logLevel = 'disable') => {
 const removeNodePackages = (config, ...packages) => {
   if (!config.webpack) config.webpack = {};
   if (!config.webpack.node) config.webpack.node = {};
-  packages.forEach(lib => config.webpack.node[lib] = 'empty');
+  packages.forEach(lib => {
+    config.webpack.node[lib] = 'empty';
+  });
 };
 
 const getReporter = () => {
@@ -133,20 +136,20 @@ const getReporter = () => {
   return reporter;
 };
 
-const getBrowserConfig = (conf) => {
+const getBrowserConfig = conf => {
   const config = {
     preprocessors: {},
     files: [],
     plugins: [
       'karma-webpack',
-      { 'reporter:meta': ['type', getReporter()] }
+      { 'reporter:meta': ['type', getReporter()] },
     ],
     reporters: [ 'meta' ],
     basePath: process.env.PWD,
     port: conf.browser.port,
     autoWatch: false,
     singleRun: true,
-    concurrency: 1
+    concurrency: 1,
   };
 
   const adapter = path.resolve('./build/adapter.js');
@@ -168,8 +171,9 @@ const getEnvironment = (config, program) => {
     if (program.browser) config.environments.push('browser');
     return;
   }
-  if (!config.environments || config.environments.length === 0)
+  if (!config.environments || config.environments.length === 0) {
     config.environments = [ 'node' ];
+  }
   config.environments = Array.from(new Set(config.environments));
 
   const environments = ['node', 'browser'];

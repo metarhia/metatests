@@ -19,7 +19,7 @@ const metatests = {
   ImperativeTest,
   test,
   testSync,
-  testAsync
+  testAsync,
 };
 
 if (process.browser) {
