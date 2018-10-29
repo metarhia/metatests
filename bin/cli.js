@@ -218,7 +218,7 @@ const getConfig = () => {
 const runNode = (config, cb) => {
   metatests.runner.instance.on('finish', () => {
     console.log('Tests finished. Waiting for unfinished tests after end...\n');
-    setTimeout(() => cb(metatests.runner.hasFailures ? 1 : 0), 5000);
+    setTimeout(() => cb(metatests.runner.instance.hasFailures ? 1 : 0), 5000);
   });
   console.log(`\nNode ${process.version} (v8 ${process.versions.v8}):`);
   merge(config.files, config.nodeOnly)
