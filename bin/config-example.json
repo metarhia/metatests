@@ -1,22 +1,9 @@
 {
-  "environments": [
-    "browser",
-    "node"
-  ],
   "files": [
     "test/compare",
     "test/declarative",
+    "test/exit-code",
     "test/imperative"
   ],
-  "nodeOnly": [
-    "test/exit-code"
-  ],
-  "browserOnly": [],
-  "exclude": [],
-  "browser": {
-    "browsers": [
-      "Chrome"
-    ],
-    "logLevel": "disable"
-  }
+  "exclude": []
 }

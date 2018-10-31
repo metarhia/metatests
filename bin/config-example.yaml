@@ -1,13 +1,4 @@
-environments:
-  - browser
-  - node
 files:
   - test/compare
   - test/declarative
   - test/imperative
-nodeOnly:
-  - test/exit-code
-browser:
-  browsers:
-    - Chrome
-  logLevel: disable
