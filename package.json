@@ -34,8 +34,6 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "eslint-config-metarhia": "^6.0.0",
-    "eslint-plugin-import": "^2.14.0",
     "karma": "^3.0.0",
     "karma-webpack": "^3.0.0",
     "metarhia-common": "0.0.36",
@@ -50,6 +48,8 @@
     "karma-safari-launcher": "^1.0.0"
   },
   "devDependencies": {
-    "eslint": "^5.8.0"
+    "eslint": "^5.8.0",
+    "eslint-config-metarhia": "^6.0.0",
+    "eslint-plugin-import": "^2.14.0"
   }
 }
