@@ -301,3 +301,24 @@ metatests.test('\'pass\' result must not contain actual/expected', test => {
     test.end();
   });
 });
+
+metatests.test('must support test.plan', test => {
+  const t = new metatests.ImperativeTest('plan test', t => {
+    t.plan(1);
+    t.strictSame(2 + 2, 4);
+  });
+  t.on('done', () => {
+    test.end();
+  });
+});
+
+metatests.test('must support test.plan (async)', test => {
+  const t = new metatests.ImperativeTest('plan test', t => {
+    t.plan(2);
+    t.strictSame(2 + 2, 4);
+    process.nextTick(() => t.pass('pass'));
+  });
+  t.on('done', () => {
+    test.end();
+  });
+});
