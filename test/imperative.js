@@ -322,3 +322,112 @@ metatests.test('must support test.plan (async)', test => {
     test.end();
   });
 });
+
+metatests.test('must support mustCall', test => {
+  const t = new metatests.ImperativeTest('mustCall test', t => {
+    const fn = t.mustCall(() => {}, 1);
+    fn();
+    t.end();
+  });
+  t.on('done', () => {
+    test.assert(t.results[0].success);
+    test.strictSame(t.results[0].type, 'mustCall');
+    test.strictSame(t.results[0].actual, 1);
+    test.strictSame(t.results[0].expected, 1);
+    test.end();
+  });
+});
+
+metatests.test('must support mustCall (async)', test => {
+  const t = new metatests.ImperativeTest('mustCall test', t => {
+    const fn = t.mustCall(() => {}, 1);
+    process.nextTick(() => fn());
+    process.nextTick(() => process.nextTick(() => t.end()));
+  });
+  t.on('done', () => {
+    test.assert(t.results[0].success);
+    test.strictSame(t.results[0].type, 'mustCall');
+    test.strictSame(t.results[0].actual, 1);
+    test.strictSame(t.results[0].expected, 1);
+    test.end();
+  });
+});
+
+metatests.test('must support mustCall (many)', test => {
+  const t = new metatests.ImperativeTest('mustCall test', t => {
+    const fn = t.mustCall(() => {}, 3);
+    fn();
+    fn();
+    fn();
+    t.end();
+  });
+  t.on('done', () => {
+    test.assert(t.results[0].success);
+    test.strictSame(t.results[0].type, 'mustCall');
+    test.strictSame(t.results[0].actual, 3);
+    test.strictSame(t.results[0].expected, 3);
+    test.end();
+  });
+});
+
+metatests.test('must support mustCall (fail)', test => {
+  const t = new metatests.ImperativeTest('mustCall test', t => {
+    t.mustCall(() => {}, 1, 'name');
+    t.end();
+  });
+  t.on('done', () => {
+    test.assertNot(t.results[0].success);
+    test.strictSame(t.results[0].type, 'mustCall');
+    test.strictSame(t.results[0].message,
+      'function \'name\' was called 0 time(s) but ' +
+      'was expected to be called 1 time(s)');
+    test.strictSame(t.results[0].actual, 0);
+    test.strictSame(t.results[0].expected, 1);
+    test.end();
+  });
+});
+
+metatests.test('must support mustNotCall', test => {
+  const t = new metatests.ImperativeTest('mustNotCall test', t => {
+    t.mustNotCall(() => {});
+    t.end();
+  });
+  t.on('done', () => {
+    test.assert(t.results[0].success);
+    test.strictSame(t.results[0].type, 'mustNotCall');
+    test.strictSame(t.results[0].actual, 0);
+    test.strictSame(t.results[0].expected, 0);
+    test.end();
+  });
+});
+
+metatests.test('must support mustNotCall (fail)', test => {
+  const t = new metatests.ImperativeTest('mustNotCall test', t => {
+    const fn = t.mustNotCall(() => {}, 'name');
+    fn();
+    t.end();
+  });
+  t.on('done', () => {
+    test.assertNot(t.results[0].success);
+    test.strictSame(t.results[0].type, 'mustNotCall');
+    test.strictSame(t.results[0].message,
+      'function \'name\' was called 1 time(s) but ' +
+      'was not expected to be called at all');
+    test.strictSame(t.results[0].actual, 1);
+    test.strictSame(t.results[0].expected, 0);
+    test.end();
+  });
+});
+
+metatests.testSync('mustCall wrapper must return same value', test => {
+  const wrapped = test.mustCall(() => 42);
+  test.strictSame(wrapped(), 42);
+});
+
+metatests.test('mustNotCall wrapper must return same value', test => {
+  new metatests.ImperativeTest('mustNotCall test', t => {
+    const wrapped = t.mustNotCall(() => 42);
+    test.strictSame(wrapped(), 42);
+    test.end();
+  }, { async: false });
+});
