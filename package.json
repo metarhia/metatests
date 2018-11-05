@@ -34,11 +34,11 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "karma": "^3.0.0",
-    "karma-webpack": "^3.0.0",
+    "karma": "^3.1.1",
+    "karma-webpack": "^3.0.5",
     "metarhia-common": "0.0.36",
-    "webpack": "^4.17.1",
-    "yaml": "^1.0.0-rc.8"
+    "webpack": "^4.25.0",
+    "yaml": "^1.0.0"
   },
   "optionalDependencies": {
     "karma-chrome-launcher": "^2.2.0",
