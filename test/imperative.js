@@ -431,3 +431,13 @@ metatests.test('mustNotCall wrapper must return same value', test => {
     test.end();
   }, { async: false });
 });
+
+metatests.test('failed todo subtest must not fail parent', test => {
+  const t = new metatests.ImperativeTest('parent', test => {
+    test.testSync('failed todo subtest', t => t.fail(), { todo: true });
+  }, { async: false });
+  t.on('done', () => {
+    test.strictSame(t.success, true);
+    test.end();
+  });
+});
