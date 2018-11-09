@@ -441,3 +441,26 @@ metatests.test('failed todo subtest must not fail parent', test => {
     test.end();
   });
 });
+
+metatests.test('dependentSubtests and parallelSubtests are exclusive', test => {
+  test.throws(() => {
+    new metatests.ImperativeTest(
+      'throwing',
+      () => {},
+      { parallelSubtests: true, dependentSubtests: true }
+    );
+  }, new Error('parallelSubtests and dependentSubtests are contradictory'));
+  test.end();
+});
+
+metatests.test('must support dependentSubtests', test => {
+  const t = new metatests.ImperativeTest('mustNotCall test', t => {
+    t.testSync('successful subtest', test.mustCall(t => t.pass()));
+    t.testSync('failing subtest', test.mustCall(t => t.fail()));
+    t.testSync('successful subtest', test.mustNotCall(t => t.pass()));
+  }, { async: false, dependentSubtests: true });
+  t.on('done', () => {
+    test.strictSame(t.success, false);
+    test.end();
+  });
+});
