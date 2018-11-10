@@ -338,6 +338,21 @@ metatests.test('must support mustCall', test => {
   });
 });
 
+metatests.test('must support empty mustCall', test => {
+  const t = new metatests.ImperativeTest('mustCall test', t => {
+    const fn = t.mustCall();
+    fn();
+    t.end();
+  });
+  t.on('done', () => {
+    test.assert(t.results[0].success);
+    test.strictSame(t.results[0].type, 'mustCall');
+    test.strictSame(t.results[0].actual, 1);
+    test.strictSame(t.results[0].expected, 1);
+    test.end();
+  });
+});
+
 metatests.test('must support mustCall (async)', test => {
   const t = new metatests.ImperativeTest('mustCall test', t => {
     const fn = t.mustCall(() => {}, 1);
@@ -390,6 +405,20 @@ metatests.test('must support mustCall (fail)', test => {
 metatests.test('must support mustNotCall', test => {
   const t = new metatests.ImperativeTest('mustNotCall test', t => {
     t.mustNotCall(() => {});
+    t.end();
+  });
+  t.on('done', () => {
+    test.assert(t.results[0].success);
+    test.strictSame(t.results[0].type, 'mustNotCall');
+    test.strictSame(t.results[0].actual, 0);
+    test.strictSame(t.results[0].expected, 0);
+    test.end();
+  });
+});
+
+metatests.test('must support empty mustNotCall', test => {
+  const t = new metatests.ImperativeTest('mustNotCall test', t => {
+    t.mustNotCall();
     t.end();
   });
   t.on('done', () => {
