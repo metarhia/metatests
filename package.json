@@ -1,6 +1,6 @@
 {
   "name": "metatests",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "description": "Simple to use test engine for Metarhia technology stack",
   "license": "MIT",
@@ -37,8 +37,8 @@
     "karma": "^3.1.1",
     "karma-webpack": "^3.0.5",
     "metarhia-common": "0.0.36",
-    "webpack": "^4.25.0",
-    "yaml": "^1.0.0"
+    "webpack": "^4.25.1",
+    "yaml": "^1.0.1"
   },
   "optionalDependencies": {
     "karma-chrome-launcher": "^2.2.0",
@@ -48,7 +48,7 @@
     "karma-safari-launcher": "^1.0.0"
   },
   "devDependencies": {
-    "eslint": "^5.8.0",
+    "eslint": "^5.9.0",
     "eslint-config-metarhia": "^6.0.0",
     "eslint-plugin-import": "^2.14.0"
   }
