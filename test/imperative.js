@@ -248,9 +248,13 @@ metatests.test('test.testAsync must be async', test => {
     'Sync test',
     undefined,
     { async: false });
-  t.testAsync('async test', () => setTimeout(() => t.end(), 10));
+  let endCalled = false;
+  t.testAsync('async test', () => setTimeout(() => {
+    t.end();
+    endCalled = true;
+  }, 10));
   process.nextTick(() => process.nextTick(() => process.nextTick(() => {
-    if (t.done) {
+    if (t.done && !endCalled) {
       test.fail('must not finish before t.end() call');
     }
   })));
