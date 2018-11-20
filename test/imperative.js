@@ -497,3 +497,14 @@ metatests.test('must support dependentSubtests', test => {
     test.end();
   });
 });
+
+metatests.test('must support bailout', test => {
+  const t = new metatests.ImperativeTest('bailout test', t => {
+    t.bailout();
+    test.fail('must not be called');
+  });
+  t.on('done', () => {
+    test.strictSame(t.success, false);
+    test.end();
+  });
+});
