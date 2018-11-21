@@ -45,7 +45,7 @@ metatests.testSync('sequential tests must be ordered and sequential', test => {
   test.testSync('Seq3', () => test.strictSame(i++, 2));
   process.nextTick(() => process.nextTick(() => process.nextTick(() => {
     if (test.done) {
-      test.fail('must not end before each subtest finishes (in order)');
+      test.bailout('must not end before each subtest finishes (in order)');
     }
   })));
 });
@@ -116,7 +116,7 @@ metatests.testSync('test nested parallel', test => {
   test.testSync('nested parallel 3', test => test.strictSame(++i, 4));
   // first nextTick to run, second to end, therefore check on third
   process.nextTick(() => process.nextTick(() => process.nextTick(() => {
-    if (!test.done) test.fail('Parallel subtests must run in parallel');
+    if (!test.done) test.bailout('Parallel subtests must run in parallel');
   })));
 }, { parallelSubtests: true });
 
@@ -255,7 +255,7 @@ metatests.test('test.testAsync must be async', test => {
   }, 10));
   process.nextTick(() => process.nextTick(() => process.nextTick(() => {
     if (t.done && !endCalled) {
-      test.fail('must not finish before t.end() call');
+      test.bailout('must not finish before t.end() call');
     }
   })));
   t.on('done', () => test.end());
@@ -282,7 +282,10 @@ metatests.test('must support timeout', test => {
 });
 
 metatests.test('\'fail\' result must not contain actual/expected', test => {
-  const t = new metatests.ImperativeTest('Failing test', t => t.fail('msg'));
+  const t = new metatests.ImperativeTest('Failing test', t => {
+    t.fail('msg');
+    t.end();
+  });
   t.on('done', () => {
     test.strictSame(t.results[0].type, 'fail');
     test.strictSame(t.results[0].message, 'msg');
@@ -502,6 +505,7 @@ metatests.test('must support bailout', test => {
   const t = new metatests.ImperativeTest('bailout test', t => {
     t.bailout();
     test.fail('must not be called');
+    test.end();
   });
   t.on('done', () => {
     test.strictSame(t.success, false);

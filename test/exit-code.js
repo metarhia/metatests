@@ -16,6 +16,6 @@ metatests.test('exit code of a passing test must be 0', test => {
   });
 
   subtest.on('error', error => {
-    test.fail(error);
+    test.bailout(error.toString());
   });
 });
