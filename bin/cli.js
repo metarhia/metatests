@@ -3,7 +3,7 @@
 
 const metatests = require('..');
 const program = require('commander');
-const common = require('metarhia-common');
+const common = require('@metarhia/common');
 const karma = require('karma');
 const yaml = require('yaml').default;
 const path = require('path');
