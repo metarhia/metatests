@@ -2,11 +2,16 @@ environments:
   - browser
   - node
 files:
+  - test/assets
   - test/compare
   - test/declarative
   - test/imperative
+  - test/runner
 nodeOnly:
+  - test/bailout
+  - test/dependentSubtests
   - test/exit-code
+  - test/no-reporter-test
 browser:
   browsers:
     - Chrome
