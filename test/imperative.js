@@ -226,18 +226,6 @@ metatests.testSync('testAsync must return a test', test => {
   t.end();
 });
 
-metatests.test('must support bailout', test => {
-  const t = new metatests.ImperativeTest('bailout test', t => {
-    t.bailout();
-    test.fail('must not be called');
-    test.end();
-  });
-  t.on('done', () => {
-    test.strictSame(t.success, false);
-    test.end();
-  });
-});
-
 metatests.test('must catch unhandledExceptions', test => {
   const error = new Error('Error');
   const t = new metatests.ImperativeTest('Throwing test', () => {

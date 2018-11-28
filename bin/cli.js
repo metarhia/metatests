@@ -20,6 +20,7 @@ const cliOptions = [
   [ '--browsers <values>',       'Browsers to run', splitOpts, [] ],
   [ '--reporter <value>',        'Reporter name'],
   [ '--log-level <value>',       'Log level'],
+  [ '--run-todo',                'Run todo tests'],
   [ '-l, --browser-log <value>', 'Browser log level' ],
   [ '-p, --browser-port <n>',    'Browser port' ],
   [ '-c, --config <value>',      'Config file' ],
@@ -227,6 +228,7 @@ const getConfig = () => {
   config.browserOnly = merge(config.browserOnly, program.browserOnly);
   config.logLevel = program.logLevel || 'default';
   config.reporter = program.logLevel || program.reporter || 'default';
+  config.runTodo = program.runTodo || config.runTodo;
 
   if (config.environments.includes('browser')) {
     config.browser = config.browser || {};
@@ -243,6 +245,7 @@ const getConfig = () => {
 
 const runNode = (config, cb) => {
   if (config.logLevel === 'quiet') metatests.runner.instance.removeReporter();
+  if (config.runTodo) metatests.runner.instance.runTodo();
   metatests.runner.instance.on('finish', () => {
     if (isLogAtLeast(config.logLevel, 'default')) {
       console.log('Tests finished. Waiting for unfinished tests after end\n');
@@ -264,13 +267,22 @@ const runBrowser = (config, cb) => {
 
   const buildDir = path.resolve('./build');
   const buildAdapter = path.resolve('./build/adapter.js');
-
   if (!fs.existsSync(buildDir)) fs.mkdirSync(buildDir);
-  const required = merge(config.files, config.browserOnly)
-    .map(file => `require('../${file}');`)
-    .join('');
 
-  fs.writeFileSync(buildAdapter, '__karma__.start=()=>{};' + required);
+  const headers = [];
+  headers.push('__karma__.start=()=>{}');
+  headers.push('require(\'babel-polyfill\')');
+  if (config.runTodo) {
+    if (require('../package.json').name === 'metatests') {
+      headers.push('require(\'..\').runner.instance.runTodo()');
+    } else {
+      headers.push('require(\'metatests\').runner.instance.runTodo()');
+    }
+  }
+  merge(config.files, config.browserOnly)
+    .forEach(file => headers.push(`require('../${file}')`));
+
+  fs.writeFileSync(buildAdapter, headers.join(';') + ';');
   const server = new karma.Server(config.browser, code => {
     fs.unlinkSync(buildAdapter);
     fs.rmdirSync(buildDir);

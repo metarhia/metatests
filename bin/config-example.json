@@ -4,12 +4,17 @@
     "node"
   ],
   "files": [
+    "test/assets",
     "test/compare",
     "test/declarative",
-    "test/imperative"
+    "test/imperative",
+    "test/runner"
   ],
   "nodeOnly": [
-    "test/exit-code"
+    "test/bailout",
+    "test/dependentSubtests",
+    "test/exit-code",
+    "test/no-reporter-test"
   ],
   "browserOnly": [],
   "exclude": [],
