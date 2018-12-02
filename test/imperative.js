@@ -512,3 +512,19 @@ metatests.test('must support bailout', test => {
     test.end();
   });
 });
+
+metatests.test('must not crash on exception in dependentSubtests', test => {
+  const t = new metatests.ImperativeTest('parent test', t => {
+    t.endAfterSubtests();
+    t.test('throwing subtest', test.mustCall(() => {
+      setImmediate(() => {
+        throw new Error();
+      });
+    }));
+    t.testSync('successful subtest', test.mustNotCall());
+  }, { dependentSubtests: true });
+  t.on('done', () => {
+    test.strictSame(t.success, false);
+    test.end();
+  });
+});
