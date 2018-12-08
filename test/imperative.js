@@ -225,13 +225,25 @@ metatests.testSync('testAsync must return a test', test => {
   t.end();
 });
 
+metatests.test('must support bailout', test => {
+  const t = new metatests.ImperativeTest('bailout test', t => {
+    t.bailout();
+    test.fail('must not be called');
+    test.end();
+  });
+  t.on('done', () => {
+    test.strictSame(t.success, false);
+    test.end();
+  });
+});
+
 metatests.test('must catch unhandledExeptions', test => {
   const error = new Error('Error');
   const t = new metatests.ImperativeTest('Throwing test', () => {
     throw error;
   }, { async: false });
 
-  setTimeout(() => {
+  setImmediate(() => {
     test.assert(t.done, 'must finish');
     test.assertNot(t.success, 'must be failed');
     const res = t.results[0];
@@ -240,7 +252,7 @@ metatests.test('must catch unhandledExeptions', test => {
     test.strictSame(res.message, error.message);
     test.strictSame(res.stack, error.stack);
     test.end();
-  }, 1);
+  });
 });
 
 metatests.test('test.testAsync must be async', test => {
@@ -495,18 +507,6 @@ metatests.test('must support dependentSubtests', test => {
     t.testSync('failing subtest', test.mustCall(t => t.fail()));
     t.testSync('successful subtest', test.mustNotCall(t => t.pass()));
   }, { async: false, dependentSubtests: true });
-  t.on('done', () => {
-    test.strictSame(t.success, false);
-    test.end();
-  });
-});
-
-metatests.test('must support bailout', test => {
-  const t = new metatests.ImperativeTest('bailout test', t => {
-    t.bailout();
-    test.fail('must not be called');
-    test.end();
-  });
   t.on('done', () => {
     test.strictSame(t.success, false);
     test.end();
