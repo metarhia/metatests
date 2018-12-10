@@ -237,7 +237,7 @@ metatests.test('must support bailout', test => {
   });
 });
 
-metatests.test('must catch unhandledExeptions', test => {
+metatests.test('must catch unhandledExceptions', test => {
   const error = new Error('Error');
   const t = new metatests.ImperativeTest('Throwing test', () => {
     throw error;
@@ -247,7 +247,7 @@ metatests.test('must catch unhandledExeptions', test => {
     test.assert(t.done, 'must finish');
     test.assertNot(t.success, 'must be failed');
     const res = t.results[0];
-    test.strictSame(res.type, 'unhandledExeption');
+    test.strictSame(res.type, 'unhandledException');
     test.assertNot(res.success);
     test.strictSame(res.message, error.message);
     test.strictSame(res.stack, error.stack);
