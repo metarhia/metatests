@@ -1,6 +1,7 @@
 'use strict';
 
 const metatests = require('..');
+const vm = require('vm');
 
 metatests.testSync('strictSame', test => {
   test.strictSame(1, 1);
@@ -523,6 +524,23 @@ metatests.test('must not crash on exception in dependentSubtests', test => {
     }));
     t.testSync('successful subtest', test.mustNotCall());
   }, { dependentSubtests: true });
+  t.on('done', () => {
+    test.strictSame(t.success, false);
+    test.end();
+  });
+});
+
+metatests.test('must support Error from another context', test => {
+  const t = new metatests.ImperativeTest('mustNotCall test', t => {
+    let err = null;
+    try {
+      vm.runInNewContext('throw new Error()');
+    } catch (e) {
+      err = e;
+    }
+    t.error(err);
+    t.end();
+  });
   t.on('done', () => {
     test.strictSame(t.success, false);
     test.end();
