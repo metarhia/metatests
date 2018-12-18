@@ -101,10 +101,15 @@ const getConfig = () => {
 
 const runNode = (config, cb) => {
   if (config.logLevel === 'quiet') metatests.runner.instance.removeReporter();
+  if (config.reporter === 'tap') {
+    metatests.runner.instance.setReporter(
+      new metatests.reporters.TapReporter()
+    );
+  }
   if (config.runTodo) metatests.runner.instance.runTodo();
   metatests.runner.instance.on('finish', () => {
     if (isLogAtLeast(config.logLevel, 'default')) {
-      console.log('Tests finished. Waiting for unfinished tests after end\n');
+      console.log('# Tests finished. Waiting for unfinished tests after end\n');
     }
     setTimeout(() => cb(metatests.runner.instance.hasFailures ? 1 : 0), 5000);
   });
@@ -120,7 +125,7 @@ const config = getConfig();
 
 const onExit = code => {
   if (isLogAtLeast(config.logLevel, 'default')) {
-    console.log('Metatests finished with code', code);
+    console.log('# Metatests finished with code', code);
   }
   process.exit(code);
 };
