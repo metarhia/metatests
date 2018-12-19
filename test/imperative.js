@@ -232,8 +232,7 @@ metatests.test('must catch unhandledExceptions', test => {
     throw error;
   }, { async: false });
 
-  setImmediate(() => {
-    test.assert(t.done, 'must finish');
+  t.on('done', () => {
     test.assertNot(t.success, 'must be failed');
     const res = t.results[0];
     test.strictSame(res.type, 'unhandledException');
