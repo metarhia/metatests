@@ -479,45 +479,6 @@ metatests.test('failed todo subtest must not fail parent', test => {
   });
 });
 
-metatests.test('dependentSubtests and parallelSubtests are exclusive', test => {
-  test.throws(() => {
-    new metatests.ImperativeTest(
-      'throwing',
-      () => {},
-      { parallelSubtests: true, dependentSubtests: true }
-    );
-  }, new Error('parallelSubtests and dependentSubtests are contradictory'));
-  test.end();
-});
-
-metatests.test('must support dependentSubtests', test => {
-  const t = new metatests.ImperativeTest('mustNotCall test', t => {
-    t.testSync('successful subtest', test.mustCall(t => t.pass()));
-    t.testSync('failing subtest', test.mustCall(t => t.fail()));
-    t.testSync('successful subtest', test.mustNotCall(t => t.pass()));
-  }, { async: false, dependentSubtests: true });
-  t.on('done', () => {
-    test.strictSame(t.success, false);
-    test.end();
-  });
-});
-
-metatests.test('must not crash on exception in dependentSubtests', test => {
-  const t = new metatests.ImperativeTest('parent test', t => {
-    t.endAfterSubtests();
-    t.test('throwing subtest', test.mustCall(() => {
-      setImmediate(() => {
-        throw new Error();
-      });
-    }));
-    t.testSync('successful subtest', test.mustNotCall());
-  }, { dependentSubtests: true });
-  t.on('done', () => {
-    test.strictSame(t.success, false);
-    test.end();
-  });
-});
-
 metatests.test('must support Error from another context', test => {
   const t = new metatests.ImperativeTest('mustNotCall test', t => {
     let err = null;
@@ -531,49 +492,6 @@ metatests.test('must support Error from another context', test => {
   });
   t.on('done', () => {
     test.strictSame(t.success, false);
-    test.end();
-  });
-});
-
-metatests.test('must support bailout message', test => {
-  const message = 'message';
-  const t = new metatests.ImperativeTest('bailout test', t => {
-    t.bailout(message);
-  });
-  t.on('done', () => {
-    test.strictSame(t.success, false);
-    test.strictSame(t.results[0].type, 'bailout');
-    test.strictSame(t.results[0].message, 'message');
-    test.end();
-  });
-});
-
-metatests.test('must support bailout error', test => {
-  const error = new Error('err');
-  const t = new metatests.ImperativeTest('bailout test', t => {
-    t.bailout(error);
-  });
-  t.on('done', () => {
-    test.strictSame(t.success, false);
-    test.strictSame(t.results[0].type, 'bailout');
-    test.strictSame(t.results[0].message, error.toString());
-    test.strictSame(t.results[0].stack, error.stack);
-    test.end();
-  });
-});
-
-metatests.test('must support bailout message and error', test => {
-  const message = 'message';
-  const error = new Error('err');
-  const t = new metatests.ImperativeTest('bailout test', t => {
-    t.bailout(error, message);
-  });
-  t.on('done', () => {
-    const expectedMessage = `${message}\n${error.toString()}`;
-    test.strictSame(t.success, false);
-    test.strictSame(t.results[0].type, 'bailout');
-    test.strictSame(t.results[0].message, expectedMessage);
-    test.strictSame(t.results[0].stack, error.stack);
     test.end();
   });
 });
