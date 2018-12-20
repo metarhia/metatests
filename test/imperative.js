@@ -494,3 +494,18 @@ metatests.test('must support Error from another context', test => {
     test.end();
   });
 });
+
+metatests.test('must not run TODO subtests by default', test => {
+  let todoSubtestCalled = false;
+  const t = new metatests.ImperativeTest('parent test', t => {
+    t.endAfterSubtests();
+    t.testSync('todo subtest', () => {
+      todoSubtestCalled = true;
+    }, { todo: true });
+  });
+  t.on('done', () => {
+    test.strictSame(t.success, true);
+    test.strictSame(todoSubtestCalled, false);
+    test.end();
+  });
+});
