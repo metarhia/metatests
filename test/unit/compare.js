@@ -2,7 +2,7 @@
 
 const assert = require('assert');
 
-const { equal, strictEqual } = require('..');
+const { equal, strictEqual, errorCompare } = require('../../lib/compare');
 
 assert(equal(1, 1));
 assert(!equal(1, 2));
@@ -70,6 +70,15 @@ assert(!equal([true, false], [true, true]));
 assert(equal([NaN, Infinity], [NaN, Infinity]));
 assert(!equal([NaN, Infinity], [Infinity, NaN]));
 
+assert(equal({ field: 'a' }, { field: 'a' }));
+assert(!equal({}, { field: 'a' }));
+assert(!equal({ field: 'a' }, {}));
+assert(!equal({ field: 'a' }, { field: 'b' }));
+
+assert(equal(null, null));
+assert(!equal({}, null));
+assert(!equal(null, {}));
+
 assert(equal(() => {}, () => {}));
 assert(equal(() => 3, () => 3));
 assert(equal(a => a, a => a));
@@ -92,6 +101,10 @@ const func = function(a) {
 };
 assert(equal(func, func));
 assert(!equal(console.log, console.dir));
+
+assert(!equal(() => {}, null));
+assert(!equal(() => {}, a => ++a));
+assert(!equal(JSON.stringify, () => {}));
 
 assert(strictEqual(1, 1));
 assert(!strictEqual(1, 2));
@@ -177,3 +190,29 @@ assert(
 );
 assert(strictEqual(func, func));
 assert(!strictEqual(console.log, console.dir));
+
+assert(strictEqual({ field: 1 }, { field: 1 }));
+assert(!strictEqual({}, { field: 'a' }));
+assert(!strictEqual({ field: 'a' }, {}));
+assert(!strictEqual({ field: 1 }, { field: '1' }));
+
+assert(strictEqual(null, null));
+assert(!strictEqual({}, null));
+assert(!strictEqual(null, {}));
+
+assert(errorCompare(new Error(), new Error()));
+assert(!errorCompare(new Error(), ''));
+
+assert(errorCompare(new Error('message'), new Error()));
+assert(errorCompare(new Error('message'), new Error('message')));
+assert(!errorCompare(new Error('message'), new Error('another message')));
+assert(!errorCompare(new Error(), new Error('message')));
+
+assert(!equal({}, () => {}));
+assert(!equal([1, 2, 3], { 0: 1, 1: 2, 2: 3 }));
+
+assert(!strictEqual({}, () => {}));
+assert(!strictEqual([1, 2, 3], { 0: 1, 1: 2, 2: 3, length: 3 }));
+
+assert(!equal(Symbol('name'), Symbol('name')));
+assert(!strictEqual(Symbol('name'), Symbol('name')));

@@ -27,6 +27,20 @@ metatests.test('must support bailout message', test => {
   });
 });
 
+metatests.test('must correctly define error message', test => {
+  const message = 'error';
+  const t = new metatests.ImperativeTest(
+    "test.bailout must treat 'err' as message if 'string' is passed",
+    t => t.bailout(message)
+  );
+  t.on('done', () => {
+    test.strictSame(t.success, false);
+    test.strictSame(t.results[0].type, 'bailout');
+    test.strictSame(t.results[0].message, 'error');
+    test.end();
+  });
+});
+
 metatests.test('must support bailout error', test => {
   const error = new Error('err');
   const t = new metatests.ImperativeTest('bailout test', t => {

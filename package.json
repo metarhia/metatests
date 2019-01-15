@@ -30,7 +30,9 @@
     "lib/"
   ],
   "scripts": {
-    "test": "npm run lint && ./bin/cli.js test",
+    "test": "npm run lint && ./bin/cli.js test --exclude test/fixtures",
+    "test:unit": "node test/unit",
+    "mutation": "stryker run",
     "perf": "./bin/cli.js benchmarks",
     "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\" \"**/*.yml\"",
     "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\" \"**/*.yml\""
@@ -59,6 +61,10 @@
     "eslint-config-prettier": "^3.6.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-prettier": "^3.0.1",
-    "prettier": "1.16.x"
+    "prettier": "1.16.x",
+    "stryker": "^0.34.0",
+    "stryker-api": "^0.23.0",
+    "stryker-html-reporter": "^0.17.0",
+    "stryker-javascript-mutator": "^0.13.0"
   }
 }
