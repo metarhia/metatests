@@ -12,35 +12,35 @@ const fs = require('fs');
 const splitOpts = v => v.split(',');
 
 const cliOptions = [
-  [ '--node',                    'Run in node.js environment' ],
-  [ '--browser',                 'Run in browser environment' ],
-  [ '--browser-only <patterns>', 'Browser only tests patterns', splitOpts, [] ],
-  [ '--node-only <patterns>',    'Node only tests patterns', splitOpts, [] ],
-  [ '--exclude <patterns>',      'Exclude tests patterns', splitOpts, [] ],
-  [ '--browsers <values>',       'Browsers to run', splitOpts, [] ],
-  [ '--reporter <value>',        'Reporter name'],
-  [ '--log-level <value>',       'Log level'],
-  [ '--run-todo',                'Run todo tests'],
-  [ '-l, --browser-log <value>', 'Browser log level' ],
-  [ '-p, --browser-port <n>',    'Browser port' ],
-  [ '-c, --config <value>',      'Config file' ],
+  ['--node', 'Run in node.js environment'],
+  ['--browser', 'Run in browser environment'],
+  ['--browser-only <patterns>', 'Browser only tests patterns', splitOpts, []],
+  ['--node-only <patterns>', 'Node only tests patterns', splitOpts, []],
+  ['--exclude <patterns>', 'Exclude tests patterns', splitOpts, []],
+  ['--browsers <values>', 'Browsers to run', splitOpts, []],
+  ['--reporter <value>', 'Reporter name'],
+  ['--log-level <value>', 'Log level'],
+  ['--run-todo', 'Run todo tests'],
+  ['-l, --browser-log <value>', 'Browser log level'],
+  ['-p, --browser-port <n>', 'Browser port'],
+  ['-c, --config <value>', 'Config file'],
 ];
 
 const karmaLogLevels = {
-  'disable': [ 'LOG_DISABLE', 'none' ],
-  'error':   [ 'LOG_ERROR', 'errors-only' ],
-  'warn':    [ 'LOG_WARN', 'minimal' ],
-  'info':    [ 'LOG_INFO', 'normal' ],
-  'debug':   [ 'LOG_DEBUG', 'verbose' ],
+  disable: ['LOG_DISABLE', 'none'],
+  error: ['LOG_ERROR', 'errors-only'],
+  warn: ['LOG_WARN', 'minimal'],
+  info: ['LOG_INFO', 'normal'],
+  debug: ['LOG_DEBUG', 'verbose'],
 };
 
 const browserLaunchers = {
-  'Chrome':         'karma-chrome-launcher',
-  'ChromeHeadless': 'karma-chrome-launcher',
-  'Firefox':        'karma-firefox-launcher',
-  'IE':             'karma-ie-launcher',
-  'Opera':          'karma-opera-launcher',
-  'Safari':         'karma-safari-launcher',
+  Chrome: 'karma-chrome-launcher',
+  ChromeHeadless: 'karma-chrome-launcher',
+  Firefox: 'karma-firefox-launcher',
+  IE: 'karma-ie-launcher',
+  Opera: 'karma-opera-launcher',
+  Safari: 'karma-safari-launcher',
 };
 
 const logLevels = {
@@ -63,9 +63,13 @@ const convertLogLevel = level => {
 const merge = (arr1 = [], arr2 = []) => common.merge(arr1, arr2);
 
 const exclude = (files, filterArr) =>
-  filterArr.map(path => path.replace('.', '\\.')
-    .replace('*', '.+')
-    .replace('?', '.'))
+  filterArr
+    .map(path =>
+      path
+        .replace('.', '\\.')
+        .replace('*', '.+')
+        .replace('?', '.')
+    )
     .map(path => new RegExp(path))
     .reduce((files, regexp) => files.filter(file => !regexp.test(file)), files);
 
@@ -114,8 +118,10 @@ const setKarmaBrowsers = (config, ...browsers) => {
   browsers.forEach(browser => {
     const launcher = browserLaunchers[browser];
     if (!launcher) {
-      console.error('Metatests library does not support such browser:',
-        browser);
+      console.error(
+        'Metatests library does not support such browser:',
+        browser
+      );
       process.exit(1);
     }
     config.browsers.push(browser);
@@ -170,7 +176,7 @@ const getBrowserConfig = conf => {
       'karma-webpack',
       { 'reporter:meta': ['type', getReporter(conf.browser.logLevel)] },
     ],
-    reporters: [ 'meta' ],
+    reporters: ['meta'],
     basePath: process.env.PWD,
     port: conf.browser.port,
     autoWatch: false,
@@ -181,7 +187,7 @@ const getBrowserConfig = conf => {
   const adapter = path.resolve('./build/adapter.js');
   config.files.push(adapter);
   config.preprocessors[adapter] = ['webpack'];
-  const nodePackages = [ 'fs', 'child_process' ];
+  const nodePackages = ['fs', 'child_process'];
 
   removeNodePackages(config, ...nodePackages);
   setKarmaBrowsers(config, ...conf.browser.browsers);
@@ -197,7 +203,7 @@ const getEnvironment = (config, program) => {
     return;
   }
   if (!config.environments || config.environments.length === 0) {
-    config.environments = [ 'node' ];
+    config.environments = ['node'];
   }
 
   config.environments = Array.from(new Set(config.environments));
@@ -205,7 +211,8 @@ const getEnvironment = (config, program) => {
   config.environments.forEach(env => {
     if (!environments.includes(env)) {
       console.error(
-        `Metatests library doesn't support such environment: ${env}`);
+        `Metatests library doesn't support such environment: ${env}`
+      );
       process.exit(1);
     }
   });
@@ -233,10 +240,11 @@ const getConfig = () => {
   if (config.environments.includes('browser')) {
     config.browser = config.browser || {};
     config.browser.browsers = merge(config.browser.browsers, program.browsers);
-    config.browser.logLevel = program.browserLog ||
-      (program.logLevel ?
-        convertLogLevel(program.logLevel) :
-        config.browser.logLevel);
+    config.browser.logLevel =
+      program.browserLog ||
+      (program.logLevel
+        ? convertLogLevel(program.logLevel)
+        : config.browser.logLevel);
     config.browser.port = +program.browserPort || config.browser.port;
     config.browser = getBrowserConfig(config);
   }
@@ -255,8 +263,9 @@ const runNode = (config, cb) => {
   if (isLogAtLeast(config.logLevel, 'default')) {
     console.log(`\nNode ${process.version} (v8 ${process.versions.v8}):`);
   }
-  merge(config.files, config.nodeOnly)
-    .map(name => require(path.resolve('./' + name)));
+  merge(config.files, config.nodeOnly).map(name =>
+    require(path.resolve('./' + name))
+  );
 };
 
 const runBrowser = (config, cb) => {
@@ -271,16 +280,17 @@ const runBrowser = (config, cb) => {
 
   const headers = [];
   headers.push('__karma__.start=()=>{}');
-  headers.push('require(\'babel-polyfill\')');
+  headers.push("require('babel-polyfill')");
   if (config.runTodo) {
     if (require('../package.json').name === 'metatests') {
-      headers.push('require(\'..\').runner.instance.runTodo()');
+      headers.push("require('..').runner.instance.runTodo()");
     } else {
-      headers.push('require(\'metatests\').runner.instance.runTodo()');
+      headers.push("require('metatests').runner.instance.runTodo()");
     }
   }
-  merge(config.files, config.browserOnly)
-    .forEach(file => headers.push(`require('../${file}')`));
+  merge(config.files, config.browserOnly).forEach(file =>
+    headers.push(`require('../${file}')`)
+  );
 
   fs.writeFileSync(buildAdapter, headers.join(';') + ';');
   const server = new karma.Server(config.browser, code => {

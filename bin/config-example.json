@@ -1,8 +1,5 @@
 {
-  "environments": [
-    "browser",
-    "node"
-  ],
+  "environments": ["browser", "node"],
   "files": [
     "test/assets",
     "test/compare",
@@ -19,9 +16,7 @@
   "browserOnly": [],
   "exclude": [],
   "browser": {
-    "browsers": [
-      "Chrome"
-    ],
+    "browsers": ["Chrome"],
     "logLevel": "disable"
   }
 }
