@@ -28,7 +28,8 @@
   "scripts": {
     "test": "npm run lint && ./bin/cli.js test",
     "perf": "./bin/cli.js benchmarks",
-    "lint": "eslint ."
+    "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\" \"**/*.yml\"",
+    "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\" \"**/*.yml\""
   },
   "engines": {
     "node": ">=6.0.0"
@@ -51,6 +52,9 @@
   "devDependencies": {
     "eslint": "^5.9.0",
     "eslint-config-metarhia": "^6.0.0",
-    "eslint-plugin-import": "^2.14.0"
+    "eslint-config-prettier": "^3.6.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "1.16.x"
   }
 }

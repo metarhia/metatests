@@ -5,8 +5,12 @@ const { equal, strictEqual } = require('./lib/compare');
 const reporters = require('./lib/report');
 const runner = require('./lib/runner');
 const { speed } = require('./lib/speed.js');
-const { ImperativeTest, test, testSync, testAsync } =
-  require('./lib/imperative-test');
+const {
+  ImperativeTest,
+  test,
+  testSync,
+  testAsync,
+} = require('./lib/imperative-test');
 
 const metatests = {
   case: declarativeTest.case,
