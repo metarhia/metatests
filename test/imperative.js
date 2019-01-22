@@ -526,3 +526,14 @@ metatests.testSync('must support contains comparator', test => {
 metatests.testSync('must support contains of errors', test => {
   test.contains(new Error('hello'), { name: 'Error', message: 'hello' });
 });
+
+if (__filename) {
+  metatests.testSync('test must contain `filepath` in metadata', test => {
+    test.strictSame(test.metadata.filepath, __filename);
+  });
+
+  metatests.testSync('test must contain `filepath` in metadata', test => {
+    const t = new metatests.ImperativeTest();
+    test.strictSame(t.metadata.filepath, __filename);
+  });
+}
