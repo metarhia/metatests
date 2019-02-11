@@ -1,6 +1,6 @@
 {
   "name": "metatests",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "description": "Simple to use test engine for Metarhia technology stack",
   "license": "MIT",
@@ -21,10 +21,14 @@
   "bugs": {
     "url": "https://github.com/metarhia/metatests/issues"
   },
-  "main": "./metatests.js",
+  "main": "metatests.js",
   "bin": {
     "metatests": "./bin/cli.js"
   },
+  "files": [
+    "bin/*.js",
+    "lib/"
+  ],
   "scripts": {
     "test": "npm run lint && ./bin/cli.js test",
     "perf": "./bin/cli.js benchmarks",
