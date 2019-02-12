@@ -114,8 +114,7 @@ test('test.cbFail must forward results', test => {
   const data = [1, 2, 3];
   const t = new ImperativeTest('cbFail test', t => {
     const cb = t.cbFail(
-      test.mustCall((err, ...res) => {
-        test.error(err);
+      test.mustCall((...res) => {
         test.strictSame(res, data);
         t.end();
       })
