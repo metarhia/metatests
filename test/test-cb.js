@@ -126,3 +126,33 @@ test('test.cbFail must forward results', test => {
     test.end();
   });
 });
+
+test('test.cbFail must call afterAllCb on success', test => {
+  const t = new ImperativeTest('cbFail test', t => {
+    const cb = t.cbFail(test.mustCall(), err => {
+      test.error(err);
+      t.end();
+    });
+    cb(null);
+  });
+  t.on('done', () => {
+    test.assert(t.success);
+    test.end();
+  });
+});
+
+test('test.cbFail must call afterAllCb on error', test => {
+  const error = new Error('hello');
+  new ImperativeTest('cbFail test', t => {
+    const cb = t.cbFail(
+      test.mustNotCall(),
+      test.mustCall(err => {
+        test.strictSame(err, error);
+        test.assert(t.done);
+        test.assertNot(t.success);
+        test.end();
+      })
+    );
+    cb(error);
+  });
+});
