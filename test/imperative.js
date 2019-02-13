@@ -573,6 +573,18 @@ metatests.testSync('must support contains of errors', test => {
   test.contains(new Error('hello'), { name: 'Error', message: 'hello' });
 });
 
+metatests.test(
+  'must not call subtest function after test.end in beforeEach',
+  test => {
+    test.endAfterSubtests();
+    test.beforeEach((t, cb) => {
+      t.end();
+      cb();
+    });
+    test.test('subtest', test.mustNotCall());
+  }
+);
+
 if (__filename) {
   metatests.testSync('test must contain `filepath` in metadata', test => {
     test.strictSame(test.metadata.filepath, __filename);
