@@ -10,8 +10,8 @@ const namespace = {
 };
 const test = new DeclarativeTest(
   'throwing',
-  { 'namespace.throwingFn': [[]] },
-  { namespace }
+  { namespace },
+  { 'namespace.throwingFn': [[]] }
 );
 let testDone = false;
 test.on('done', () => {
