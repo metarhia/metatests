@@ -9,11 +9,11 @@ const namespace = {
 };
 const test = new DeclarativeTest(
   "target type 'value'",
+  { namespace },
   {
     'namespace.string': [['__STRING__']],
     'namespace.regexp': [[new RegExp('regexp')]],
-  },
-  { namespace }
+  }
 );
 test.on('done', () => {
   const [stringTargetResult, regexpTargetResult] = test.results;

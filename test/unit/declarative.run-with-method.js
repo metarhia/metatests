@@ -9,19 +9,15 @@ class CustomClass {
   }
 }
 const namespace = { CustomClass };
-const test = new DeclarativeTest(
-  'method',
-  {
-    'CustomClass.prototype.bufferify': [
-      [
-        new CustomClass(),
-        '__DATA__',
-        result => Buffer.from('__DATA__').equals(result),
-      ],
+const test = new DeclarativeTest('method', namespace, {
+  'CustomClass.prototype.bufferify': [
+    [
+      new CustomClass(),
+      '__DATA__',
+      result => Buffer.from('__DATA__').equals(result),
     ],
-  },
-  namespace
-);
+  ],
+});
 test.on('done', () => {
   const [result] = test.results;
   assert.strictEqual(result.caption, 'method');

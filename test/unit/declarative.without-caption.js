@@ -9,11 +9,11 @@ const namespace = {
 };
 const test = new DeclarativeTest(
   '',
+  { namespace },
   {
     'namespace.inc': [[1, 2]],
     'namespace.dec': [[1, 0]],
-  },
-  { namespace }
+  }
 );
 test.on('done', () => {
   const [incResult, decResult] = test.results;
