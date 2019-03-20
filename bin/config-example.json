@@ -1,5 +1,4 @@
 {
-  "environments": ["browser", "node"],
   "files": [
     "test/assets",
     "test/compare",
@@ -7,16 +6,5 @@
     "test/imperative",
     "test/runner"
   ],
-  "nodeOnly": [
-    "test/bailout",
-    "test/dependentSubtests",
-    "test/exit-code",
-    "test/no-reporter-test"
-  ],
-  "browserOnly": [],
-  "exclude": [],
-  "browser": {
-    "browsers": ["Chrome"],
-    "logLevel": "disable"
-  }
+  "exclude": []
 }

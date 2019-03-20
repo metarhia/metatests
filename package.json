@@ -23,7 +23,7 @@
   },
   "main": "metatests.js",
   "bin": {
-    "metatests": "./bin/cli.js"
+    "metatests": "bin/cli.js"
   },
   "files": [
     "bin/*.js",
@@ -42,18 +42,8 @@
   },
   "dependencies": {
     "@metarhia/common": "^1.0.0",
-    "babel-polyfill": "^6.26.0",
-    "karma": "^3.1.1",
-    "karma-webpack": "^3.0.5",
-    "webpack": "^4.26.0",
+    "commander": "^2.19.0",
     "yaml": "^1.0.2"
-  },
-  "optionalDependencies": {
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-firefox-launcher": "^1.1.0",
-    "karma-ie-launcher": "^1.0.0",
-    "karma-opera-launcher": "^1.0.0",
-    "karma-safari-launcher": "^1.0.0"
   },
   "devDependencies": {
     "eslint": "^5.9.0",
