@@ -163,18 +163,19 @@ metatests.testSync('beforeEach parameters', test => {
 });
 
 metatests.test('afterEach', test => {
-  test.plan(3);
+  test.endAfterSubtests();
+
   let i = 0;
   test.afterEach((t, callback) => {
-    test.pass('must call afterEach');
+    test.strictSame(i, 13);
     i = 42;
     callback();
   });
-  const t = test.testSync(() => {
-    test.pass('must call test');
+  test.testSync(() => {
+    test.strictSame(i, 0);
     i = 13;
   });
-  t.on('done', () => test.strictSame(i, 42));
+  test.on('beforeDone', () => test.strictSame(i, 42));
 });
 
 metatests.testSync('test must fail if assertion failed', test => {
