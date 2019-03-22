@@ -9,6 +9,6 @@ module.exports = function(config) {
     commandRunner: { command: 'npm run test:unit' },
     transpilers: [],
     coverageAnalysis: 'all',
-    mutate: ['lib/*.js', '!lib/speed.js', '!lib/report.js'],
+    mutate: ['lib/*.js', '!lib/speed.js', '!lib/report.js', '!lib/utils.js'],
   });
 };
