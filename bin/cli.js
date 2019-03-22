@@ -10,11 +10,14 @@ const fs = require('fs');
 
 const splitOpts = v => v.split(',');
 
+const DEFAULT_EXIT_TIMEOUT = 5;
+
 const cliOptions = [
   ['--exclude <patterns>', 'Exclude tests patterns', splitOpts, []],
   ['--reporter <value>', 'Reporter name'],
   ['--log-level <value>', 'Log level'],
   ['--run-todo', 'Run todo tests'],
+  ['--exit-timeout <value>', 'Seconds to wait after tests finished'],
   ['-c, --config <value>', 'Config file'],
 ];
 
@@ -96,6 +99,7 @@ const getConfig = () => {
   config.logLevel = program.logLevel || config.logLevel || 'default';
   config.reporter = program.reporter || 'default';
   config.runTodo = program.runTodo || config.runTodo;
+  config.exitTimeout = program.exitTimeout || DEFAULT_EXIT_TIMEOUT;
   return config;
 };
 
@@ -111,7 +115,10 @@ const runNode = (config, cb) => {
     if (isLogAtLeast(config.logLevel, 'default')) {
       console.log('# Tests finished. Waiting for unfinished tests after end\n');
     }
-    setTimeout(() => cb(metatests.runner.instance.hasFailures ? 1 : 0), 5000);
+    setTimeout(
+      () => cb(metatests.runner.instance.hasFailures ? 1 : 0),
+      config.exitTimeout * 1000
+    );
   });
   if (isLogAtLeast(config.logLevel, 'default')) {
     console.log(`\nNode ${process.version} (v8 ${process.versions.v8}):`);
