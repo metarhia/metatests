@@ -41,14 +41,14 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
-    "@metarhia/common": "^1.0.0",
+    "@metarhia/common": "^1.3.0",
     "commander": "^2.19.0",
     "yaml": "^1.0.2"
   },
   "devDependencies": {
     "eslint": "^5.9.0",
-    "eslint-config-metarhia": "^6.0.0",
-    "eslint-config-prettier": "^3.6.0",
+    "eslint-config-metarhia": "^7.0.0",
+    "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-prettier": "^3.0.1",
     "prettier": "1.16.x",
