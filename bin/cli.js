@@ -12,6 +12,8 @@ const splitOpts = v => v.split(',');
 
 const DEFAULT_EXIT_TIMEOUT = 5;
 
+const runner = metatests.runner.instance;
+
 const cliOptions = [
   ['--exclude <patterns>', 'Exclude tests patterns', splitOpts, []],
   ['--reporter <value>', 'Reporter name'],
@@ -104,24 +106,27 @@ const getConfig = () => {
 };
 
 const runNode = (config, cb) => {
-  if (config.logLevel === 'quiet') metatests.runner.instance.removeReporter();
-  if (config.reporter === 'tap') {
-    metatests.runner.instance.setReporter(
-      new metatests.reporters.TapReporter()
+  if (config.logLevel === 'quiet') {
+    runner.removeReporter();
+  } else if (config.reporter.startsWith('tap')) {
+    const reporterType = config.reporter.split('-')[1];
+    runner.setReporter(
+      new metatests.reporters.TapReporter({ type: reporterType })
     );
   }
-  if (config.runTodo) metatests.runner.instance.runTodo();
-  metatests.runner.instance.on('finish', () => {
+  if (config.runTodo) runner.runTodo();
+  runner.on('finish', () => {
     if (isLogAtLeast(config.logLevel, 'default')) {
-      console.log('# Tests finished. Waiting for unfinished tests after end\n');
+      runner.reporter.log(
+        '# Tests finished. Waiting for unfinished tests after end\n'
+      );
     }
-    setTimeout(
-      () => cb(metatests.runner.instance.hasFailures ? 1 : 0),
-      config.exitTimeout * 1000
-    );
+    setTimeout(() => cb(runner.hasFailures ? 1 : 0), config.exitTimeout * 1000);
   });
   if (isLogAtLeast(config.logLevel, 'default')) {
-    console.log(`\nNode ${process.version} (v8 ${process.versions.v8}):`);
+    runner.reporter.log(
+      `\nNode ${process.version} (v8 ${process.versions.v8}):`
+    );
   }
   merge(config.files, config.nodeOnly).map(name =>
     require(path.resolve('./' + name))
@@ -132,13 +137,15 @@ const config = getConfig();
 
 const onExit = code => {
   if (isLogAtLeast(config.logLevel, 'default')) {
-    console.log('# Metatests finished with code', code);
+    runner.reporter.log('# Metatests finished with code', code);
   }
   process.exit(code);
 };
 
 if (isLogAtLeast(config.logLevel, 'debug')) {
-  console.log(`Metatests final config:\n${JSON.stringify(config, null, 2)}\n`);
+  runner.reporter.log(
+    `Metatests final config:\n${JSON.stringify(config, null, 2)}\n`
+  );
 }
 if (!config.files.length) {
   program.outputHelp(help => 'No test files specified\n\n' + help);
