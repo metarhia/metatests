@@ -113,6 +113,8 @@ const runNode = (config, cb) => {
     runner.setReporter(
       new metatests.reporters.TapReporter({ type: reporterType })
     );
+  } else if (config.reporter === 'concise') {
+    runner.setReporter(new metatests.reporters.ConciseReporter());
   }
   if (config.runTodo) runner.runTodo();
   runner.on('finish', () => {
