@@ -594,5 +594,6 @@ if (__filename) {
   metatests.testSync('test must contain `filepath` in metadata', test => {
     const t = new metatests.ImperativeTest();
     test.strictSame(t.metadata.filepath, __filename);
+    t.end();
   });
 }
