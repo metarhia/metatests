@@ -27,5 +27,5 @@ erroringTest.on('done', () => {
   assert.strictEqual(erroringTest.results.pop().type, 'unhandledException');
 });
 
-process.nextTick(() => bailoutingTest.runNow());
-process.nextTick(() => erroringTest.runNow());
+process.nextTick(() => bailoutingTest.run());
+process.nextTick(() => erroringTest.run());
