@@ -119,8 +119,8 @@ const runNode = (config, cb) => {
   if (config.runTodo) runner.runTodo();
   runner.on('finish', () => {
     if (isLogAtLeast(config.logLevel, 'default')) {
-      runner.reporter.log(
-        '# Tests finished. Waiting for unfinished tests after end\n'
+      runner.reporter.logComment(
+        'Tests finished. Waiting for unfinished tests after end\n'
       );
     }
     setTimeout(() => cb(runner.hasFailures ? 1 : 0), config.exitTimeout * 1000);
@@ -139,13 +139,13 @@ const config = getConfig();
 
 const onExit = code => {
   if (isLogAtLeast(config.logLevel, 'default')) {
-    runner.reporter.log('# Metatests finished with code', code);
+    runner.reporter.logComment('Metatests finished with code', code);
   }
   process.exit(code);
 };
 
 if (isLogAtLeast(config.logLevel, 'debug')) {
-  runner.reporter.log(
+  runner.reporter.logComment(
     `Metatests final config:\n${JSON.stringify(config, null, 2)}\n`
   );
 }
