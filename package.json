@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@metarhia/common": "^1.4.2",
-    "commander": "^2.19.0",
+    "yargs": "^13.2.2",
     "tap-mocha-reporter": "^4.0.1",
     "yaml": "^1.0.2"
   },
