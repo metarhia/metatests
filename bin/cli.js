@@ -46,6 +46,7 @@ const args = yargs
   })
   .option('config', {
     alias: 'c',
+    coerce: conf => (Array.isArray(conf) ? conf[conf.length - 1] : conf),
     type: 'string',
     describe: 'Path to config file',
   }).argv;
@@ -105,10 +106,7 @@ const loadFiles = files => {
 };
 
 const getConfig = () => {
-  const configFile = Array.isArray(args.config)
-    ? args.config[args.config.length - 1]
-    : args.config;
-  const config = configFile ? parseFile(configFile) : {};
+  const config = args.config ? parseFile(args.config) : {};
 
   config.files = merge(config.files, args._);
   config.files = loadFiles(config.files);
