@@ -2,26 +2,14 @@
 'use strict';
 
 const metatests = require('..');
-const program = require('commander');
+const yargs = require('yargs');
 const common = require('@metarhia/common');
 const yaml = require('yaml').default;
 const path = require('path');
 const fs = require('fs');
 
-const splitOpts = v => v.split(',');
-
 const DEFAULT_EXIT_TIMEOUT = 5;
-
 const runner = metatests.runner.instance;
-
-const cliOptions = [
-  ['--exclude <patterns>', 'Exclude tests patterns', splitOpts, []],
-  ['--reporter <value>', 'Reporter name'],
-  ['--log-level <value>', 'Log level'],
-  ['--run-todo', 'Run todo tests'],
-  ['--exit-timeout <value>', 'Seconds to wait after tests finished'],
-  ['-c, --config <value>', 'Config file'],
-];
 
 const logLevels = {
   quiet: 0,
@@ -31,6 +19,39 @@ const logLevels = {
   info: 3,
   debug: 4,
 };
+
+const args = yargs
+  .usage('$0 [options] file.js [file.js...]')
+  .parserConfiguration({
+    'duplicate-arguments-array': false,
+  })
+  .option('exclude', {
+    array: true,
+    type: 'string',
+    describe: 'Exclude tests patterns',
+  })
+  .option('reporter', {
+    type: 'string',
+    describe: 'Reporter name',
+  })
+  .option('log-level', {
+    choices: Object.keys(logLevels),
+    type: 'string',
+    describe: 'Log level',
+  })
+  .option('run-todo', {
+    type: 'boolean',
+    describe: 'Run todo tests',
+  })
+  .option('exit-timeout', {
+    type: 'number',
+    describe: 'Seconds to wait after tests finished',
+  })
+  .option('config', {
+    alias: 'c',
+    type: 'string',
+    describe: 'Path to config file',
+  }).argv;
 
 const isLogAtLeast = (level1, level2 = 'default') =>
   logLevels[level1] >= logLevels[level2];
@@ -87,21 +108,17 @@ const loadFiles = files => {
 };
 
 const getConfig = () => {
-  const version = parseFile(path.resolve(__dirname, '../package.json')).version;
-  program.version(version).usage('[options] -- <file ...>');
-  cliOptions.forEach(option => program.option(...option));
-  program.parse(process.argv);
+  const config = args.config ? parseFile(args.config) : {};
 
-  const config = program.config ? parseFile(program.config) : {};
-
-  config.files = merge(config.files, program.args);
-  config.files = loadFiles(config.files);
-  config.exclude = merge(config.exclude, program.exclude);
+  config.exclude = merge(config.exclude, args.exclude);
+  config.files = loadFiles(merge(config.files, args._));
   config.files = exclude(config.files, config.exclude);
-  config.logLevel = program.logLevel || config.logLevel || 'default';
-  config.reporter = program.reporter || 'default';
-  config.runTodo = program.runTodo || config.runTodo;
-  config.exitTimeout = program.exitTimeout || DEFAULT_EXIT_TIMEOUT;
+
+  config.logLevel = args.logLevel || config.logLevel || 'default';
+  config.reporter = args.reporter || config.reporter || 'default';
+  config.runTodo = args.runTodo || config.runTodo;
+  config.exitTimeout =
+    args.exitTimeout || config.exitTimeout || DEFAULT_EXIT_TIMEOUT;
   return config;
 };
 
@@ -150,7 +167,8 @@ if (isLogAtLeast(config.logLevel, 'debug')) {
   );
 }
 if (!config.files.length) {
-  program.outputHelp(help => 'No test files specified\n\n' + help);
+  console.error('No test files were specified\n');
+  yargs.showHelp();
   onExit(1);
 }
 
