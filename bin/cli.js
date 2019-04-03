@@ -22,6 +22,9 @@ const logLevels = {
 
 const args = yargs
   .usage('$0 [options] file.js [file.js...]')
+  .parserConfiguration({
+    'duplicate-arguments-array': false,
+  })
   .option('exclude', {
     array: true,
     type: 'string',
@@ -46,7 +49,6 @@ const args = yargs
   })
   .option('config', {
     alias: 'c',
-    coerce: conf => (Array.isArray(conf) ? conf[conf.length - 1] : conf),
     type: 'string',
     describe: 'Path to config file',
   }).argv;
