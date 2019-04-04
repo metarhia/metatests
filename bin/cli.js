@@ -110,14 +110,15 @@ const loadFiles = files => {
 const getConfig = () => {
   const config = args.config ? parseFile(args.config) : {};
 
-  config.files = merge(config.files, args._);
-  config.files = loadFiles(config.files);
   config.exclude = merge(config.exclude, args.exclude);
+  config.files = loadFiles(merge(config.files, args._));
   config.files = exclude(config.files, config.exclude);
+
   config.logLevel = args.logLevel || config.logLevel || 'default';
-  config.reporter = args.reporter || 'default';
+  config.reporter = args.reporter || config.reporter || 'default';
   config.runTodo = args.runTodo || config.runTodo;
-  config.exitTimeout = args.exitTimeout || DEFAULT_EXIT_TIMEOUT;
+  config.exitTimeout =
+    args.exitTimeout || config.exitTimeout || DEFAULT_EXIT_TIMEOUT;
   return config;
 };
 
