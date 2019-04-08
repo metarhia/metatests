@@ -25,10 +25,18 @@ test.results.push({
 test._passCheck();
 
 assert.strictEqual(test.planned, undefined);
-assert.deepStrictEqual(test.results.pop(), {
-  success: false,
-  type: 'test',
-  expected: 1,
-  actual: 2,
-  message: "Expected to pass 'plan' (1) number of asserts",
+let called = false;
+test.on('done', () => {
+  called = true;
+  assert.deepStrictEqual(test.results.pop(), {
+    success: false,
+    type: 'test',
+    expected: 1,
+    actual: 2,
+    message: "Expected to pass 'plan' (1) number of asserts",
+  });
+});
+
+process.on('exit', () => {
+  assert(called, 'must call on done');
 });
