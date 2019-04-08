@@ -1,6 +1,6 @@
 {
   "name": "metatests",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "description": "Simple to use test engine for Metarhia technology stack",
   "license": "MIT",
@@ -42,15 +42,15 @@
   },
   "dependencies": {
     "@metarhia/common": "^1.4.2",
-    "yargs": "^13.2.2",
     "tap-mocha-reporter": "^4.0.1",
-    "yaml": "^1.0.2"
+    "yaml": "^1.5.0",
+    "yargs": "^13.2.2"
   },
   "devDependencies": {
-    "@stryker-mutator/core": "^1.1.1",
-    "@stryker-mutator/html-reporter": "^1.1.1",
-    "@stryker-mutator/javascript-mutator": "^1.1.1",
-    "eslint": "^5.15.3",
+    "@stryker-mutator/core": "^1.2.0",
+    "@stryker-mutator/html-reporter": "^1.2.0",
+    "@stryker-mutator/javascript-mutator": "^1.2.0",
+    "eslint": "^5.16.0",
     "eslint-config-metarhia": "^7.0.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-import": "^2.14.0",
