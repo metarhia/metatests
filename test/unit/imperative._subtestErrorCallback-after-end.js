@@ -8,15 +8,13 @@ const subtest = new ImperativeTest('subtest');
 subtest.end();
 test.end();
 
+const error = new Error('error');
 let testErrored = false;
-test.on('error', (test, message) => {
+test.on('error', (test, actualError) => {
   testErrored = true;
   assert.strictEqual(test.succeeded, false);
-  assert.strictEqual(
-    message,
-    `Subtest ${subtest.id} / subtest failed with: error`
-  );
+  assert.strictEqual(actualError, error);
 });
 
-test._subtestErrorCallback(subtest, 'error');
+test._subtestErrorCallback(subtest, error);
 assert(testErrored, 'test must be errored');

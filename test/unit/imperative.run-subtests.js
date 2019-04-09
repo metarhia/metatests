@@ -25,13 +25,13 @@ test.on('done', () => {
   ]);
 });
 
+let error;
 const erroringTest = new ImperativeTest('', null, { timeout: 1000 });
 const st3 = erroringTest.testSync('throwing test', () => {
   throw new Error();
 });
-let errorMessage;
-st3.on('error', (test, message) => {
-  errorMessage = message;
+st3.on('error', (test, err) => {
+  error = err;
 });
 st3.end();
 erroringTest.on('done', () => {
@@ -44,7 +44,8 @@ erroringTest.on('done', () => {
     },
     {
       test: st3,
-      message: errorMessage,
+      message: `Error in subtest '${st3.caption}': ${error}`,
+      stack: error.stack,
       type: 'subtest',
       success: false,
     },
