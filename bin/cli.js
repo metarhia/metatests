@@ -115,7 +115,7 @@ const getConfig = () => {
   config.files = exclude(config.files, config.exclude);
 
   config.logLevel = args.logLevel || config.logLevel || 'default';
-  config.reporter = args.reporter || config.reporter || 'default';
+  config.reporter = args.reporter || config.reporter || 'tap';
   config.runTodo = args.runTodo || config.runTodo;
   config.exitTimeout =
     args.exitTimeout || config.exitTimeout || DEFAULT_EXIT_TIMEOUT;
@@ -126,7 +126,10 @@ const runNode = (config, cb) => {
   if (config.logLevel === 'quiet') {
     runner.removeReporter();
   } else if (config.reporter.startsWith('tap')) {
-    const reporterType = config.reporter.split('-')[1];
+    let reporterType = config.reporter.split('-')[1];
+    if (!reporterType) {
+      reporterType = process.stdout.isTTY ? 'classic' : 'tap';
+    }
     runner.setReporter(
       new metatests.reporters.TapReporter({ type: reporterType })
     );
