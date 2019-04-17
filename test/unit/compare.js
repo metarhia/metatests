@@ -2,7 +2,12 @@
 
 const assert = require('assert');
 
-const { equal, strictEqual, errorCompare } = require('../../lib/compare');
+const {
+  equal,
+  strictEqual,
+  errorCompare,
+  equalWithCircular,
+} = require('../../lib/compare');
 
 assert(equal(1, 1));
 assert(!equal(1, 2));
@@ -216,3 +221,35 @@ assert(!strictEqual([1, 2, 3], { 0: 1, 1: 2, 2: 3, length: 3 }));
 
 assert(!equal(Symbol('name'), Symbol('name')));
 assert(!strictEqual(Symbol('name'), Symbol('name')));
+
+{
+  const obj1 = { data: 1, subObj: {} };
+  const obj2 = { data: 1, subObj: {} };
+
+  obj1.self = obj1;
+  obj2.self = obj2;
+
+  obj1.subObj.self = obj1.subObj;
+  obj2.subObj.self = obj2.subObj;
+
+  obj1.ref = obj2;
+  obj2.ref = obj1;
+
+  assert(equalWithCircular(obj1, obj2));
+}
+
+{
+  const obj1 = { data: 1, subObj: {} };
+  const obj2 = { data: 1, subObj: {} };
+
+  obj1.self = obj1;
+  obj2.self = obj2;
+
+  obj1.subObj.self = obj1.subObj;
+  obj2.subObj.self = obj2.subObj;
+
+  obj1.ref = obj1;
+  obj2.ref = obj1;
+
+  assert(!equalWithCircular(obj1, obj2));
+}
