@@ -28,6 +28,12 @@ metatests.testSync('type', test => {
   test.type(new Date(), 'object');
 });
 
+metatests.testSync('test.type with no constructor', test => {
+  test.type(null, 'object');
+  test.type(undefined, 'undefined');
+  test.type(Object.create(null), 'object');
+});
+
 metatests.testAsync('sequential tests 1', test => {
   setTimeout(() => {
     test.ok(true);
