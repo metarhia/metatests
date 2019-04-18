@@ -10,6 +10,7 @@ metatests.test('must support bailout', test => {
   });
   t.on('done', () => {
     test.strictSame(t.success, false);
+    test.strictSame(t.results.length, 1);
     test.end();
   });
 });
