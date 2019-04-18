@@ -82,15 +82,16 @@ test('test.cb must forward results', test => {
 
 test('test.cbFail must support message', test => {
   const fail = 'hello';
+  const err = new Error();
   const t = new ImperativeTest('cbFail test', t => {
     const cb = t.cbFail(fail, test.mustNotCall());
-    cb(new Error());
+    cb(err);
   });
   t.on('done', () => {
     test.assertNot(t.success);
-    test.strictSame(t.results[0].type, 'error');
-    test.strictSame(t.results[1].type, 'fail');
-    test.strictSame(t.results[1].message, fail);
+    test.strictSame(t.results[0].type, 'fail');
+    test.strictSame(t.results[0].message, fail);
+    test.strictSame(t.results[0].actual, err);
     test.end();
   });
 });
