@@ -6,7 +6,7 @@ const {
   equal,
   strictEqual,
   errorCompare,
-  equalWithCircular,
+  sameTopology,
 } = require('../../lib/compare');
 
 assert(equal(1, 1));
@@ -235,7 +235,7 @@ assert(!strictEqual(Symbol('name'), Symbol('name')));
   obj1.ref = obj2;
   obj2.ref = obj1;
 
-  assert(equalWithCircular(obj1, obj2));
+  assert(sameTopology(obj1, obj2));
 }
 
 {
@@ -251,5 +251,5 @@ assert(!strictEqual(Symbol('name'), Symbol('name')));
   obj1.ref = obj1;
   obj2.ref = obj1;
 
-  assert(!equalWithCircular(obj1, obj2));
+  assert(!sameTopology(obj1, obj2));
 }
