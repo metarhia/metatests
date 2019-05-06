@@ -50,12 +50,12 @@ metatests.test('must endAfterSubtests on promise resolve', test => {
     test.assert(t.success);
     test.assert(subtest.done);
     test.assert(subtest.success);
-    test.strictSame(t.results[0], {
+    test.contains(t.results[0], {
       type: 'subtest',
       test: subtest,
       message: subtest.caption,
-      success: subtest.success,
     });
+    test.strictSame(t.results[0].success, subtest.success);
     test.end();
   });
 });
