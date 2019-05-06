@@ -10,8 +10,8 @@ test.beforeEach((test, cb) => {
   cb({ field: 'value' });
 });
 const st = test.testSync('successful subtest', t => t.pass());
-assert.deepStrictEqual(st.context, { field: 'value' });
 assert(test.beforeEachFunc, 'must set beforeEachFunc');
-test.on('done', () =>
-  assert(beforeEachFuncCalled, 'must call beforeEachFunc before test run')
-);
+test.on('done', () => {
+  assert.deepStrictEqual(st.context, { field: 'value' });
+  assert(beforeEachFuncCalled, 'must call beforeEachFunc before test run');
+});
