@@ -16,4 +16,3 @@ assert(onErrorCalled, 'onError must not be called');
 
 assert.strictEqual(test.done, true);
 assert.strictEqual(test.succeeded, false);
-assert.strictEqual();
