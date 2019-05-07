@@ -4,7 +4,7 @@
 const metatests = require('..');
 const yargs = require('yargs');
 const common = require('@metarhia/common');
-const yaml = require('yaml').default;
+const yaml = require('tap-yaml');
 const path = require('path');
 const fs = require('fs');
 
