@@ -8,7 +8,7 @@ const test = new ImperativeTest();
 assert.strictEqual(test.options.run, true, 'default run');
 assert.strictEqual(test.options.async, true, 'default async');
 assert.strictEqual(test.options.timeout, 30000, 'default timeout');
-assert.deepStrictEqual(test.options.context, {}, 'default context');
+assert.deepStrictEqual(test.context, {}, 'default context');
 assert.strictEqual(
   test.options.parallelSubtests,
   false,
