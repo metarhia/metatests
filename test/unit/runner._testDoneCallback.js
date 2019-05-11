@@ -1,12 +1,15 @@
 'use strict';
 
 const assert = require('assert');
+
 const {
   runner: { Runner },
   ImperativeTest,
 } = require('../..');
+const MockReporter = require('../fixtures/mock-reporter');
 
 const runner = new Runner();
+runner.setReporter(new MockReporter());
 
 const st1 = new ImperativeTest('successful subtest');
 st1.end();
@@ -25,8 +28,6 @@ st4.fail();
 st4.end();
 
 runner.testsCount = 4;
-// Remove unnecessary subtest output
-runner.reporter.parseTestResults = () => {};
 
 const checkFinished = () => assert.strictEqual(runner.finished, true);
 
@@ -34,13 +35,11 @@ runner.on('finish', checkFinished);
 setTimeout(checkFinished, 1000);
 
 runner._testDoneCallback(st1);
-assert.strictEqual(runner.reporter.successful, 1);
 assert.strictEqual(runner.hasFailures, false);
 assert.strictEqual(runner.finished, false);
 assert.strictEqual(runner.testsCount, 3);
 
 runner._testDoneCallback(st2);
-assert.strictEqual(runner.reporter.failed, 1);
 assert.strictEqual(runner.hasFailures, true);
 
 runner.removeReporter();
