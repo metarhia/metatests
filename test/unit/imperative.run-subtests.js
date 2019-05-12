@@ -2,6 +2,7 @@
 
 const assert = require('assert');
 const { ImperativeTest } = require('../../metatests');
+
 const test = new ImperativeTest('', null, { timeout: 1000 });
 const st1 = test.testSync('successful subtest', t => t.pass(), {
   timeout: 1000,
@@ -27,13 +28,15 @@ test.on('done', () => {
   assert.deepStrictEqual(test.results, [subtest1res, subtest2res]);
 });
 
-let error;
-const erroringTest = new ImperativeTest('', null, { timeout: 1000 });
-const st3 = erroringTest.testSync('throwing test', () => {
-  throw new Error();
+const error = new Error('hello');
+const erroringTest = new ImperativeTest('erroring test', null, {
+  timeout: 1000,
 });
-st3.on('error', (test, err) => {
-  error = err;
+const st3 = erroringTest.testSync('throwing test', () => {
+  throw error;
+});
+st3.once('error', (test, err) => {
+  assert.deepStrictEqual(err, error);
 });
 st3.end();
 erroringTest.on('done', () => {
