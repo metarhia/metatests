@@ -6,8 +6,16 @@ const Test = require('../../lib/test.js');
 const test = new Test();
 test._end();
 
-test.on('error', (test, error) => {
-  assert.strictEqual(error, undefined);
+test.once('error', (test, error) => {
+  assert.throws(
+    () => {
+      throw error;
+    },
+    {
+      name: 'Error',
+      message: 'test._end() called after test has finished',
+    }
+  );
 });
 
 test.results.push({ success: true });
