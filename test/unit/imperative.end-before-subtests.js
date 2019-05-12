@@ -25,3 +25,6 @@ subtest.on('done', () => {
     message: 'End called before subtests finished',
   });
 });
+queuedTest.on('error', (test, e) => {
+  throw e;
+});

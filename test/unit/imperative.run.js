@@ -9,19 +9,21 @@ const syncTest = new ImperativeTest('run sync', t => t.pass(), {
 });
 
 let onDoneCalled = false;
-const onDone = () => {
+syncTest.on('done', () => {
   onDoneCalled = true;
-};
+});
+syncTest.on('error', (test, e) => {
+  throw e;
+});
 
 syncTest.run();
 
 process.nextTick(() => {
   assert.strictEqual(syncTest.waitingSubtests, true);
   syncTest.test('subtest', t => t.pass());
-  syncTest.on('done', onDone);
   process.nextTick(() => {
     assert(!onDoneCalled, 'must not call onDone');
-    syncTest.end();
+    syncTest.end(); // this will also end the above subtest
   });
 });
 
