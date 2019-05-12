@@ -91,21 +91,16 @@ metatests.test('nested test', t1 => {
   });
 });
 
-metatests.testAsync('nested test that ends after each subtest', t1 => {
+metatests.testAsync('nested test that ends after each subtest', test => {
   let i = 0;
-  t1.strictSame(++i, 1);
-  t1.testSync('sequential subtest', t2 => {
+  test.strictSame(++i, 1);
+  test.testSync('sequential subtest', t2 => {
     t2.strictSame(++i, 2);
+    test.endAfterSubtests();
   });
-  process.nextTick(() =>
-    process.nextTick(() => {
-      t1.strictSame(++i, 3);
-      t1.endAfterSubtests();
-    })
-  );
-  t1.testAsync('delayed subtest', t3 => {
+  test.testAsync('delayed subtest', t3 => {
     setTimeout(() => {
-      t3.strictSame(++i, 4);
+      t3.strictSame(++i, 3);
       t3.end();
     }, 100);
   });
@@ -128,20 +123,33 @@ metatests.testSync('must not be todo by default', test => {
 metatests.testSync(
   'test nested parallel',
   test => {
+    test.endAfterSubtests();
+
     let i = 0;
-    test.strictSame(++i, 1);
-    test.testSync('nested parallel 1', test => test.strictSame(++i, 2));
-    test.testSync('nested parallel 2', test => test.strictSame(++i, 3));
-    test.testSync('nested parallel 3', test => test.strictSame(++i, 4));
-    // first nextTick to run, second to end, therefore check on third
-    process.nextTick(() =>
-      process.nextTick(() =>
-        process.nextTick(() => {
-          if (!test.done)
-            test.bailout('Parallel subtests must run in parallel');
-        })
-      )
+    test.test('nested parallel 1', test =>
+      setTimeout(() => {
+        test.strictSame(i, 2);
+        i = 1;
+        test.end();
+      }, 100)
     );
+    test.test('nested parallel 2', test =>
+      setTimeout(() => {
+        test.strictSame(i, 3);
+        i = 2;
+        test.end();
+      }, 50)
+    );
+    test.test('nested parallel 3', test =>
+      setTimeout(() => {
+        test.strictSame(i, 0);
+        i = 3;
+        test.end();
+      }, 10)
+    );
+    test.on('beforeDone', () => {
+      test.strictSame(i, 1);
+    });
   },
   { parallelSubtests: true }
 );
