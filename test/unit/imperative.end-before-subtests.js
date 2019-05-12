@@ -19,8 +19,7 @@ queuedTest.afterEach((t, cb) => process.nextTick(cb));
 const subtest = queuedTest.testSync('subtest', t => t.pass());
 subtest.on('done', () => {
   queuedTest.end();
-  const result = queuedTest.results.pop();
-  assert.deepStrictEqual(result, {
+  assert.deepStrictEqual(queuedTest.results.pop(), {
     success: false,
     type: 'test',
     message: 'End called before subtests finished',
