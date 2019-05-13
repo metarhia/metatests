@@ -39,6 +39,7 @@ st3.once('error', (test, err) => {
   assert.deepStrictEqual(err, error);
 });
 st3.end();
+st3.run(); // forcefully run test to get 'error'
 erroringTest.on('done', () => {
   const res1 = {
     type: 'subtest',
