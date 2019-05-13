@@ -137,13 +137,25 @@ const runNode = (config, cb) => {
     runner.setReporter(new metatests.reporters.ConciseReporter());
   }
   if (config.runTodo) runner.runTodo();
-  runner.on('finish', () => {
+  runner.on('finish', hasFailures => {
     if (isLogAtLeast(config.logLevel, 'default')) {
       runner.reporter.logComment(
-        'Tests finished. Waiting for unfinished tests after end\n'
+        'Tests finished. Waiting for process to finish.\n'
       );
     }
-    setTimeout(() => cb(runner.hasFailures ? 1 : 0), config.exitTimeout * 1000);
+    if (hasFailures) {
+      cb(1);
+    } else {
+      const timeout = config.exitTimeout * 5000;
+      setTimeout(() => {
+        if (isLogAtLeast(config.logLevel, 'default')) {
+          runner.reporter.log(
+            `Process didn't finish within timeout (${timeout}), exiting.`
+          );
+        }
+        cb(1);
+      }, timeout).unref();
+    }
   });
   if (isLogAtLeast(config.logLevel, 'default')) {
     runner.reporter.log(
