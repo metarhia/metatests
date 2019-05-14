@@ -79,3 +79,60 @@ metatests.test('test.resolve subtest function', test => {
     test.end();
   });
 });
+
+metatests.test('test.resolves no expected', test => {
+  const t = new metatests.ImperativeTest('Resolving test', () =>
+    t.resolves(Promise.resolve(42))
+  );
+  t.on('done', () => {
+    test.assert(t.success);
+    test.strictSame(t.results, []);
+    test.end();
+  });
+});
+
+metatests.test('test.resolve expected undefined', test => {
+  const t = new metatests.ImperativeTest('Resolving test', () =>
+    t.resolves(Promise.resolve(), undefined)
+  );
+  t.on('done', () => {
+    test.assert(t.success);
+    test.contains(t.results[0], {
+      type: 'strictSame',
+      actual: undefined,
+      expected: undefined,
+    });
+    test.end();
+  });
+});
+
+metatests.test('test.resolve expected undefined failed', test => {
+  const t = new metatests.ImperativeTest('Resolving test', () =>
+    t.resolves(Promise.resolve(42), undefined)
+  );
+  t.on('done', () => {
+    test.assertNot(t.success);
+    test.contains(t.results[0], {
+      type: 'strictSame',
+      actual: 42,
+      expected: undefined,
+    });
+    test.end();
+  });
+});
+
+metatests.test('test.resolves no expected failed', test => {
+  const t = new metatests.ImperativeTest('Resolving test', () =>
+    t.resolves(Promise.reject(42))
+  );
+  t.on('done', () => {
+    test.assertNot(t.success);
+    test.contains(t.results[0], {
+      type: 'fail',
+      actual: 42,
+      message: 'expected to be resolved, but was rejected',
+      success: false,
+    });
+    test.end();
+  });
+});
