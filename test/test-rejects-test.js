@@ -79,3 +79,34 @@ metatests.test('test.reject subtest function', test => {
     test.end();
   });
 });
+
+metatests.test('test.rejects no err', test => {
+  const err = new Error();
+  const t = new metatests.ImperativeTest('Rejecting test', () =>
+    t.rejects(Promise.reject(err))
+  );
+  t.on('done', () => {
+    test.assert(t.success);
+    test.contains(t.results[0], {
+      type: 'isError',
+      actual: err,
+    });
+    test.end();
+  });
+});
+
+metatests.test('test.rejected no err failed', test => {
+  const t = new metatests.ImperativeTest('Rejecting test', () =>
+    t.rejects(Promise.resolve(42))
+  );
+  t.on('done', () => {
+    test.assertNot(t.success);
+    test.contains(t.results[0], {
+      type: 'fail',
+      actual: 42,
+      message: 'expected to be rejected, but was resolved',
+      success: false,
+    });
+    test.end();
+  });
+});
