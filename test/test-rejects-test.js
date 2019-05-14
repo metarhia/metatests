@@ -12,25 +12,28 @@ metatests.test('async test.reject test', test => {
   });
   t.on('done', () => {
     test.assert(t.success);
-    test.contains(t.results[0], {
-      type: 'isError',
-      actual: err,
-      expected: err,
-    });
-    test.contains(t.results[1], {
-      type: 'strictSame',
-      actual: err,
-      expected: err,
-    });
-    test.contains(t.results[2], {
-      type: 'isError',
-      actual: err,
-      expected: err,
-    });
-    test.contains(t.results[3], {
-      type: 'strictSame',
-      actual: err,
-      expected: err,
+    const results = [
+      {
+        type: 'rejects',
+        message: 'must reject',
+        actual: err,
+        success: true,
+      },
+      {
+        type: 'isError',
+        actual: err,
+        expected: err,
+        success: true,
+      },
+      {
+        type: 'strictSame',
+        actual: err,
+        expected: err,
+        success: true,
+      },
+    ];
+    t.results.forEach((r, i) => {
+      test.contains(r, results[i % results.length]);
     });
     test.end();
   });
@@ -49,7 +52,7 @@ metatests.test('test.reject test must throw resolve', test => {
   t.on('done', () => {
     test.assertNot(t.success);
     test.contains(t.results[0], {
-      type: 'fail',
+      type: 'rejects',
       actual: res,
       message: 'expected to be rejected, but was resolved',
       success: false,
@@ -72,9 +75,16 @@ metatests.test('test.reject subtest function', test => {
   t.on('done', () => {
     test.assert(t.success);
     test.contains(t.results[0], {
+      type: 'rejects',
+      message: 'must reject',
+      actual: err,
+      success: true,
+    });
+    test.contains(t.results[1], {
       type: 'isError',
       actual: err,
       expected: err,
+      success: true,
     });
     test.end();
   });
@@ -88,8 +98,15 @@ metatests.test('test.rejects no err', test => {
   t.on('done', () => {
     test.assert(t.success);
     test.contains(t.results[0], {
+      type: 'rejects',
+      message: 'must reject',
+      actual: err,
+      success: true,
+    });
+    test.contains(t.results[1], {
       type: 'isError',
       actual: err,
+      success: true,
     });
     test.end();
   });
@@ -102,7 +119,7 @@ metatests.test('test.rejected no err failed', test => {
   t.on('done', () => {
     test.assertNot(t.success);
     test.contains(t.results[0], {
-      type: 'fail',
+      type: 'rejects',
       actual: 42,
       message: 'expected to be rejected, but was resolved',
       success: false,

@@ -12,25 +12,25 @@ metatests.test('async test.resolve subtest', test => {
   });
   t.on('done', () => {
     test.assert(t.success);
-    test.contains(t.results[0], {
-      type: 'strictSame',
-      actual: res,
-      expected: res,
-    });
-    test.contains(t.results[1], {
-      type: 'strictSame',
-      actual: res,
-      expected: res,
-    });
-    test.contains(t.results[2], {
-      type: 'strictSame',
-      actual: res,
-      expected: res,
-    });
-    test.contains(t.results[3], {
-      type: 'strictSame',
-      actual: res,
-      expected: res,
+    const results = [
+      {
+        type: 'resolves',
+        message: 'must resolve',
+        actual: res,
+      },
+      {
+        type: 'strictSame',
+        actual: res,
+        expected: res,
+      },
+      {
+        type: 'strictSame',
+        actual: res,
+        expected: res,
+      },
+    ];
+    t.results.forEach((r, i) => {
+      test.contains(r, results[i % results.length]);
     });
     test.end();
   });
@@ -49,7 +49,7 @@ metatests.test('test.resolve must throw on reject', test => {
   t.on('done', () => {
     test.assertNot(t.success);
     test.contains(t.results[0], {
-      type: 'fail',
+      type: 'resolves',
       actual: err,
       message: 'expected to be resolved, but was rejected',
       success: false,
@@ -72,6 +72,11 @@ metatests.test('test.resolve subtest function', test => {
   t.on('done', () => {
     test.assert(t.success);
     test.contains(t.results[0], {
+      type: 'resolves',
+      message: 'must resolve',
+      actual: res,
+    });
+    test.contains(t.results[1], {
       type: 'strictSame',
       actual: res,
       expected: res,
@@ -86,7 +91,12 @@ metatests.test('test.resolves no expected', test => {
   );
   t.on('done', () => {
     test.assert(t.success);
-    test.strictSame(t.results, []);
+    test.contains(t.results[0], {
+      type: 'resolves',
+      message: 'must resolve',
+      actual: 42,
+      success: true,
+    });
     test.end();
   });
 });
@@ -98,9 +108,16 @@ metatests.test('test.resolve expected undefined', test => {
   t.on('done', () => {
     test.assert(t.success);
     test.contains(t.results[0], {
+      type: 'resolves',
+      message: 'must resolve',
+      actual: undefined,
+      success: true,
+    });
+    test.contains(t.results[1], {
       type: 'strictSame',
       actual: undefined,
       expected: undefined,
+      success: true,
     });
     test.end();
   });
@@ -113,9 +130,16 @@ metatests.test('test.resolve expected undefined failed', test => {
   t.on('done', () => {
     test.assertNot(t.success);
     test.contains(t.results[0], {
+      type: 'resolves',
+      message: 'must resolve',
+      actual: 42,
+      success: true,
+    });
+    test.contains(t.results[1], {
       type: 'strictSame',
       actual: 42,
       expected: undefined,
+      success: false,
     });
     test.end();
   });
@@ -128,7 +152,7 @@ metatests.test('test.resolves no expected failed', test => {
   t.on('done', () => {
     test.assertNot(t.success);
     test.contains(t.results[0], {
-      type: 'fail',
+      type: 'resolves',
       actual: 42,
       message: 'expected to be resolved, but was rejected',
       success: false,
