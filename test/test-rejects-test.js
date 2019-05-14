@@ -79,3 +79,20 @@ metatests.test('test.reject subtest function', test => {
     test.end();
   });
 });
+
+metatests.test('test.reject must not repeat "fail" result', test => {
+  const t = new metatests.ImperativeTest('Rejecting test', () =>
+    t.rejects(Promise.resolve(42), new Error('error'))
+  );
+  t.on('done', () => {
+    test.assertNot(t.success);
+    test.contains(t.results[0], {
+      type: 'fail',
+      actual: 42,
+      message: 'expected to be rejected, but was resolved',
+      success: false,
+    });
+    test.strictSame(t.results.length, 1);
+    test.end();
+  });
+});
