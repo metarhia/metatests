@@ -18,13 +18,16 @@ const subtest = test.testSync('subtest', t => t.pass());
 test._end();
 
 test.on('done', () => {
-  const [result] = test.results;
   assert(beforeDoneEmitted, "test must emit 'beforeDone'");
   assert(!afterEachCalled, 'afterEach must not be called');
-  assert.deepStrictEqual(result, {
+  const expectedResults = {
     type: 'subtest',
     test: subtest,
     message: 'subtest',
-    success: true,
+  };
+  Object.defineProperty(expectedResults, 'success', {
+    get: () => subtest.success,
   });
+  delete test.results[0].stack;
+  assert.deepStrictEqual(test.results[0], expectedResults);
 });
