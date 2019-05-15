@@ -17,11 +17,13 @@ test('must correctly report plan after timeout', test => {
         message: "Expected to pass 'plan' (1) number of asserts",
         success: false,
         type: 'test',
+        stack: null,
       },
       {
         message: 'Test execution time exceed timeout (300)',
         success: false,
         type: 'timeout',
+        stack: null,
       },
     ]);
     test.end();

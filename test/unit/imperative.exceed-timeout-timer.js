@@ -10,6 +10,7 @@ setTimeout(() => {
       type: 'timeout',
       message: 'Test execution time exceed timeout (1)',
       success: false,
+      stack: null,
     },
   ]);
 }, 1000);

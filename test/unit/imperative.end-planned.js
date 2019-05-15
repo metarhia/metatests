@@ -7,7 +7,8 @@ const test = new ImperativeTest();
 test.plan(1);
 test.end();
 
-const [result] = test.results;
+const result = test.results[0];
+delete result.stack;
 assert.deepStrictEqual(result, {
   success: false,
   type: 'test',

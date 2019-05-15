@@ -34,6 +34,7 @@ test.on('done', () => {
     expected: 1,
     actual: 2,
     message: "Expected to pass 'plan' (1) number of asserts",
+    stack: null,
   });
 });
 
