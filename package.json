@@ -30,6 +30,7 @@
     "lib/"
   ],
   "scripts": {
+    "doc": "metadoc",
     "test": "npm run -s lint && ./bin/cli.js test --exclude test/fixtures",
     "test:unit": "node test/unit",
     "mutation": "stryker run",
@@ -49,6 +50,7 @@
   "devDependencies": {
     "@commitlint/cli": "^8.0.0",
     "@commitlint/config-conventional": "^8.0.0",
+    "@metarhia/doc": "^0.5.6",
     "@stryker-mutator/core": "^2.0.0",
     "@stryker-mutator/html-reporter": "^2.0.0",
     "@stryker-mutator/javascript-mutator": "^2.0.0",
