@@ -7,7 +7,7 @@ test('must correctly report plan after timeout', test => {
     t => {
       t.plan(1);
     },
-    { timeout: 300 }
+    { timeout: 500 }
   );
   t.on('done', () => {
     test.strictSame(t.results, [
@@ -20,7 +20,7 @@ test('must correctly report plan after timeout', test => {
         stack: null,
       },
       {
-        message: 'Test execution time exceed timeout (300)',
+        message: 'Test execution time exceed timeout (500)',
         success: false,
         type: 'timeout',
         stack: null,
