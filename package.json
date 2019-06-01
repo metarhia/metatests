@@ -30,12 +30,12 @@
     "lib/"
   ],
   "scripts": {
-    "test": "npm run lint && ./bin/cli.js test --exclude test/fixtures",
+    "test": "npm run -s lint && ./bin/cli.js test --exclude test/fixtures",
     "test:unit": "node test/unit",
     "mutation": "stryker run",
     "perf": "./bin/cli.js benchmarks",
-    "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\" \"**/*.yml\"",
-    "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\" \"**/*.yml\""
+    "lint": "eslint . && remark . && prettier --check \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/.*rc\" \"**/*.yml\" \"**/*.yaml\"",
+    "fix": "eslint --fix . && prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/.*rc\" \"**/*.yml\" \"**/*.yaml\""
   },
   "engines": {
     "node": ">=8.0.0"
@@ -47,6 +47,8 @@
     "yargs": "^13.2.4"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.0.0",
+    "@commitlint/config-conventional": "^8.0.0",
     "@stryker-mutator/core": "^2.0.0",
     "@stryker-mutator/html-reporter": "^2.0.0",
     "@stryker-mutator/javascript-mutator": "^2.0.0",
@@ -55,6 +57,10 @@
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-prettier": "^3.1.0",
-    "prettier": "1.17.x"
+    "husky": "^2.3.0",
+    "prettier": "1.17.x",
+    "remark-cli": "^6.0.1",
+    "remark-preset-lint-metarhia": "^2.0.0",
+    "remark-validate-links": "^8.0.2"
   }
 }
