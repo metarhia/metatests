@@ -41,20 +41,20 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
-    "@metarhia/common": "^1.4.2",
+    "@metarhia/common": "^2.0.0",
     "tap-mocha-reporter": "^4.0.1",
     "tap-yaml": "^1.0.0",
-    "yargs": "^13.2.2"
+    "yargs": "^13.2.4"
   },
   "devDependencies": {
-    "@stryker-mutator/core": "^1.2.0",
-    "@stryker-mutator/html-reporter": "^1.2.0",
-    "@stryker-mutator/javascript-mutator": "^1.2.0",
+    "@stryker-mutator/core": "^2.0.0",
+    "@stryker-mutator/html-reporter": "^2.0.0",
+    "@stryker-mutator/javascript-mutator": "^2.0.0",
     "eslint": "^5.16.0",
     "eslint-config-metarhia": "^7.0.0",
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-prettier": "^3.0.1",
-    "prettier": "1.16.x"
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "1.17.x"
   }
 }
