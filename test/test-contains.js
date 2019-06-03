@@ -3,7 +3,7 @@
 const metatests = require('..');
 const { compareValues } = require('../lib/utils');
 
-const test = metatests.testSync('test.contains', null, {
+const test = metatests.testSync('test.contains/containsGreedy', null, {
   parallelSubtests: true,
 });
 
@@ -144,4 +144,24 @@ const checkResult = (test, res, type, subObj, actual, success = true) => {
       false
     );
   });
+
+  test.testSync('test.containsGreedy ' + msg, t => {
+    t.containsGreedy(actual, subObj);
+    checkResult(t, t.results[0], 'containsGreedy', subObj, actual);
+  });
+
+  test.testSync('test.containsGreedy negative ' + msg, t => {
+    const sub = new metatests.ImperativeTest();
+    sub.containsGreedy(subObj, actual);
+    sub.end();
+    t.log(sub.results[0]);
+    checkResult(t, sub.results[0], 'containsGreedy', actual, subObj, false);
+  });
+});
+
+metatests.testSync('test.containsGreedy arrays', test => {
+  const subObj = ['resolves', 'must resolve', 42];
+  const actual = [false, ...subObj, 'hello'];
+  test.containsGreedy(actual, subObj);
+  checkResult(test, test.results[0], 'containsGreedy', subObj, actual);
 });
