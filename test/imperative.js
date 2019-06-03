@@ -567,7 +567,13 @@ metatests.testSync('must support simple contains', test => {
 });
 
 metatests.testSync('must support contains comparator', test => {
-  test.contains({ a: 42, b: 13 }, { a: 123 }, '', actual => actual === 42);
+  test.contains(
+    { a: 42, b: 13 },
+    { a: 123 },
+    '',
+    false,
+    actual => actual === 42
+  );
 });
 
 metatests.testSync('must support contains of errors', test => {
