@@ -25,6 +25,10 @@ and this project adheres to
   will result in them being displayed as simple objects in diff and avoid
   hiding necessary details.
 
+## Fixed
+
+- Duplicate test numbers in TapReporter 'Failed' output.
+
 ## [0.7.0][] - 2019-05-15
 
 ### Added
