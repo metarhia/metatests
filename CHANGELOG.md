@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased][unreleased]
 
+### Fixed
+
+- `CHANGELOG.md` Changed/Fixed title level in `0.7.1` version.
+
 ## [0.7.1][] - 2019-07-05
 
 ### Added
@@ -16,7 +20,7 @@ and this project adheres to
 - `test.containsGreedy()` that works similar to `test.contains()` but will
   greedily search for at least one successful comparison for each element.
 
-## Changed
+### Changed
 
 - `test.contains()` to support more types. It can now be used with Array,
   Set, Map and as it was with objects and also as combinations of those types
@@ -27,7 +31,7 @@ and this project adheres to
   will result in them being displayed as simple objects in diff and avoid
   hiding necessary details.
 
-## Fixed
+### Fixed
 
 - Duplicate test numbers in TapReporter 'Failed' output.
 
