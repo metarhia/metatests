@@ -126,27 +126,21 @@ metatests.testSync(
     test.endAfterSubtests();
 
     let i = 0;
-    test.test('nested parallel 1', test =>
-      setTimeout(() => {
-        test.strictSame(i, 2);
-        i = 1;
-        test.end();
-      }, 100)
-    );
-    test.test('nested parallel 2', test =>
-      setTimeout(() => {
-        test.strictSame(i, 3);
-        i = 2;
-        test.end();
-      }, 50)
-    );
-    test.test('nested parallel 3', test =>
-      setTimeout(() => {
-        test.strictSame(i, 0);
-        i = 3;
-        test.end();
-      }, 10)
-    );
+    test.test('nested parallel 1', test => {
+      test.strictSame(i, 0);
+      test.on('done', () => process.nextTick(() => (i = 1)));
+      test.end();
+    });
+    test.test('nested parallel 2', test => {
+      test.strictSame(i, 0);
+      test.on('done', () => process.nextTick(() => (i = 1)));
+      test.end();
+    });
+    test.test('nested parallel 3', test => {
+      test.strictSame(i, 0);
+      test.on('done', () => process.nextTick(() => (i = 1)));
+      test.end();
+    });
     test.on('beforeDone', () => {
       test.strictSame(i, 1);
     });
