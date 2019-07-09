@@ -18,4 +18,6 @@ test.bailout = msg => {
   test._end();
 };
 
-setTimeout(() => assert(bailoutCalled, 'bailout must be called'), 1000);
+process.on('exit', () => {
+  assert(bailoutCalled, 'bailout must be called');
+});
