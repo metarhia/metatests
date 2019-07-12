@@ -60,13 +60,14 @@ const merge = (arr1 = [], arr2 = []) => common.merge(arr1, arr2);
 
 const exclude = (files, filterArr) =>
   filterArr
-    .map(path =>
-      path
-        .replace('.', '\\.')
+    .map(p =>
+      p
+        .replace('/', path.sep)
+        .replace(/[.+^${}()|[\]\\]/g, '\\$&')
         .replace('*', '.+')
         .replace('?', '.')
     )
-    .map(path => new RegExp(path))
+    .map(p => new RegExp(p))
     .reduce((files, regexp) => files.filter(file => !regexp.test(file)), files);
 
 const parseFile = file => {

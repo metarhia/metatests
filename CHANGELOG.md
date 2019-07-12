@@ -12,6 +12,11 @@ and this project adheres to
 
 - `CHANGELOG.md` Changed/Fixed title level in `0.7.1` version.
 
+### Changed
+
+- cli to replace forward slash (`/`) in `--exclude` option with
+  OS specific path separator.
+
 ## [0.7.1][] - 2019-07-05
 
 ### Added
