@@ -12,6 +12,8 @@ const fixturesDir = path.join(__dirname, '..', 'fixtures');
       stdio: 'ignore',
     });
 
-    sp.on('exit', code => assert.equal(code, 0, 'must not exit with error'));
+    sp.on('exit', code => {
+      assert.equal(code, 0, `must not exit with error: ${name}`);
+    });
   }
 );
