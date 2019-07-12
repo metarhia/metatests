@@ -6,8 +6,8 @@ const { ImperativeTest } = require('../..');
 const test = new ImperativeTest();
 let warned = false;
 
-process.on('warning', () => {
-  warned = true;
+process.on('warning', warn => {
+  if (warn.code === 'METATESTS_TODO_IN_DEPENDENT_TEST') warned = true;
 });
 
 test.test('subtest', null, { todo: true });
