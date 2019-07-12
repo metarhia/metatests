@@ -162,9 +162,9 @@ const runNode = (config, cb) => {
       `\nNode ${process.version} (v8 ${process.versions.v8}):`
     );
   }
-  merge(config.files, config.nodeOnly).map(name =>
-    require(path.resolve('./' + name))
-  );
+  merge(config.files, config.nodeOnly).forEach(name => {
+    require(path.join(process.cwd(), name));
+  });
 };
 
 const config = getConfig();
