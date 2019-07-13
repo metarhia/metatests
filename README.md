@@ -205,6 +205,31 @@ Record test
 
 ##### ImperativeTest.prototype.fail(message, err)
 
+##### ImperativeTest.prototype.is(checkFn, val\[, message\])
+
+- `checkFn`: [`<Function>`][function] condition function
+  - `val`: `<any>` provided value
+- _Returns:_ [`<boolean>`][boolean] true if condition is satisfied and false
+  otherwise
+- `val`: `<any>` value to check the condition against
+- `message`: [`<string>`][string] check message, optional
+
+Check whether `val` satisfies custom `checkFn` condition.
+
+##### ImperativeTest.prototype.isArray(val\[, message\])
+
+- `val`: `<any>` value to check
+- `message`: [`<string>`][string] check message, optional
+
+Check if `val` satisfies `Array.isArray`.
+
+##### ImperativeTest.prototype.isBuffer(val\[, message\])
+
+- `val`: `<any>` value to check
+- `message`: [`<string>`][string] check message, optional
+
+Check if `val` satisfies `Buffer.isBuffer`.
+
 ##### ImperativeTest.prototype.isError(actual, expected = new Error(), message = undefined)
 
 ##### ImperativeTest.prototype.isRejected(input, err)
@@ -272,4 +297,5 @@ Check that input is rejected.
 [function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
 [array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
 [error]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
+[boolean]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type
 [string]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type

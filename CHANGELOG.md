@@ -8,14 +8,21 @@ and this project adheres to
 
 ## [Unreleased][unreleased]
 
-### Fixed
+### Added
 
-- `CHANGELOG.md` Changed/Fixed title level in `0.7.1` version.
+- `test#is(checkFn, val, message)` that allows passing custom comparator
+  function to avoid using `test#assert()` that will only display `true`/`false`
+  result. `test#isArray()` `test#isBuffer()` utilities for `test#is()` that
+  just call it with `Array.isArray` and `Buffer.isBuffer` appropriately.
 
 ### Changed
 
 - cli to replace forward slash (`/`) in `--exclude` option with
   OS specific path separator.
+
+### Fixed
+
+- `CHANGELOG.md` Changed/Fixed title level in `0.7.1` version.
 
 ## [0.7.1][] - 2019-07-05
 
