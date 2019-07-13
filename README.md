@@ -189,7 +189,9 @@ Record test
 
 ##### ImperativeTest.prototype.cbFail(fail, cb, afterAllCb)
 
-##### ImperativeTest.prototype.contains(actual, subObj, message, test = compare.strictEqual)
+##### ImperativeTest.prototype.contains(actual, subObj, message, sort, test = compare.strictEqual)
+
+##### ImperativeTest.prototype.containsGreedy(actual, subObj, message, test = compare.strictEqual)
 
 ##### ImperativeTest.prototype.doesNotThrow(fn, message)
 
