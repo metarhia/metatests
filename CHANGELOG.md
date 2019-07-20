@@ -14,6 +14,9 @@ and this project adheres to
   function to avoid using `test#assert()` that will only display `true`/`false`
   result. `test#isArray()` `test#isBuffer()` utilities for `test#is()` that
   just call it with `Array.isArray` and `Buffer.isBuffer` appropriately.
+- `test.regex(regex, input, message)` to simplify checking for regex pattern
+  match. This avoids using `test.assert()` and shows actual pattern/input in
+  the test output.
 
 ### Changed
 

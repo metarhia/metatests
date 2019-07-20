@@ -256,6 +256,14 @@ Check that input is rejected.
 
 ##### ImperativeTest.prototype.plan(n)
 
+##### ImperativeTest.prototype.regex(regex, input\[, message\])
+
+- `regex`: [`<RegExp>`][regexp]|[`<string>`][string] pattern to match
+- `input`: [`<string>`][string] input to check
+- `message`: [`<string>`][string]
+
+Test whether input matches the provided RegExp
+
 ##### ImperativeTest.prototype.rejects(input, err)
 
 Check that input is rejected.
@@ -295,6 +303,7 @@ Check that input is rejected.
 [runner]: #class-runnerrunner-extends-eventemitter
 [object]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
 [function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
+[regexp]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
 [array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
 [error]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
 [boolean]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type
