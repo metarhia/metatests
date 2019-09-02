@@ -42,27 +42,27 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
-    "@metarhia/common": "^2.0.0",
+    "@metarhia/common": "^2.1.0",
     "tap-mocha-reporter": "^4.0.1",
     "tap-yaml": "^1.0.0",
-    "yargs": "^13.2.4"
+    "yargs": "^13.3.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.0.0",
-    "@commitlint/config-conventional": "^8.0.0",
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
     "@metarhia/doc": "^0.5.6",
-    "@stryker-mutator/core": "^2.0.0",
-    "@stryker-mutator/html-reporter": "^2.0.0",
-    "@stryker-mutator/javascript-mutator": "^2.0.0",
-    "eslint": "^5.16.0",
+    "@stryker-mutator/core": "^2.1.0",
+    "@stryker-mutator/html-reporter": "^2.1.0",
+    "@stryker-mutator/javascript-mutator": "^2.1.0",
+    "eslint": "^6.4.0",
     "eslint-config-metarhia": "^7.0.0",
-    "eslint-config-prettier": "^4.3.0",
-    "eslint-plugin-import": "^2.17.3",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-prettier": "^3.1.0",
-    "husky": "^2.3.0",
-    "prettier": "1.17.x",
-    "remark-cli": "^6.0.1",
+    "husky": "^3.0.5",
+    "prettier": "^1.18.2",
+    "remark-cli": "^7.0.0",
     "remark-preset-lint-metarhia": "^2.0.0",
-    "remark-validate-links": "^8.0.2"
+    "remark-validate-links": "^9.0.1"
   }
 }
