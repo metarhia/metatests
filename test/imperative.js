@@ -333,8 +333,12 @@ metatests.test("'pass' result must not contain actual/expected", test => {
   t.on('done', () => {
     test.strictSame(t.results[0].type, 'pass');
     test.strictSame(t.results[0].message, 'msg');
-    test.assertNot(t.results[0].hasOwnProperty('actual'));
-    test.assertNot(t.results[0].hasOwnProperty('expected'));
+    test.assertNot(
+      Object.prototype.hasOwnProperty.call(t.results[0], 'actual')
+    );
+    test.assertNot(
+      Object.prototype.hasOwnProperty.call(t.results[0], 'expected')
+    );
     test.end();
   });
 });
