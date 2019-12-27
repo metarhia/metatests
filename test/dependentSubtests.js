@@ -16,9 +16,18 @@ metatests.test('must support dependentSubtests', test => {
   const t = new metatests.ImperativeTest(
     'mustNotCall test',
     t => {
-      t.testSync('successful subtest', test.mustCall(t => t.pass()));
-      t.testSync('failing subtest', test.mustCall(t => t.fail()));
-      t.testSync('successful subtest', test.mustNotCall(t => t.pass()));
+      t.testSync(
+        'successful subtest',
+        test.mustCall(t => t.pass())
+      );
+      t.testSync(
+        'failing subtest',
+        test.mustCall(t => t.fail())
+      );
+      t.testSync(
+        'successful subtest',
+        test.mustNotCall(t => t.pass())
+      );
     },
     { async: false, dependentSubtests: true }
   );

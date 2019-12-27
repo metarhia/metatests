@@ -84,10 +84,30 @@ assert(equal(null, null));
 assert(!equal({}, null));
 assert(!equal(null, {}));
 
-assert(equal(() => {}, () => {}));
-assert(equal(() => 3, () => 3));
-assert(equal(a => a, a => a));
-assert(equal((a, b) => a + b, (a, b) => a + b));
+assert(
+  equal(
+    () => {},
+    () => {}
+  )
+);
+assert(
+  equal(
+    () => 3,
+    () => 3
+  )
+);
+assert(
+  equal(
+    a => a,
+    a => a
+  )
+);
+assert(
+  equal(
+    (a, b) => a + b,
+    (a, b) => a + b
+  )
+);
 assert(
   equal(
     function(a, b) {
@@ -108,7 +128,12 @@ assert(equal(func, func));
 assert(!equal(console.log, console.dir));
 
 assert(!equal(() => {}, null));
-assert(!equal(() => {}, a => ++a));
+assert(
+  !equal(
+    () => {},
+    a => ++a
+  )
+);
 assert(!equal(JSON.stringify, () => {}));
 
 assert(strictEqual(1, 1));
@@ -177,10 +202,30 @@ assert(!strictEqual([true, false], [true, true]));
 assert(strictEqual([NaN, Infinity], [NaN, Infinity]));
 assert(!strictEqual([NaN, Infinity], [Infinity, NaN]));
 
-assert(strictEqual(() => {}, () => {}));
-assert(strictEqual(() => 3, () => 3));
-assert(strictEqual(a => a, a => a));
-assert(strictEqual((a, b) => a + b, (a, b) => a + b));
+assert(
+  strictEqual(
+    () => {},
+    () => {}
+  )
+);
+assert(
+  strictEqual(
+    () => 3,
+    () => 3
+  )
+);
+assert(
+  strictEqual(
+    a => a,
+    a => a
+  )
+);
+assert(
+  strictEqual(
+    (a, b) => a + b,
+    (a, b) => a + b
+  )
+);
 assert(
   strictEqual(
     function(a, b) {
