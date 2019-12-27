@@ -84,14 +84,22 @@ const checkResult = (test, res, type, subObj, actual, success = true) => {
   },
   {
     msg: 'map',
-    subObj: new Map([['a', 42], ['b', 13], ['d', 66]]),
+    subObj: new Map([
+      ['a', 42],
+      ['b', 13],
+      ['d', 66],
+    ]),
     actual: base => new Map([['c', 55], ...base, [1, 2], ['z', 99]]),
     expectedRes: { a: 42, b: 13, d: 66 },
     actualRes: { c: 55, a: 42, b: 13, d: 66, 1: 2, z: 99 },
   },
   {
     msg: 'object-map',
-    subObj: new Map([['a', 42], ['b', 13], ['c', 33]]),
+    subObj: new Map([
+      ['a', 42],
+      ['b', 13],
+      ['c', 33],
+    ]),
     actual: () => ({ a: 42, b: 13, c: 33, d: 66, z: 99 }),
     expectedRes: { a: 42, b: 13, c: 33 },
   },
@@ -99,7 +107,13 @@ const checkResult = (test, res, type, subObj, actual, success = true) => {
     msg: 'map-object',
     subObj: { a: 42, b: 13, c: 33 },
     actual: () =>
-      new Map([['a', 42], ['b', 13], ['c', 33], ['d', 66], ['z', 99]]),
+      new Map([
+        ['a', 42],
+        ['b', 13],
+        ['c', 33],
+        ['d', 66],
+        ['z', 99],
+      ]),
     actualRes: { a: 42, b: 13, c: 33, d: 66, z: 99 },
   },
   {

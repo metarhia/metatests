@@ -11,7 +11,11 @@ test('nested successful case', test => {
   const t = new ImperativeTest('parent', test => {
     t.endAfterSubtests();
     nestedDeclarative = test.case('declarative', namespace, {
-      f1: [[1, 2], [2, 4], [3, 6]],
+      f1: [
+        [1, 2],
+        [2, 4],
+        [3, 6],
+      ],
     });
   });
   t.on('done', () => {
