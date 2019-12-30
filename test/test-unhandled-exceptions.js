@@ -22,3 +22,24 @@ test('must catch unhandledExceptions', test => {
     test.end();
   });
 });
+
+test('must catch "null" unhandledException', test => {
+  const t = new ImperativeTest(
+    'Throwing null',
+    () => {
+      throw null;
+    },
+    { async: false }
+  );
+
+  t.on('done', () => {
+    test.assertNot(t.success, 'must be failed');
+    test.contains(t.results[0], {
+      type: 'unhandledException',
+      success: false,
+      message: null,
+      stack: null,
+    });
+    test.end();
+  });
+});
