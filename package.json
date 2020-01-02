@@ -50,7 +50,7 @@
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
-    "@metarhia/doc": "^0.5.6",
+    "@metarhia/doc": "^0.6.0",
     "@stryker-mutator/core": "^2.4.0",
     "@stryker-mutator/html-reporter": "^2.4.0",
     "@stryker-mutator/javascript-mutator": "^2.4.0",
