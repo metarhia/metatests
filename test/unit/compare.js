@@ -110,20 +110,19 @@ assert(
 );
 assert(
   equal(
-    function(a, b) {
+    (a, b) => {
       a += 3;
       return this.c + a + b;
     },
-    function(a, b) {
+    (a, b) => {
       a += 3;
       return this.c + a + b;
     }
   )
 );
 
-const func = function(a) {
-  return a;
-};
+const func = a => a;
+
 assert(equal(func, func));
 assert(!equal(console.log, console.dir));
 
@@ -228,11 +227,11 @@ assert(
 );
 assert(
   strictEqual(
-    function(a, b) {
+    (a, b) => {
       a += 3;
       return this.c + a + b;
     },
-    function(a, b) {
+    (a, b) => {
       a += 3;
       return this.c + a + b;
     }
