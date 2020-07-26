@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased][unreleased]
 
+## [0.7.2][] - 2020-07-27
+
 ### Added
 
 - `test#is(checkFn, val, message)` that allows passing custom comparator
@@ -27,6 +29,10 @@ and this project adheres to
 
 - `CHANGELOG.md` Changed/Fixed title level in `0.7.1` version.
 - `null`/`undefined` as uncaughtException are properly handled.
+
+### Security
+
+- Update project dependencies and fix security issues.
 
 ## [0.7.1][] - 2019-07-05
 
@@ -533,7 +539,8 @@ and this project adheres to
 
 - The first version of the `metatests` package.
 
-[unreleased]: https://github.com/metarhia/metatests/compare/v0.7.1...HEAD
+[unreleased]: https://github.com/metarhia/metatests/compare/v0.7.2...HEAD
+[0.7.2]: https://github.com/metarhia/metatests/compare/v0.7.1...v0.7.2
 [0.7.1]: https://github.com/metarhia/metatests/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/metarhia/metatests/compare/v0.6.6...v0.7.0
 [0.6.6]: https://github.com/metarhia/metatests/compare/v0.6.5...v0.6.6
