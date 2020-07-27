@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased][unreleased]
 
+### Fixed
+
+- Comparison of `Map` and `Set` objects.
+
 ## [0.7.2][] - 2020-07-27
 
 ### Added

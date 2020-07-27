@@ -164,7 +164,7 @@ const runNode = (config, cb) => {
     );
   }
   merge(config.files, config.nodeOnly).forEach(name => {
-    require(path.join(process.cwd(), name));
+    require(path.isAbsolute(name) ? name : path.join(process.cwd(), name));
   });
 };
 

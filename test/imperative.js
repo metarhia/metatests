@@ -580,3 +580,48 @@ if (__filename) {
     t.end();
   });
 }
+
+metatests.testSync('must support simple Map comparison', test => {
+  test.strictEqual(
+    new Map([
+      [1, 'a'],
+      [2, 'b'],
+    ]),
+    new Map([
+      [1, 'a'],
+      [2, 'b'],
+    ])
+  );
+});
+
+metatests.test('must support simple Map comparison failure', test => {
+  const t = new metatests.ImperativeTest('mustCall test', t => {
+    t.strictEqual(
+      new Map([[1, 'a']]),
+      new Map([
+        [2, 'b'],
+        [1, 'a'],
+      ])
+    );
+    t.end();
+  });
+  t.on('done', () => {
+    test.strictSame(t.success, false);
+    test.end();
+  });
+});
+
+metatests.testSync('must support simple Set comparison', test => {
+  test.strictEqual(new Set([1, 2]), new Set([1, 2]));
+});
+
+metatests.test('must support simple Set comparison failure', test => {
+  const t = new metatests.ImperativeTest('mustCall test', t => {
+    t.strictEqual(new Set([1]), new Set([1, 2]));
+    t.end();
+  });
+  t.on('done', () => {
+    test.strictSame(t.success, false);
+    test.end();
+  });
+});

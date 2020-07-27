@@ -67,6 +67,15 @@ const checkResult = (test, res, type, subObj, actual, success = true) => {
     actualRes: { 0: 'r', 1: 'm r', 2: 42, 3: 1, 4: 2 },
   },
   {
+    msg: 'sets-different-order',
+    inverse: true,
+    sort: true,
+    subObj: new Set(['r', 'm r', 42, { a: 42 }]),
+    actual: () => new Set(['m r', { a: 42 }, 'r', 42]),
+    expectedRes: { 0: 42, 1: { a: 42 }, 2: 'm r', 3: 'r' },
+    actualRes: { 0: 42, 1: { a: 42 }, 2: 'm r', 3: 'r' },
+  },
+  {
     msg: 'sets sort',
     subObj: new Set([42, 'a', 'b']),
     actual: () => new Set(['x', 'a', 'b', 42, 'z']),
@@ -92,6 +101,23 @@ const checkResult = (test, res, type, subObj, actual, success = true) => {
     actual: base => new Map([['c', 55], ...base, [1, 2], ['z', 99]]),
     expectedRes: { a: 42, b: 13, d: 66 },
     actualRes: { c: 55, a: 42, b: 13, d: 66, 1: 2, z: 99 },
+  },
+  {
+    msg: 'map-different-order',
+    inverse: true,
+    subObj: new Map([
+      ['a', 42],
+      ['b', 13],
+      ['d', 66],
+    ]),
+    actual: () =>
+      new Map([
+        ['b', 13],
+        ['d', 66],
+        ['a', 42],
+      ]),
+    expectedRes: { a: 42, b: 13, d: 66 },
+    actualRes: { a: 42, b: 13, d: 66 },
   },
   {
     msg: 'object-map',
@@ -130,7 +156,7 @@ const checkResult = (test, res, type, subObj, actual, success = true) => {
     expectedRes: { 0: 42, 1: 'a', 2: 'b' },
     actualRes: { 0: 42, 1: 'a', 2: 'b', 3: 'z' },
   },
-].forEach(({ msg, subObj, actual, sort, expectedRes, actualRes }) => {
+].forEach(({ msg, inverse, subObj, actual, sort, expectedRes, actualRes }) => {
   actual = actual(subObj);
 
   test.testSync('test.contains ' + msg, t => {
@@ -155,7 +181,7 @@ const checkResult = (test, res, type, subObj, actual, success = true) => {
       'contains',
       actualRes || actual,
       expectedRes || subObj,
-      false
+      !!inverse
     );
   });
 
@@ -169,7 +195,7 @@ const checkResult = (test, res, type, subObj, actual, success = true) => {
     sub.containsGreedy(subObj, actual);
     sub.end();
     t.log(sub.results[0]);
-    checkResult(t, sub.results[0], 'containsGreedy', actual, subObj, false);
+    checkResult(t, sub.results[0], 'containsGreedy', actual, subObj, !!inverse);
   });
 });
 

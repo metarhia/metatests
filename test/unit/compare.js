@@ -84,6 +84,70 @@ assert(equal(null, null));
 assert(!equal({}, null));
 assert(!equal(null, {}));
 
+assert(equal(new Map(), new Map()));
+assert(equal(new Map([[1, 'a']]), new Map([[1, 'a']])));
+assert(
+  equal(
+    new Map([
+      [1, 'a'],
+      [2, 'b'],
+    ]),
+    new Map([
+      [1, 'a'],
+      [2, 'b'],
+    ])
+  )
+);
+assert(
+  !equal(
+    new Map([
+      [1, 'a'],
+      [2, 'b'],
+    ]),
+    new Map([
+      [2, 'b'],
+      [1, 'a'],
+    ])
+  )
+);
+assert(
+  !equal(
+    new Map([[1, 'a']]),
+    new Map([
+      [2, 'b'],
+      [1, 'a'],
+    ])
+  )
+);
+assert(
+  !equal(
+    new Map([
+      [1, 'a'],
+      [2, 'b'],
+    ]),
+    new Map([[1, 'a']])
+  )
+);
+assert(
+  !equal(
+    new Map([
+      [1, 'a'],
+      [3, 'c'],
+    ]),
+    new Map([
+      [1, 'a'],
+      [2, 'b'],
+    ])
+  )
+);
+
+assert(equal(new Set(), new Set()));
+assert(equal(new Set([1]), new Set([1])));
+assert(equal(new Set([1, 2]), new Set([1, 2])));
+assert(!equal(new Set([1, 2]), new Set([2, 1])));
+assert(!equal(new Set([1, 2]), new Set([1])));
+assert(!equal(new Set([1]), new Set([2])));
+
 assert(
   equal(
     () => {},
@@ -244,6 +308,70 @@ assert(strictEqual({ field: 1 }, { field: 1 }));
 assert(!strictEqual({}, { field: 'a' }));
 assert(!strictEqual({ field: 'a' }, {}));
 assert(!strictEqual({ field: 1 }, { field: '1' }));
+
+assert(strictEqual(new Map(), new Map()));
+assert(strictEqual(new Map([[1, 'a']]), new Map([[1, 'a']])));
+assert(
+  strictEqual(
+    new Map([
+      [1, 'a'],
+      [2, 'b'],
+    ]),
+    new Map([
+      [1, 'a'],
+      [2, 'b'],
+    ])
+  )
+);
+assert(
+  !strictEqual(
+    new Map([
+      [1, 'a'],
+      [2, 'b'],
+    ]),
+    new Map([
+      [2, 'b'],
+      [1, 'a'],
+    ])
+  )
+);
+assert(
+  !strictEqual(
+    new Map([[1, 'a']]),
+    new Map([
+      [2, 'b'],
+      [1, 'a'],
+    ])
+  )
+);
+assert(
+  !strictEqual(
+    new Map([
+      [1, 'a'],
+      [2, 'b'],
+    ]),
+    new Map([[1, 'a']])
+  )
+);
+assert(
+  !strictEqual(
+    new Map([
+      [1, 'a'],
+      [3, 'c'],
+    ]),
+    new Map([
+      [1, 'a'],
+      [2, 'b'],
+    ])
+  )
+);
+
+assert(strictEqual(new Set(), new Set()));
+assert(strictEqual(new Set([1]), new Set([1])));
+assert(strictEqual(new Set([1, 2]), new Set([1, 2])));
+assert(!strictEqual(new Set([1, 2]), new Set([2, 1])));
+assert(!strictEqual(new Set([1, 2]), new Set([1])));
+assert(!strictEqual(new Set([1]), new Set([2])));
 
 assert(strictEqual(null, null));
 assert(!strictEqual({}, null));
