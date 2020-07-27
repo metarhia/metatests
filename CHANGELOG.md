@@ -29,6 +29,9 @@ and this project adheres to
 
 - `CHANGELOG.md` Changed/Fixed title level in `0.7.1` version.
 - `null`/`undefined` as uncaughtException are properly handled.
+
+### Security
+
 - Update project dependencies and fix security issues.
 
 ## [0.7.1][] - 2019-07-05
