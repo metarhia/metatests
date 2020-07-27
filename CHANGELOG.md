@@ -8,7 +8,7 @@ and this project adheres to
 
 ## [Unreleased][unreleased]
 
-## [0.7.2][] - 2020-07-26
+## [0.7.2][] - 2020-07-27
 
 ### Added
 
@@ -536,7 +536,7 @@ and this project adheres to
 
 - The first version of the `metatests` package.
 
-[unreleased]: https://github.com/metarhia/metatests/compare/v0.7.1...HEAD
+[unreleased]: https://github.com/metarhia/metatests/compare/v0.7.2...HEAD
 [0.7.2]: https://github.com/metarhia/metatests/compare/v0.7.1...v0.7.2
 [0.7.1]: https://github.com/metarhia/metatests/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/metarhia/metatests/compare/v0.6.6...v0.7.0
