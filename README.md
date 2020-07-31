@@ -101,6 +101,7 @@ technology stack built on the following principles:
   - [runner.instance](#runnerinstance)
   - [speed](#speedcaption-count-cases)
   - [measure](#measurecases-options)
+  - [convertToCsv](#converttocsvresults)
   - [ImperativeTest](#class-imperativetest-extends-test)
     - [ImperativeTest.prototype.constructor](#imperativetestprototypeconstructorcaption-func-options)
     - [ImperativeTest.prototype.afterEach](#imperativetestprototypeaftereachfunc)
@@ -318,6 +319,14 @@ _Returns:_ [`<Array>`][array] results of all cases as objects of structure
 - `result`: [`<string>`][string] result of one of the runs
 
 Microbenchmark each passed configuration multiple times
+
+#### convertToCsv(results)
+
+- `results`: [`<Array>`][array] all results from `measure` run
+
+_Returns:_ [`<string>`][string] valid CSV representation of the results
+
+Convert metatests.measure result to csv.
 
 #### class ImperativeTest extends Test
 
