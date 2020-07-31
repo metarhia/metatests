@@ -99,7 +99,8 @@ technology stack built on the following principles:
     - [runner.Runner.prototype.setReporter](#runnerrunnerprototypesetreporterreporter)
     - [runner.Runner.prototype.wait](#runnerrunnerprototypewait)
   - [runner.instance](#runnerinstance)
-  - [speed](#speedcaption-count-tests)
+  - [speed](#speedcaption-count-cases)
+  - [measure](#measurecases-options)
   - [ImperativeTest](#class-imperativetest-extends-test)
     - [ImperativeTest.prototype.constructor](#imperativetestprototypeconstructorcaption-func-options)
     - [ImperativeTest.prototype.afterEach](#imperativetestprototypeaftereachfunc)
@@ -263,7 +264,60 @@ Record test
 
 - [`<Runner>`][runner]
 
-#### speed(caption, count, tests)
+#### speed(caption, count, cases)
+
+- `caption`: [`<string>`][string] name of the benchmark
+- `count`: [`<number>`][number] amount of times ro run each function
+- `cases`: [`<Array>`][array] functions to check
+
+Microbenchmark each passed function and compare results.
+
+#### measure(cases\[, options\])
+
+- `cases`: [`<Array>`][array] cases to test, each case contains
+  - `fn`: [`<Function>`][function] function to check, will be called with each
+    args provided
+  - `name`: [`<string>`][string] case name, function.name by default
+  - `argCases`: [`<Array>`][array] array of arguments to create runs with. When
+    omitted `fn` will be run once without arguments. Total amount of runs will
+    be `runs * argCases.length`.
+  - `n`: [`<number>`][number] number of times to run the test, defaultCount from
+    options by default
+- `options`: [`<Object>`][object]
+  - `defaultCount`: [`<number>`][number] number of times to run the function by
+    default, default: 1e6
+  - `runs`: [`<number>`][number] number of times to run the case, default: 20
+  - `preflight`: [`<number>`][number] number of times to pre-run the case for
+    each set of arguments, default: 10
+  - `preflightCount`: [`<number>`][number] number of times to run the function
+    in the preflight stage, default: 1e4
+  - `listener`: [`<Object>`][object] appropriate function will be called to
+    report events, optional
+    - `preflight`: [`<Function>`][function] called when preflight is starting,
+      optional
+      - `name`: [`<string>`][string] case name
+      - `count`: [`<number>`][number] number of times it will be run
+      - `args`: [`<Array>`][array] function arguments
+    - `run`: [`<Function>`][function] called when run is starting, optional
+      - `name`: [`<string>`][string] case name
+      - `count`: [`<number>`][number] number of times it will be run
+      - `args`: [`<Array>`][array] function arguments
+    - `done`: [`<Function>`][function] called when run in done, optional
+      - `name`: [`<string>`][string] case name
+      - `results`: [`<Object>`][object] case run results
+    - `finish`: [`<Function>`][function] called when measuring is finished,
+      optional
+      - `results`: [`<Array>`][array] all case results
+
+_Returns:_ [`<Array>`][array] results of all cases as objects of structure
+
+- `name`: [`<string>`][string] case name
+- `args`: [`<Array>`][array] arguments for this run
+- `count`: [`<string>`][string] number of times case was run
+- `time`: [`<string>`][string] time in nanoseconds it took to make `count` runs
+- `result`: [`<string>`][string] result of one of the runs
+
+Microbenchmark each passed configuration multiple times
 
 #### class ImperativeTest extends Test
 
@@ -402,5 +456,6 @@ Check that input is rejected.
 [array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
 [error]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
 [boolean]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type
+[number]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type
 [string]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type
 [runner]: #class-runnerrunner-extends-eventemitter
