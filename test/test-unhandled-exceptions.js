@@ -34,7 +34,8 @@ test('must catch "null" unhandledException', test => {
 
   t.on('done', () => {
     test.assertNot(t.success, 'must be failed');
-    test.contains(t.results[0], {
+    const res = { ...t.results[0], test: null };
+    test.contains(res, {
       type: 'unhandledException',
       success: false,
       message: null,
