@@ -4,7 +4,7 @@ const declarativeTest = require('./lib/declarative-test');
 const { equal, strictEqual } = require('./lib/compare');
 const reporters = require('./lib/report');
 const runner = require('./lib/runner');
-const { speed } = require('./lib/speed.js');
+const { speed, measure } = require('./lib/speed.js');
 const {
   ImperativeTest,
   test,
@@ -20,6 +20,7 @@ const metatests = {
   reporters,
   runner,
   speed,
+  measure,
   ImperativeTest,
   test,
   testSync,
