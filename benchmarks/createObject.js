@@ -66,7 +66,7 @@ const itemFactory = (hello, size, flag) => ({ hello, size, flag });
 
 const callFactory = () => itemFactory('world', 100500, true);
 
-metatests.speed('Benchmark example', 2000000, [
+metatests.speed('Create Object', 2000000, [
   closureInstance,
   defineObject,
   defineArray,
