@@ -27,9 +27,7 @@ test.on('done', () => {
 });
 
 const error = new Error('hello');
-const erroringTest = new ImperativeTest('erroring test', null, {
-  timeout: 1000,
-});
+const erroringTest = new ImperativeTest('erroring test', null);
 const st3 = erroringTest.testSync('throwing test', () => {
   throw error;
 });
