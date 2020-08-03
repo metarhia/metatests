@@ -66,16 +66,37 @@ const itemFactory = (hello, size, flag) => ({ hello, size, flag });
 
 const callFactory = () => itemFactory('world', 100500, true);
 
-metatests.speed('Create Object', 2000000, [
-  closureInstance,
-  defineObject,
-  defineArray,
-  defineArrayOfString,
-  defineArrayOfNumber,
-  mixinObject,
-  newPrototype,
-  newClass,
-  newObject,
-  objectCreate,
-  callFactory,
-]);
+if (!process.env.MEASURE) {
+  metatests.speed('Create Object example', 2e6, [
+    closureInstance,
+    defineObject,
+    defineArray,
+    defineArrayOfString,
+    defineArrayOfNumber,
+    mixinObject,
+    newPrototype,
+    newClass,
+    newObject,
+    objectCreate,
+    callFactory,
+  ]);
+} else {
+  const cases = {
+    closureInstance,
+    defineObject,
+    defineArray,
+    defineArrayOfString,
+    defineArrayOfNumber,
+    mixinObject,
+    newPrototype,
+    newClass,
+    newObject,
+    objectCreate,
+    callFactory,
+  };
+  const results = metatests.measure(
+    [{ name: 'create', fn: cases[process.env.MEASURE] || defineObject }],
+    { defaultCount: 2e6 }
+  );
+  console.log(metatests.convertToCsv(results));
+}
