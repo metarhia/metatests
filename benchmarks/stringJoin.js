@@ -59,29 +59,31 @@ const iterJoin = () =>
     .map(c => `${c.a} ${c.b}`)
     .join(', ');
 
-metatests.speed('iter', 100000, [
-  rawJoin,
-  rawJoinSpread,
-  manualJoin,
-  manualWithMap,
-  iterJoin,
-  manualJoinForOf,
-  reduceJoin,
-  reduceSliceStrJoin,
-]);
-
-// console.log(
-//   metatests.measureToCsv(
-//     [
-//       // { name: 'join', fn: rawJoin },
-//       // { name: 'join', fn: rawJoinSpread },
-//       // { name: 'join', fn: manualJoin },
-//       // { name: 'join', fn: manualWithMap },
-//       // { name: 'join', fn: iterJoin },
-//       // { name: 'join', fn: manualJoinForOf },
-//       // { name: 'join', fn: reduceJoin },
-//       // { name: 'join', fn: reduceSliceStrJoin },
-//     ],
-//     { defaultCount: 1e7 }
-//   )
-// );
+if (!process.env.MEASURE) {
+  metatests.speed('string join example', 1e6, [
+    rawJoin,
+    rawJoinSpread,
+    manualJoin,
+    manualWithMap,
+    iterJoin,
+    manualJoinForOf,
+    reduceJoin,
+    reduceSliceStrJoin,
+  ]);
+} else {
+  const cases = {
+    rawJoin,
+    rawJoinSpread,
+    manualJoin,
+    manualWithMap,
+    iterJoin,
+    manualJoinForOf,
+    reduceJoin,
+    reduceSliceStrJoin,
+  };
+  const results = metatests.measure(
+    [{ name: 'join', fn: cases[process.env.MEASURE] || rawJoin }],
+    { defaultCount: 1e6 }
+  );
+  console.log(metatests.convertToCsv(results));
+}
