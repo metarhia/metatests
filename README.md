@@ -1,6 +1,6 @@
 # metatests
 
-[![TravisCI](https://travis-ci.org/metarhia/metatests.svg?branch=master)](https://travis-ci.org/metarhia/metatests)
+[![CI Status Badge](https://github.com/metarhia/metatests/workflows/Testing%20CI/badge.svg?branch=master)](https://github.com/metarhia/metatests/actions?query=workflow%3A%22Testing+CI%22+branch%3Amaster)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/79fc1a2a1b144e3c9283c681607b7c3f)](https://www.codacy.com/app/metarhia/metatests)
 [![NPM Version](https://badge.fury.io/js/metatests.svg)](https://badge.fury.io/js/metatests)
 [![NPM Downloads/Month](https://img.shields.io/npm/dm/metatests.svg)](https://www.npmjs.com/package/metatests)
