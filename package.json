@@ -22,6 +22,12 @@
     "url": "https://github.com/metarhia/metatests/issues"
   },
   "main": "metatests.js",
+  "exports": {
+    ".": {
+      "require": "./metatests.js",
+      "import": "./metatests.mjs"
+    }
+  },
   "bin": {
     "metatests": "bin/cli.js"
   },
