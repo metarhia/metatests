@@ -1,12 +1,18 @@
 #!/usr/bin/env node
 'use strict';
 
-const metatests = require('..');
 const yargs = require('yargs');
 const common = require('@metarhia/common');
 const yaml = require('tap-yaml');
 const path = require('path');
 const fs = require('fs');
+const util = require('util');
+const { spawn } = require('child_process');
+
+const metatests = require('..');
+const { resultToCsv, makeTotalResults } = require('../lib/speed');
+
+const COMPARE_R_PATH = path.join(__dirname, '..', 'benchmarks', 'compare.R');
 
 const DEFAULT_EXIT_TIMEOUT = 5;
 const runner = metatests.runner.instance;
@@ -158,7 +164,7 @@ const runTests = args => {
   runNode(config, onExit);
 };
 
-const runSpeed = args => {
+const handleBenchTarget = args => {
   const res = require(path.join(process.cwd(), args.file));
   let target;
   if (Array.isArray(res)) target = res;
@@ -168,11 +174,80 @@ const runSpeed = args => {
     if (Array.isArray(r)) target = r;
     else if (typeof r === 'function') target = [r];
   }
-  if (target) {
-    metatests.speed(args.caption, args.count, target);
-  } else {
+  if (!target) {
     console.error("File doesn't export correct target");
     yargs.showHelp();
+    process.exit(1);
+  }
+  return target;
+};
+
+const runSpeed = args => {
+  const target = handleBenchTarget(args);
+  if (!target) return;
+  metatests.speed(args.caption, args.count, target);
+};
+
+function measureTarget(target, args) {
+  const options = {
+    defaultCount: args.count,
+    runs: args.runs,
+    preflight: args.preflight,
+    preflightCount: args.preflightCount,
+    listener: {
+      done: (name, r) => {
+        let out;
+        if (args.csv) {
+          out = resultToCsv(r);
+        } else {
+          let args = r.args && r.args.map(util.inspect).join(' ');
+          if (args) args = '\targs=' + args;
+          out = `${name}\tn=${r.count}${args}:\t\t${r.time}`;
+        }
+        console.log(out);
+      },
+    },
+  };
+  if (args.csv) {
+    console.log(
+      ['name', 'configuration', 'rate', 'time'].map(JSON.stringify).join(', ')
+    );
+  }
+  return metatests.measure(target, options);
+}
+
+const runMeasure = args => {
+  if ((args.new && !args.old) || (args.old && !args.new)) {
+    console.error('Measure --old --new must always be used together.');
+    process.exit(1);
+  }
+  if (args.new && args.old) {
+    let res = require(path.join(process.cwd(), args.file));
+    if (args.target) res = res[args.target];
+    const oldTarget = res[args.old];
+    const oldCases = Array.isArray(oldTarget)
+      ? oldTarget
+      : [{ name: args.name, fn: oldTarget }];
+    const newTarget = res[args.new];
+    const newCases = Array.isArray(newTarget)
+      ? newTarget
+      : [{ name: args.name, fn: newTarget }];
+
+    console.log('Measuring old target');
+    const oldResults = measureTarget(oldCases, args);
+    console.log('Measuring new target');
+    const newResults = measureTarget(newCases, args);
+
+    const r = spawn('Rscript', [COMPARE_R_PATH], {
+      stdio: ['pipe', 'inherit', 'inherit'],
+    });
+    console.log();
+    r.stdin.write(makeTotalResults(oldResults, newResults));
+    r.stdin.end();
+  } else {
+    const target = handleBenchTarget(args);
+    if (!target) return;
+    measureTarget(target, args);
   }
 };
 
@@ -245,6 +320,70 @@ yargs
                 describe: 'Name of exported property to use for speed test',
               }),
           runSpeed
+        )
+        .command(
+          'measure <file>',
+          'Measure multiple runs of cases. ' +
+            'Target file or property with --target must export valid cases ' +
+            'for metatests.measure().' +
+            'Two implementations can be compared with the use of ' +
+            '--new and --old options',
+          y =>
+            y
+              .usage('measure [options] file.js')
+              .option('csv', {
+                type: 'boolean',
+                describe: 'Output results as CSV',
+                default: false,
+              })
+              .option('count', {
+                alias: 'n',
+                type: 'number',
+                describe: 'Default number of function runs',
+                default: 1e6,
+              })
+              .option('runs', {
+                alias: 'r',
+                type: 'number',
+                describe: 'Number of runs of each case',
+                default: 20,
+              })
+              .option('preflight', {
+                alias: 'p',
+                type: 'number',
+                describe: 'Number of preflight runs of each case',
+                default: 10,
+              })
+              .option('preflightCount', {
+                alias: 'pc',
+                type: 'number',
+                describe: 'Number of preflight function runs',
+                default: 1e7,
+              })
+              .option('target', {
+                alias: 't',
+                type: 'string',
+                describe: 'Name of exported property to use for speed test',
+              })
+              .option('name', {
+                type: 'string',
+                describe:
+                  'Name to use for test function if --new --old is used',
+                default: 'bench',
+              })
+              .option('new', {
+                type: 'string',
+                describe:
+                  'Name of exported property to use as new in comparison. ' +
+                  'Must always be used with --old.',
+              })
+              .option('old', {
+                type: 'string',
+                describe:
+                  'Name of exported property to use as old in comparison. ' +
+                  'Must always be used with --new.',
+              }),
+          runMeasure
         );
     },
     runTests
