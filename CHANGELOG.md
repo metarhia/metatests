@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased][unreleased]
 
+### Added
+
+- `metatests speed` command to run simple speed tests on exported
+  from file functions via cli.
+
 ### Fixed
 
 - Comparison of `Map` and `Set` objects.

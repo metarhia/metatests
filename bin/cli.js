@@ -158,6 +158,24 @@ const runTests = args => {
   runNode(config, onExit);
 };
 
+const runSpeed = args => {
+  const res = require(path.join(process.cwd(), args.file));
+  let target;
+  if (Array.isArray(res)) target = res;
+  else if (typeof res === 'function') target = [res];
+  else if (typeof res === 'object' && args.target) {
+    const r = res[args.target];
+    if (Array.isArray(r)) target = r;
+    else if (typeof r === 'function') target = [r];
+  }
+  if (target) {
+    metatests.speed(args.caption, args.count, target);
+  } else {
+    console.error("File doesn't export correct target");
+    yargs.showHelp();
+  }
+};
+
 yargs
   .parserConfiguration({
     'duplicate-arguments-array': false,
@@ -169,32 +187,67 @@ yargs
       y.usage('$0 [options] file.js [file.js...]')
         .usage('$0 [options] --config config.json')
         .option('exclude', {
+          global: false,
           array: true,
           type: 'string',
           describe: 'Exclude tests patterns',
         })
         .option('reporter', {
+          global: false,
           type: 'string',
           describe: 'Reporter name',
         })
         .option('log-level', {
+          global: false,
           choices: Object.keys(logLevels),
           type: 'string',
           describe: 'Log level',
         })
         .option('run-todo', {
+          global: false,
           type: 'boolean',
           describe: 'Run todo tests',
         })
         .option('exit-timeout', {
+          global: false,
           type: 'number',
           describe: 'Seconds to wait after tests finished',
         })
         .option('config', {
+          global: false,
           alias: 'c',
           type: 'string',
           describe: 'Path to config file',
-        });
+        })
+        // This has to be a subcommand in order to have its help
+        // usage printed by yargs.
+        .command(
+          'speed <file>',
+          'Simple speed tests. The file should either export a ' +
+            'case/function, an array of cases/function or an object with ' +
+            '--target option provided',
+          y =>
+            y
+              .option('caption', {
+                type: 'string',
+                describe: 'Caption of the speed test',
+                default: 'Speed test',
+              })
+              .option('count', {
+                alias: 'n',
+                type: 'number',
+                describe: 'Number of runs',
+                default: 1e7,
+              })
+              .option('target', {
+                alias: 't',
+                type: 'string',
+                describe: 'Name of exported property to use for speed test',
+              }),
+          runSpeed
+        );
     },
     runTests
-  ).argv;
+  )
+  .help()
+  .alias('help', 'h').argv;
