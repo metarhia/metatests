@@ -13,6 +13,10 @@ and this project adheres to
 - `metatests speed` command to run simple speed tests on exported
   from file functions via cli.
 
+### Changed
+
+- Allow to pass function only cases to `measure()`.
+
 ### Fixed
 
 - Comparison of `Map` and `Set` objects.
