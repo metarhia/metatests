@@ -20,41 +20,20 @@ const logLevels = {
   debug: 4,
 };
 
-const args = yargs
-  .usage('$0 [options] file.js [file.js...]')
-  .parserConfiguration({
-    'duplicate-arguments-array': false,
-  })
-  .option('exclude', {
-    array: true,
-    type: 'string',
-    describe: 'Exclude tests patterns',
-  })
-  .option('reporter', {
-    type: 'string',
-    describe: 'Reporter name',
-  })
-  .option('log-level', {
-    choices: Object.keys(logLevels),
-    type: 'string',
-    describe: 'Log level',
-  })
-  .option('run-todo', {
-    type: 'boolean',
-    describe: 'Run todo tests',
-  })
-  .option('exit-timeout', {
-    type: 'number',
-    describe: 'Seconds to wait after tests finished',
-  })
-  .option('config', {
-    alias: 'c',
-    type: 'string',
-    describe: 'Path to config file',
-  }).argv;
-
 const isLogAtLeast = (level1, level2 = 'default') =>
   logLevels[level1] >= logLevels[level2];
+
+const printIfLog = (config, log, ...msg) => {
+  if (isLogAtLeast(config.logLevel, log)) {
+    runner.reporter.log(...msg);
+  }
+};
+
+const printIfLogComment = (config, log, ...msg) => {
+  if (isLogAtLeast(config.logLevel, log)) {
+    runner.reporter.logComment(...msg);
+  }
+};
 
 const merge = (arr1 = [], arr2 = []) => common.merge(arr1, arr2);
 
@@ -108,7 +87,7 @@ const loadFiles = files => {
   return result;
 };
 
-const getConfig = () => {
+const getConfig = args => {
   const config = args.config ? parseFile(args.config) : {};
 
   config.exclude = merge(config.exclude, args.exclude);
@@ -127,65 +106,95 @@ const runNode = (config, cb) => {
   if (config.logLevel === 'quiet') {
     runner.removeReporter();
   } else if (config.reporter.startsWith('tap')) {
-    let reporterType = config.reporter.split('-')[1];
-    if (!reporterType) {
-      reporterType = process.stdout.isTTY ? 'classic' : 'tap';
-    }
     runner.setReporter(
-      new metatests.reporters.TapReporter({ type: reporterType })
+      new metatests.reporters.TapReporter({
+        type:
+          config.reporter.split('-')[1] ||
+          (process.stdout.isTTY ? 'classic' : 'tap'),
+      })
     );
   } else if (config.reporter === 'concise') {
     runner.setReporter(new metatests.reporters.ConciseReporter());
   }
   if (config.runTodo) runner.runTodo();
   runner.on('finish', hasFailures => {
-    if (isLogAtLeast(config.logLevel, 'default')) {
-      runner.reporter.logComment(
-        'Tests finished. Waiting for process to finish.\n'
-      );
-    }
+    const msg = 'Tests finished. Waiting for process to finish.\n';
+    printIfLogComment(config, 'default', msg);
     if (hasFailures) {
       cb(1);
-    } else {
-      const timeout = config.exitTimeout * 5000;
-      setTimeout(() => {
-        if (isLogAtLeast(config.logLevel, 'default')) {
-          runner.reporter.log(
-            `Process didn't finish within timeout (${timeout}), exiting.`
-          );
-        }
-        cb(1);
-      }, timeout).unref();
+      return;
     }
+    setTimeout(() => {
+      const msg = `Process didn't finish within timeout (${
+        config.exitTimeout * 5000
+      }), exiting.`;
+      printIfLog(config, 'default', msg);
+      cb(1);
+    }, config.exitTimeout * 5000).unref();
   });
-  if (isLogAtLeast(config.logLevel, 'default')) {
-    runner.reporter.log(
-      `\nNode ${process.version} (v8 ${process.versions.v8}):`
-    );
-  }
+  const msg = `\nNode ${process.version} (v8 ${process.versions.v8}):`;
+  printIfLog(config, 'default', msg);
   merge(config.files, config.nodeOnly).forEach(name => {
     require(path.isAbsolute(name) ? name : path.join(process.cwd(), name));
   });
 };
 
-const config = getConfig();
+const runTests = args => {
+  const config = getConfig(args);
 
-const onExit = code => {
-  if (isLogAtLeast(config.logLevel, 'default')) {
-    runner.reporter.logComment('Metatests finished with code', code);
+  const onExit = code => {
+    printIfLogComment(config, 'default', 'Metatests finished with code', code);
+    process.exit(code);
+  };
+
+  const msg = `Metatests final config:\n${JSON.stringify(config, null, 2)}\n`;
+  printIfLogComment(config, 'debug', msg);
+  if (!config.files.length) {
+    console.error('No test files were specified\n');
+    yargs.showHelp();
+    onExit(1);
   }
-  process.exit(code);
+
+  runNode(config, onExit);
 };
 
-if (isLogAtLeast(config.logLevel, 'debug')) {
-  runner.reporter.logComment(
-    `Metatests final config:\n${JSON.stringify(config, null, 2)}\n`
-  );
-}
-if (!config.files.length) {
-  console.error('No test files were specified\n');
-  yargs.showHelp();
-  onExit(1);
-}
-
-runNode(config, onExit);
+yargs
+  .parserConfiguration({
+    'duplicate-arguments-array': false,
+  })
+  .command(
+    '*',
+    'tests',
+    y => {
+      y.usage('$0 [options] file.js [file.js...]')
+        .usage('$0 [options] --config config.json')
+        .option('exclude', {
+          array: true,
+          type: 'string',
+          describe: 'Exclude tests patterns',
+        })
+        .option('reporter', {
+          type: 'string',
+          describe: 'Reporter name',
+        })
+        .option('log-level', {
+          choices: Object.keys(logLevels),
+          type: 'string',
+          describe: 'Log level',
+        })
+        .option('run-todo', {
+          type: 'boolean',
+          describe: 'Run todo tests',
+        })
+        .option('exit-timeout', {
+          type: 'number',
+          describe: 'Seconds to wait after tests finished',
+        })
+        .option('config', {
+          alias: 'c',
+          type: 'string',
+          describe: 'Path to config file',
+        });
+    },
+    runTests
+  ).argv;
