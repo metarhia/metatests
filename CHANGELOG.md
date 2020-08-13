@@ -12,6 +12,8 @@ and this project adheres to
 
 - `metatests speed` command to run simple speed tests on exported
   from file functions via cli.
+- `metatests measure` command to run comprehensive speed tests on exported
+  from file functions via cli and comparing different implementations.
 
 ### Changed
 
