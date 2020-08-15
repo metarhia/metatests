@@ -25,18 +25,20 @@
   "bin": {
     "metatests": "bin/cli.js"
   },
+  "types": "types/metatests.d.ts",
   "files": [
     "bin/*.js",
-    "lib/"
+    "lib/",
+    "types/"
   ],
   "scripts": {
     "doc": "metadoc",
-    "test": "npm run -s lint && node bin/cli.js test --exclude test/fixtures",
+    "test": "npm run -s lint && tsc -p types/tsconfig.json && node bin/cli.js test --exclude test/fixtures",
     "test:unit": "node test/unit",
     "mutation": "stryker run",
     "perf": "./bin/cli.js benchmarks",
-    "lint": "eslint . && remark . && prettier --check \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/.*rc\" \"**/*.yml\" \"**/*.yaml\"",
-    "fix": "eslint --fix . && prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/.*rc\" \"**/*.yml\" \"**/*.yaml\""
+    "lint": "eslint . && remark . && prettier --check \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/.*rc\" \"**/*.yml\" \"**/*.yaml\" \"**/*.ts\"",
+    "fix": "eslint --fix . && prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/.*rc\" \"**/*.yml\" \"**/*.yaml\" \"**/*.ts\""
   },
   "engines": {
     "node": ">=8.0.0"
@@ -54,6 +56,9 @@
     "@stryker-mutator/core": "^3.3.1",
     "@stryker-mutator/html-reporter": "^3.1.0",
     "@stryker-mutator/javascript-mutator": "^3.3.1",
+    "@types/node": "^14.0.27",
+    "@typescript-eslint/eslint-plugin": "^3.9.0",
+    "@typescript-eslint/parser": "^3.9.0",
     "eslint": "^7.5.0",
     "eslint-config-metarhia": "^7.0.1",
     "eslint-config-prettier": "^6.11.0",
@@ -63,6 +68,7 @@
     "prettier": "^2.0.5",
     "remark-cli": "^8.0.1",
     "remark-preset-lint-metarhia": "^2.0.1",
-    "remark-validate-links": "^10.0.2"
+    "remark-validate-links": "^10.0.2",
+    "typescript": "^3.9.7"
   }
 }

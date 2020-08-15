@@ -593,6 +593,12 @@ Record a passing assertion.
 
 ##### ImperativeTest.prototype.plan(n)
 
+- `n`: [`<number>`][number] amount of assertions
+
+Plan this test to have exactly n assertions and end test after
+
+this amount of assertions is reached.
+
 ##### ImperativeTest.prototype.regex(regex, input\[, message\])
 
 - `regex`: [`<RegExp>`][regexp]|[`<string>`][string] pattern to match
