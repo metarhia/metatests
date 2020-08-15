@@ -313,9 +313,9 @@ _Returns:_ [`<Array>`][array] results of all cases as objects of structure
 
 - `name`: [`<string>`][string] case name
 - `args`: [`<Array>`][array] arguments for this run
-- `count`: [`<string>`][string] number of times case was run
-- `time`: [`<string>`][string] time in nanoseconds it took to make `count` runs
-- `result`: [`<string>`][string] result of one of the runs
+- `count`: [`<number>`][number] number of times case was run
+- `time`: [`<number>`][number] time in nanoseconds it took to make `count` runs
+- `result`: `<any>` result of one of the runs
 
 Microbenchmark each passed configuration multiple times
 
