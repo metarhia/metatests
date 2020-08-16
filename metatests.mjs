@@ -16,6 +16,8 @@ const {
   testAsync,
 } = metatests;
 
+export default metatests;
+
 export {
   caseTest as case,
   DeclarativeTest,
