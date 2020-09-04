@@ -1,6 +1,9 @@
 'use strict';
 
-// eslint-disable-next-line no-unused-vars
+// Run this benchmark with
+// metatests measure benchmarks/example/create.js --new mixinObject --old defineObject --name create
+// metatests speed benchmarks/example/create.js
+
 const defineObject = () => ({
   hello: 'world',
   size: 100500,
@@ -15,4 +18,4 @@ const mixinObject = () => {
   return obj;
 };
 
-module.exports = mixinObject;
+module.exports = { defineObject, mixinObject };

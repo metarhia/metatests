@@ -58,8 +58,8 @@ if (!is.null(args.options$help) ||
   --totalfile          file with both old and new resuls in 'version' column
   --oldfile            file with old results
   --newfile            file with new results
-  --help           show this message
-  --plot filename  save plot to filename");
+  --help               show this message
+  --plot filename      save plot to filename");
 }
 
 plot.filename <- args.options$plot;
