@@ -196,12 +196,12 @@ function measureTarget(target, args) {
         let out;
         if (args.csv) {
           out = resultToCsv(r);
-        } else {
+        } else if (args.verbose) {
           let args = r.args && r.args.map(util.inspect).join(' ');
           if (args) args = '\targs=' + args;
           out = `${name}\tn=${r.count}${args}:\t\t${r.time}`;
         }
-        console.log(out);
+        if (out) console.log(out);
       },
     },
   };
@@ -379,6 +379,12 @@ yargs
                 describe:
                   'Name of exported property to use as old in comparison. ' +
                   'Must always be used with --new.',
+              })
+              .option('verbose', {
+                alias: 'v',
+                type: 'boolean',
+                describe: 'Output every result during the benchmark run',
+                default: true,
               }),
           runMeasure
         );
