@@ -23,16 +23,27 @@ test('must support cjs extension files', test => {
   });
 });
 
-test('must support mjs extension files', test => {
-  const mjsFile = path.join(fixturesDir, 'test-extension.mjs');
-  const cp = fork(cliFile, [mjsFile], { stdio: 'pipe' });
-  let data = '';
-  cp.stdout.on('data', chunk => {
-    data += chunk.toString();
+const [semverMajor, semverMinor] = process.version
+  .slice(1)
+  .split('.')
+  .map(Number);
+const supportsESM =
+  (semverMajor === 12 && semverMinor >= 17) ||
+  (semverMajor === 13 && semverMinor >= 2) ||
+  semverMajor >= 14;
+
+if (supportsESM) {
+  test('must support mjs extension files', test => {
+    const mjsFile = path.join(fixturesDir, 'test-extension.mjs');
+    const cp = fork(cliFile, [mjsFile], { stdio: 'pipe' });
+    let data = '';
+    cp.stdout.on('data', chunk => {
+      data += chunk.toString();
+    });
+    cp.on('close', code => {
+      test.regex(/must support MJS extension/, data);
+      test.strictSame(code, 0);
+      test.end();
+    });
   });
-  cp.on('close', code => {
-    test.regex(/must support MJS extension/, data);
-    test.strictSame(code, 0);
-    test.end();
-  });
-});
+}
