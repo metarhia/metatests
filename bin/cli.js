@@ -166,7 +166,7 @@ const runTests = args => {
 
 const handleBenchTarget = args => {
   const res = require(path.join(process.cwd(), args.file));
-  let target = args.target ? res[args.target] : res;
+  let target = args.target ? common.getByPath(res, args.target) : res;
   if (!Array.isArray(target)) {
     if (target && typeof target === 'object') target = Object.values(target);
     else if (typeof target === 'function') target = [target];
@@ -220,12 +220,12 @@ const runMeasure = args => {
   }
   if (args.new && args.old) {
     let res = require(path.join(process.cwd(), args.file));
-    if (args.target) res = res[args.target];
-    const oldTarget = res[args.old];
+    if (args.target) res = common.getByPath(res, args.target);
+    const oldTarget = common.getByPath(res, args.old);
     const oldCases = Array.isArray(oldTarget)
       ? oldTarget
       : [{ name: args.name, fn: oldTarget }];
-    const newTarget = res[args.new];
+    const newTarget = common.getByPath(res, args.new);
     const newCases = Array.isArray(newTarget)
       ? newTarget
       : [{ name: args.name, fn: newTarget }];
