@@ -166,13 +166,10 @@ const runTests = args => {
 
 const handleBenchTarget = args => {
   const res = require(path.join(process.cwd(), args.file));
-  let target;
-  if (Array.isArray(res)) target = res;
-  else if (typeof res === 'function') target = [res];
-  else if (typeof res === 'object' && args.target) {
-    const r = res[args.target];
-    if (Array.isArray(r)) target = r;
-    else if (typeof r === 'function') target = [r];
+  let target = args.target ? res[args.target] : res;
+  if (!Array.isArray(target)) {
+    if (target && typeof target === 'object') target = Object.values(target);
+    else if (typeof target === 'function') target = [target];
   }
   if (!target) {
     console.error("File doesn't export correct target");
