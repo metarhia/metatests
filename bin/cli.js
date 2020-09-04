@@ -11,8 +11,11 @@ const { spawn } = require('child_process');
 
 const metatests = require('..');
 const { resultToCsv, makeTotalResults } = require('../lib/speed');
+const { roundTo } = require('../lib/utils');
 
 const COMPARE_R_PATH = path.join(__dirname, '..', 'benchmarks', 'compare.R');
+
+const NS_PER_SEC = 1e9;
 
 const DEFAULT_EXIT_TIMEOUT = 5;
 const runner = metatests.runner.instance;
@@ -199,7 +202,8 @@ function measureTarget(target, args) {
         } else if (args.verbose) {
           let args = r.args && r.args.map(util.inspect).join(' ');
           if (args) args = '\targs=' + args;
-          out = `${name}\tn=${r.count}${args}:\t\t${r.time}`;
+          const ops = roundTo(r.count / (r.time / NS_PER_SEC), 2);
+          out = `${name}\tn=${r.count}${args}:\t\t${r.time}ns, ${ops}ops/s`;
         }
         if (out) console.log(out);
       },
