@@ -1,7 +1,6 @@
 'use strict';
 
 const { iter } = require('@metarhia/common');
-const metatests = require('../metatests');
 
 const clauses = [];
 for (let i = 0; i < 10; i++) {
@@ -59,31 +58,13 @@ const iterJoin = () =>
     .map(c => `${c.a} ${c.b}`)
     .join(', ');
 
-if (!process.env.MEASURE) {
-  metatests.speed('string join example', 1e6, [
-    rawJoin,
-    rawJoinSpread,
-    manualJoin,
-    manualWithMap,
-    iterJoin,
-    manualJoinForOf,
-    reduceJoin,
-    reduceSliceStrJoin,
-  ]);
-} else {
-  const cases = {
-    rawJoin,
-    rawJoinSpread,
-    manualJoin,
-    manualWithMap,
-    iterJoin,
-    manualJoinForOf,
-    reduceJoin,
-    reduceSliceStrJoin,
-  };
-  const results = metatests.measure(
-    [{ name: 'join', fn: cases[process.env.MEASURE] || rawJoin }],
-    { defaultCount: 1e6 }
-  );
-  console.log(metatests.convertToCsv(results));
-}
+module.exports = {
+  rawJoin,
+  rawJoinSpread,
+  manualJoin,
+  manualWithMap,
+  iterJoin,
+  manualJoinForOf,
+  reduceJoin,
+  reduceSliceStrJoin,
+};

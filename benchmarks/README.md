@@ -45,6 +45,38 @@ This pattern is very similar to the one used in [Node.js core benchmarking](http
 and was adapted to be used here. Word of appreciation goes to the [Node.js contributors](https://github.com/nodejs/node/blob/master/AUTHORS)
 for writing such a good tool.
 
+#### Using `metatests` cli
+
+The `metatests measure` and `metatests speed` CLI commands can be used to
+benchmark as follows:
+
+```cmd
+$ metatests measure benchmarks/example/create.js --new mixinObject --old defineObject --name create
+...
+         confidence improvement accuracy (*)   (**)  (***)
+ create                 -2.22 %       ±4.22% ±5.65% ±7.43%
+
+Be aware that when doing many comparisons the risk of a false-positive
+  result increases. In this case there are 1 comparisons, you can thus
+  expect the following amount of false-positive results:
+    0.05 false positives, when considering a   5% risk acceptance (*, **, ***),
+    0.01 false positives, when considering a   1% risk acceptance (**, ***),
+    0.00 false positives, when considering a 0.1% risk acceptance (***)
+
+```
+
+```cmd
+$ metatests speed benchmarks/example/create.js
+...
+Speed test
+mixinObject....................315987279.......min
+defineObject...................317720439....+0.55%
+```
+
+The example above can be found in [benchmarks/example/create.js](./example/create.js).
+
+#### Manual creation of benchmark results
+
 - `benchmark.js` file with the use of `metatests.measure()` and
   `metatests.convertToCsv()` to measure performance of some dependent
   functionality.
@@ -53,6 +85,8 @@ for writing such a good tool.
 - run `node benchmark.js > bench-new.csv` on new codebase.
 - run `Rscript --newfile bench-new.csv --oldfile bench-old.csv` and analyze
   the results.
+
+#### Analysing results
 
 In the output, _improvement_ is the relative improvement of the new version
 (in the `bench-new.csv` file), hopefully this is positive. _confidence_ tells
@@ -75,91 +109,6 @@ _For the statistically minded, the R script performs an [independent/unpaired
 2-group t-test][t-test], with the null hypothesis that the performance is the
 same for both versions. The confidence field will show a star if the p-value
 is less than `0.05`._
-
-Simple example would be as follows:
-
-```js
-// file create.js
-
-const defineObject = () => ({
-  hello: 'world',
-  size: 100500,
-  flag: true,
-});
-
-const mixinObject = () => {
-  const obj = {};
-  obj.hello = 'world';
-  obj.size = 100500;
-  obj.flag = true;
-  return obj;
-};
-
-module.exports = defineObject;
-```
-
-```js
-// file benchmark.js
-const metatests = require('metatests');
-const createObject = require('./create.js');
-
-const results = metatests.measure(
-  [
-    {
-      name: 'createObject',
-      fn: createObject,
-    },
-  ],
-  {
-    defaultCount: 1e6,
-    preflight: 10,
-    runs: 20,
-  }
-);
-
-console.log(metatests.convertToCsv(results));
-```
-
-First measure existing code with multiple runs:
-
-```cmd
-$ node benchmark.js > bench-old.csv
-```
-
-Now change the file `create.js` as follows
-
-```js
-// file create.js
-// ...
-// same code as before
-// ...
-
-module.exports = mixinObject;
-```
-
-And then measure new code:
-
-```cmd
-$ node benchmark.js > bench-new.csv
-```
-
-This provides 2 files with old and new results which are ready to be analyzed:
-
-```cmd
-$ Rscript benchmarks/compare.R --oldfile bench-old.csv --newfile bench-new.csv
-             confidence improvement accuracy (*)   (**)  (***)
-createObject                -2.34 %       ±2.66% ±3.62% ±4.87%
-
-Be aware that when doing many comparisons the risk of a false-positive
-  result increases. In this case there are 1 comparisons, you can thus
-  expect the following amount of false-positive results:
-    0.05 false positives, when considering a   5% risk acceptance (*, **, ***),
-    0.01 false positives, when considering a   1% risk acceptance (**, ***),
-    0.00 false positives, when considering a 0.1% risk acceptance (***)
-  %
-```
-
-These examples can be found in the `benchmarks/examples` folder.
 
 [metatestsmeasureapi]: ../README.md#measurecases
 [t-test]: https://en.wikipedia.org/wiki/Student%27s_t-test#Equal_or_unequal_sample_sizes.2C_unequal_variances

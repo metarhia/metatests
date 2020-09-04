@@ -1,8 +1,6 @@
 'use strict';
 
-const metatests = require('../metatests');
-
-const run = (size, n) => {
+const create = size => {
   const search = [];
   for (let i = 0; i < size; i++) {
     search.push('abc' + Math.random());
@@ -16,16 +14,20 @@ const run = (size, n) => {
     search.includes(target1) &&
     search.includes(target2) &&
     search.includes(target3);
-  const searchArrayNone = () => search.includes('abc');
+  const searchArrayNoMatch = () => search.includes('abc');
 
   const searchsss = new Set(search);
   const searchSet = () =>
     searchsss.has(target1) && searchsss.has(target2) && searchsss.has(target3);
-  const searchSetNone = () => searchsss.has('abc');
+  const searchSetNoMatch = () => searchsss.has('abc');
 
-  metatests.speed(`search ${size}`, n, [searchArray, searchSet]);
-  metatests.speed(`searchNone ${size}`, n, [searchArrayNone, searchSetNone]);
+  return {
+    match: { searchArray, searchSet },
+    noMatch: { searchArrayNoMatch, searchSetNoMatch },
+  };
 };
 
-run(5, 1e7);
-run(500, 1e5);
+module.exports = {
+  size5: create(5),
+  size500: create(500),
+};
