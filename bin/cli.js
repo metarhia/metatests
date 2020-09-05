@@ -158,7 +158,7 @@ const runNode = (config, cb) => {
     const file = path.isAbsolute(name) ? name : path.join(process.cwd(), name);
     if (file.endsWith('mjs')) {
       if (supportsESM) {
-        import(file);
+        import('file://' + file);
       } else {
         console.warn(
           `Warning: ignoring '${file}', current Node.js version doesn't ` +
