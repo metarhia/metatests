@@ -9,14 +9,19 @@ const cliFile = path.join(__dirname, '..', 'bin', 'cli.js');
 const fixturesDir = path.join(__dirname, 'fixtures');
 
 test('must support cjs extension files', test => {
-  test.plan(2);
+  test.plan(3);
   const cjsFile = path.join(fixturesDir, 'test-extension.cjs');
   const cp = fork(cliFile, [cjsFile], { stdio: 'pipe' });
   let data = '';
   cp.stdout.on('data', chunk => {
     data += chunk.toString();
   });
+  let errData = '';
+  cp.stderr.on('data', chunk => {
+    errData += chunk.toString();
+  });
   cp.stdout.on('end', () => {
+    test.strictSame(errData, '');
     test.regex(/must support CJS extension/, data);
   });
   cp.on('close', code => {
@@ -35,14 +40,19 @@ const supportsESM =
 
 if (supportsESM) {
   test('must support mjs extension files', test => {
-    test.plan(2);
+    test.plan(3);
     const mjsFile = path.join(fixturesDir, 'test-extension.mjs');
     const cp = fork(cliFile, [mjsFile], { stdio: 'pipe' });
     let data = '';
     cp.stdout.on('data', chunk => {
       data += chunk.toString();
     });
+    let errData = '';
+    cp.stderr.on('data', chunk => {
+      errData += chunk.toString();
+    });
     cp.stdout.on('end', () => {
+      test.strictSame(errData, '');
       test.regex(/must support MJS extension/, data);
     });
     cp.on('exit', code => {
