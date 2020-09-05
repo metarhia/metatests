@@ -161,8 +161,8 @@ const runNode = (config, cb) => {
         import(file);
       } else {
         console.warn(
-          `Ignoring '${file}', current Node.js version doesn't support ` +
-            'dynamic import'
+          `Warning: ignoring '${file}', current Node.js version doesn't ` +
+            'support dynamic import'
         );
       }
     } else {
