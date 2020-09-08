@@ -358,6 +358,27 @@ yargs
           y =>
             y
               .usage('measure [options] file.js')
+              .example(
+                '$0 measure --csv bench.js',
+                'Run benchmarks for all exported functions from "bench.js" ' +
+                  'file and output them in csv format'
+              )
+              .example(
+                '$0 measure --csv --preflight 5 --runs 20 -n 1e7 bench.js',
+                'Run benchmarks for all exported functions from "bench.js" ' +
+                  'file using custom options and output them in csv format'
+              )
+              .example(
+                '$0 measure --old oldImpl --new newImpl --name compare bench.js',
+                'Compare performance of "oldImpl" function to "newImpl" one ' +
+                  'exported from "bench.js" file'
+              )
+              .example(
+                '$0 measure --old oldImpl --new newImpl --name compare --target ' +
+                  'nested.props bench.js',
+                'Compare performance of "nested.props.oldImpl" function to ' +
+                  '"nested.props.newImpl" one exported from "bench.js" file'
+              )
               .option('csv', {
                 type: 'boolean',
                 describe: 'Output results as CSV',
