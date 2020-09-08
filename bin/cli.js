@@ -330,6 +330,16 @@ yargs
             '--target option provided',
           y =>
             y
+              .example(
+                '$0 speed bench.js',
+                'Run simple benchmarks for every function exported from ' +
+                  '"bench.js"'
+              )
+              .example(
+                '$0 speed -n 1e7 bench.js',
+                'Run simple benchmarks with custom run count for every ' +
+                  'function exported from "bench.js"'
+              )
               .option('caption', {
                 type: 'string',
                 describe: 'Caption of the speed test',
