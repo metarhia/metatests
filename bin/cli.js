@@ -20,6 +20,15 @@ const NS_PER_SEC = 1e9;
 const DEFAULT_EXIT_TIMEOUT = 5;
 const runner = metatests.runner.instance;
 
+const [semverMajor, semverMinor] = process.version
+  .slice(1)
+  .split('.')
+  .map(Number);
+const supportsESM =
+  (semverMajor === 12 && semverMinor >= 17) ||
+  (semverMajor === 13 && semverMinor >= 2) ||
+  semverMajor >= 14;
+
 const logLevels = {
   quiet: 0,
   default: 1,
@@ -73,12 +82,17 @@ const parseFile = file => {
 
 const loadFiles = files => {
   const result = [];
-  files
+  common
+    .iter(files)
     .map(file => {
-      if (fs.existsSync(file + '.js')) {
-        return file + '.js';
-      } else if (fs.existsSync(file)) {
+      if (fs.existsSync(file)) {
         return file;
+      } else if (fs.existsSync(file + '.js')) {
+        return file + '.js';
+      } else if (fs.existsSync(file + '.cjs')) {
+        return file + '.cjs';
+      } else if (fs.existsSync(file + '.mjs')) {
+        return file + '.mjs';
       } else {
         console.error('File does not exist:', file);
         process.exit(1);
@@ -89,7 +103,7 @@ const loadFiles = files => {
       if (fs.statSync(file).isDirectory()) {
         const subfiles = fs.readdirSync(file).map(f => path.join(file, f));
         result.push(...loadFiles(subfiles));
-      } else if (common.fileExt(file) === 'js') {
+      } else if (['js', 'mjs', 'cjs'].includes(common.fileExt(file))) {
         result.push(file);
       }
     });
@@ -144,7 +158,19 @@ const runNode = (config, cb) => {
   const msg = `\nNode ${process.version} (v8 ${process.versions.v8}):`;
   printIfLog(config, 'default', msg);
   merge(config.files, config.nodeOnly).forEach(name => {
-    require(path.isAbsolute(name) ? name : path.join(process.cwd(), name));
+    const file = path.isAbsolute(name) ? name : path.join(process.cwd(), name);
+    if (file.endsWith('mjs')) {
+      if (supportsESM) {
+        import('file://' + file);
+      } else {
+        console.warn(
+          `Warning: ignoring '${file}', current Node.js version doesn't ` +
+            'support dynamic import'
+        );
+      }
+    } else {
+      require(file);
+    }
   });
 };
 

@@ -15,6 +15,7 @@ and this project adheres to
 - `metatests measure` command to run comprehensive speed tests on exported
   from file functions via cli and comparing different implementations.
 - TypeScript typings for all APIs of `metatests`.
+- Support for .cjs and .mjs test file extensions.
 
 ### Changed
 
