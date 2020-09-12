@@ -15,7 +15,7 @@ metatests.test('Verify that metatests.speed works', test => {
   cp.stdout.on('end', () => {
     test.log(data);
     test.regex(/Benchmark example/, data);
-    test.ok(/objectCreate\.+\d+\.+min/.test(data));
+    test.ok(/objectCreate\s+\d+ns\s+min\s+[\d.]+\s+ops\/s/.test(data));
     test.end();
   });
   cp.on('exit', code => {

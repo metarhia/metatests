@@ -69,8 +69,8 @@ Be aware that when doing many comparisons the risk of a false-positive
 $ metatests speed benchmarks/example/create.js
 ...
 Speed test
-mixinObject....................315987279.......min
-defineObject...................317720439....+0.55%
+defineObject   299498923ns   min          33389101.68 ops/s ±5.15%
+mixinObject    313518668ns +4.68%         31896027.32 ops/s ±2.29%
 ```
 
 The example above can be found in [benchmarks/example/create.js](./example/create.js).
