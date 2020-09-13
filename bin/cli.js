@@ -389,11 +389,6 @@ yargs
                 'Compare performance of "nested.props.oldImpl" function to ' +
                   '"nested.props.newImpl" one exported from "bench.js" file'
               )
-              .option('csv', {
-                type: 'boolean',
-                describe: 'Output results as CSV',
-                default: false,
-              })
               .option('count', {
                 alias: 'n',
                 type: 'number',
@@ -405,6 +400,11 @@ yargs
                 type: 'number',
                 describe: 'Number of runs of each case',
                 default: 20,
+              })
+              .option('csv', {
+                type: 'boolean',
+                describe: 'Output results as CSV',
+                default: false,
               })
               .option('preflight', {
                 alias: 'p',
@@ -421,7 +421,7 @@ yargs
               .option('target', {
                 alias: 't',
                 type: 'string',
-                describe: 'Name of exported property to use for speed test',
+                describe: 'Path of exported property to use for speed test',
               })
               .option('name', {
                 type: 'string',
@@ -432,13 +432,13 @@ yargs
               .option('new', {
                 type: 'string',
                 describe:
-                  'Name of exported property to use as new in comparison. ' +
+                  'Path of exported property to use as new in comparison. ' +
                   'Must always be used with --old.',
               })
               .option('old', {
                 type: 'string',
                 describe:
-                  'Name of exported property to use as old in comparison. ' +
+                  'Path of exported property to use as old in comparison. ' +
                   'Must always be used with --new.',
               })
               .option('verbose', {
