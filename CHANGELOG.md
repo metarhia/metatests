@@ -10,16 +10,18 @@ and this project adheres to
 
 ### Added
 
+- `metatests.measure()` function to perform microbenchmarks with
+  multiple configuration options.
+- `compare.R` script to perform statistically significant benchmark
+  result analysis.
+- `metatests.convertToCsv()` function to convert `metatests.measure()`
+  results to valid CSV format.
 - `metatests speed` command to run simple speed tests on exported
   from file functions via cli.
 - `metatests measure` command to run comprehensive speed tests on exported
   from file functions via cli and comparing different implementations.
 - TypeScript typings for all APIs of `metatests`.
 - Support for .cjs and .mjs test file extensions.
-
-### Changed
-
-- Allow to pass function only cases to `measure()`.
 
 ### Fixed
 
