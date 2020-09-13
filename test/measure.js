@@ -10,16 +10,25 @@ const objectCreate = p => {
   return obj;
 };
 
+const eq = metatests.strictEqual;
+
 metatests.testSync('Verify that metatests.measure works', test => {
   const cases = [
     { fn: objectCreate, argCases: [['a'], ['b']], n: 1e3 },
     { fn: objectCreate, name: 'hello' },
   ];
-  const actualFromListener = { preflight: [], run: [], done: [], finish: [] };
+  const actualFromListener = {
+    preflight: [],
+    run: [],
+    cycle: [],
+    done: [],
+    finish: [],
+  };
   const putToArr = name => (...args) => actualFromListener[name].push(args);
   const listener = {
     preflight: test.mustCall(putToArr('preflight'), 3),
     run: test.mustCall(putToArr('run'), 3),
+    cycle: test.mustCall(putToArr('cycle'), 3),
     done: test.mustCall(putToArr('done'), 3),
     finish: test.mustCall(putToArr('finish')),
   };
@@ -86,8 +95,26 @@ metatests.testSync('Verify that metatests.measure works', test => {
     });
 
   iter(expectedResults)
-    .zip(iter(actualFromListener.done.map(r => r[1])))
+    .zip(iter(actualFromListener.cycle.map(r => r[1])))
     .forEach(([expected, actual]) => {
       test.contains(actual, expected);
     });
+
+  iter([
+    { name: 'objectCreate', args: ['a'] },
+    { name: 'objectCreate', args: ['b'] },
+    { name: 'hello', args: undefined },
+  ]).forEach(target => {
+    const expected = expectedResults.filter(
+      r => r.name === target.name && eq(r.args, target.args)
+    );
+    const actual = actualFromListener.done.find(
+      a => a[0] === target.name && eq(a[1], target.args)
+    )[2];
+    iter(expected)
+      .zip(actual)
+      .forEach(([expected, actual]) => {
+        test.contains(actual, expected);
+      });
+  });
 });
