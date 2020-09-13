@@ -10,7 +10,11 @@ const util = require('util');
 const { spawn } = require('child_process');
 
 const metatests = require('..');
-const { resultToCsv, makeTotalResults } = require('../lib/speed');
+const {
+  resultToCsv,
+  makeTotalResults,
+  aggregateResults,
+} = require('../lib/speed');
 const { roundTo } = require('../lib/utils');
 
 const COMPARE_R_PATH = path.join(__dirname, '..', 'benchmarks', 'compare.R');
@@ -233,6 +237,14 @@ function measureTarget(target, args) {
         }
         if (out) console.log(out);
       },
+      done: (caseName, caseConf, results) => {
+        if (args.csv) return;
+        const agg = aggregateResults(results)[0];
+        const name = agg.name.padEnd(15, ' ');
+        const ops = roundTo(agg.ops, 2) + ' ops/s ';
+        const rme = '±' + roundTo(agg.stats.relativeMarginOfError, 2) + '%';
+        console.log(name + ops + rme);
+      },
     },
   };
   if (args.csv) {
@@ -389,6 +401,14 @@ yargs
                 'Compare performance of "nested.props.oldImpl" function to ' +
                   '"nested.props.newImpl" one exported from "bench.js" file'
               )
+              .option('aggregate', {
+                alias: 'agg',
+                type: 'boolean',
+                conflicts: ['csv'],
+                describe:
+                  'Aggregate multiple results with the same name. ' +
+                  'True by default and incompatible with --csv',
+              })
               .option('count', {
                 alias: 'n',
                 type: 'number',
@@ -404,7 +424,6 @@ yargs
               .option('csv', {
                 type: 'boolean',
                 describe: 'Output results as CSV',
-                default: false,
               })
               .option('preflight', {
                 alias: 'p',
@@ -445,7 +464,7 @@ yargs
                 alias: 'v',
                 type: 'boolean',
                 describe: 'Output every result during the benchmark run',
-                default: true,
+                default: false,
               }),
           runMeasure
         );

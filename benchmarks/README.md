@@ -52,9 +52,13 @@ benchmark as follows:
 
 ```cmd
 $ metatests measure benchmarks/example/create.js --new mixinObject --old defineObject --name create
-...
+Measuring old target
+create         35258808.21 ops/s ±0.87%
+Measuring new target
+create         33959942.61 ops/s ±1.7%
+
          confidence improvement accuracy (*)   (**)  (***)
- create                 -2.22 %       ±4.22% ±5.65% ±7.43%
+ create         ***     -3.60 %       ±1.77% ±2.39% ±3.17%
 
 Be aware that when doing many comparisons the risk of a false-positive
   result increases. In this case there are 1 comparisons, you can thus
