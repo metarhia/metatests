@@ -302,9 +302,15 @@ Microbenchmark each passed function and compare results.
       - `name`: [`<string>`][string] case name
       - `count`: [`<number>`][number] number of times it will be run
       - `args`: [`<Array>`][array] function arguments
-    - `done`: [`<Function>`][function] called when run in done, optional
+    - `cycle`: [`<Function>`][function] called when run is done, optional
       - `name`: [`<string>`][string] case name
-      - `results`: [`<Object>`][object] case run results
+      - `result`: [`<Object>`][object] case results
+    - `done`: [`<Function>`][function] called when all runs for given
+      configurations are done, optional
+      - `name`: [`<string>`][string] case name
+      - `args`: [`<Array>`][array] current configuration
+      - `results`: [`<Array>`][array] results of all runs with this
+        configuration
     - `finish`: [`<Function>`][function] called when measuring is finished,
       optional
       - `results`: [`<Array>`][array] all case results

@@ -221,7 +221,7 @@ function measureTarget(target, args) {
     preflight: args.preflight,
     preflightCount: args.preflightCount,
     listener: {
-      done: (name, r) => {
+      cycle: (name, r) => {
         let out;
         if (args.csv) {
           out = resultToCsv(r);

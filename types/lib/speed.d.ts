@@ -23,7 +23,8 @@ export interface MeasureOptions {
   listener: {
     preflight?: (name: string, count: number, args: any[]) => void;
     run?: (name: string, count: number, args: any[]) => void;
-    done?: (name: string, results: MeasureResult) => void;
+    cycle?: (name: string, results: MeasureResult) => void;
+    done?: (name: string, args: any[], results: MeasureResult[]) => void;
     finish?: (results: MeasureResult[]) => void;
   };
 }
