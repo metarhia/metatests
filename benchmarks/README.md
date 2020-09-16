@@ -87,8 +87,8 @@ The example above can be found in [benchmarks/example/create.js](./example/creat
 - run `node benchmark.js > bench-old.csv` on existing codebase.
 - apply code changes to the dependent code.
 - run `node benchmark.js > bench-new.csv` on new codebase.
-- run `Rscript --newfile bench-new.csv --oldfile bench-old.csv` and analyze
-  the results.
+- run `Rscript benchmarks/compare.R --newfile bench-new.csv --oldfile bench-old.csv`
+  and analyze the results.
 
 #### Analysing results
 
