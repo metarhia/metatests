@@ -336,10 +336,11 @@ yargs
         // This has to be a subcommand in order to have its help
         // usage printed by yargs.
         .command(
-          'speed <file>',
-          'Simple speed tests. The file should either export a ' +
-            'case/function, an array of cases/function or an object with ' +
-            '--target option provided',
+          'speed [options] <file>',
+          'Perform simple benchmarking. The file should either export a ' +
+            'case/function, an array of cases/functions or an object with ' +
+            'properties. --target option can be used to get nested paths ' +
+            'from exported object',
           y =>
             y
               .example(
@@ -371,15 +372,15 @@ yargs
           runSpeed
         )
         .command(
-          'measure <file>',
-          'Measure multiple runs of cases. ' +
-            'Target file or property with --target must export valid cases ' +
-            'for metatests.measure().' +
+          'measure [options] <file>',
+          'Perform comprehensive benchmarks with extensive customization. ' +
+            'The file should either export a case/function, an array of ' +
+            'cases/functions or an object with properties. --target option ' +
+            'can be used to get nested paths from exported object. ' +
             'Two implementations can be compared with the use of ' +
             '--new and --old options',
           y =>
             y
-              .usage('measure [options] file.js')
               .example(
                 '$0 measure --csv bench.js',
                 'Run benchmarks for all exported functions from "bench.js" ' +
