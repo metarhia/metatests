@@ -1,30 +1,10 @@
 # Benchmarking with metatests
 
-## `metatests.speed()`
+`metatests` include benchmarking utilities that can be used via CLI
+(`metatests measure`, `metatests speed`) or manually invoked via appropriate
+APIs (`metatests.speed()`, `metatests.measure()`, `metatests.convertToCsv()`).
 
-Simple wrapper for `metatest.measure()`.
-Runs multiple functions specified amount of times measuring time and
-compares the results directly by computing the increment percentage
-of the fastest run.
-
-## `metatests.measure()`
-
-More complex benchmarking tool needed for fine-grained benchmarking.
-Runs specified benchmark cases which must contain function and optionally,
-custom name, different argument groups, runCount per-function, preflight count
-per-function, total runs to make for each configuration, preflight count.
-
-Refer to the [API documentation for metatests.measure()][metatestsmeasureapi]
-for detailed method description.
-
-## `metatests.convertToCsv()`
-
-Extension to `metatests.measure()` to generate a csv file from benchmark
-results and compare them with a different one.
-This function allows making use of much more statistically correct tools
-to measure performance difference.
-
-### Benchmark Analysis Requirements
+## Benchmark Analysis Requirements
 
 To analyze the results, `R` should be installed.
 Use the one provided by your package manager or download it
@@ -39,13 +19,13 @@ install.packages("ggplot2")
 install.packages("plyr")
 ```
 
-### Typical usage pattern
+## Typical usage pattern
 
 This pattern is very similar to the one used in [Node.js core benchmarking](https://github.com/nodejs/node/blob/master/doc/guides/writing-and-running-benchmarks.md)
 and was adapted to be used here. Word of appreciation goes to the [Node.js contributors](https://github.com/nodejs/node/blob/master/AUTHORS)
 for writing such a good tool.
 
-#### Using `metatests` cli
+### Using `metatests` cli
 
 The `metatests measure` and `metatests speed` CLI commands can be used to
 benchmark as follows:
@@ -79,7 +59,7 @@ mixinObject    313518668ns +4.68%         31896027.32 ops/s ±2.29%
 
 The example above can be found in [benchmarks/example/create.js](./example/create.js).
 
-#### Manual creation of benchmark results
+### Manual creation of benchmark results
 
 - `benchmark.js` file with the use of `metatests.measure()` and
   `metatests.convertToCsv()` to measure performance of some dependent
@@ -90,7 +70,7 @@ The example above can be found in [benchmarks/example/create.js](./example/creat
 - run `Rscript benchmarks/compare.R --newfile bench-new.csv --oldfile bench-old.csv`
   and analyze the results.
 
-#### Analysing results
+### Analysing results
 
 In the output, _improvement_ is the relative improvement of the new version
 (in the `bench-new.csv` file), hopefully this is positive. _confidence_ tells
@@ -113,6 +93,111 @@ _For the statistically minded, the R script performs an [independent/unpaired
 2-group t-test][t-test], with the null hypothesis that the performance is the
 same for both versions. The confidence field will show a star if the p-value
 is less than `0.05`._
+
+## API
+
+## CLI `metatests speed`
+
+```cmd
+$ metatests speed --help                                                                                                                                                                                                                                         ⇡ improve-bench-readme :: ● :: ⬡
+metatests speed [options] <file>
+
+Perform simple benchmarking. The file should either export a case/function, an
+array of cases/functions or an object with properties. --target option can be
+used to get nested paths from exported object
+
+Options:
+  --version     Show version number                                    [boolean]
+  --help, -h    Show help                                              [boolean]
+  --caption     Caption of the speed test       [string] [default: "Speed test"]
+  --count, -n   Number of runs                      [number] [default: 10000000]
+  --target, -t  Name of exported property to use for speed test         [string]
+
+Examples:
+  metatests speed bench.js         Run simple benchmarks for every function
+                                   exported from "bench.js"
+  metatests speed -n 1e7 bench.js  Run simple benchmarks with custom run count
+                                   for every function exported from "bench.js"
+
+```
+
+## CLI `metatests measure`
+
+```cmd
+$ metatests measure --help                                                                                                                                                                                                                                         ⇡ improve-bench-readme :: ● :: ⬡
+metatests measure [options] <file>
+
+Perform comprehensive benchmarks with extensive customization. The file should
+either export a case/function, an array of cases/functions or an object with
+properties. --target option can be used to get nested paths from exported
+object. Two implementations can be compared with the use of --new and --old
+options
+
+Options:
+  --version               Show version number                          [boolean]
+  --help, -h              Show help                                    [boolean]
+  --aggregate, --agg      Aggregate multiple results with the same name. True by
+                          default and incompatible with --csv          [boolean]
+  --count, -n             Default number of function runs
+                                                     [number] [default: 1000000]
+  --runs, -r              Number of runs of each case     [number] [default: 20]
+  --csv                   Output results as CSV                        [boolean]
+  --preflight, -p         Number of preflight runs of each case
+                                                          [number] [default: 10]
+  --preflightCount, --pc  Number of preflight function runs
+                                                    [number] [default: 10000000]
+  --target, -t            Path of exported property to use for speed test
+                                                                        [string]
+  --name                  Name to use for test function if --new --old is used
+                                                     [string] [default: "bench"]
+  --new                   Path of exported property to use as new in comparison.
+                          Must always be used with --old.               [string]
+  --old                   Path of exported property to use as old in comparison.
+                          Must always be used with --new.               [string]
+  --verbose, -v           Output every result during the benchmark run
+                                                      [boolean] [default: false]
+
+Examples:
+  metatests measure --csv bench.js          Run benchmarks for all exported
+                                            functions from "bench.js" file and
+                                            output them in csv format
+  metatests measure --csv --preflight 5     Run benchmarks for all exported
+  --runs 20 -n 1e7 bench.js                 functions from "bench.js" file using
+                                            custom options and output them in
+                                            csv format
+  metatests measure --old oldImpl --new     Compare performance of "oldImpl"
+  newImpl --name compare bench.js           function to "newImpl" one exported
+                                            from "bench.js" file
+  metatests measure --old oldImpl --new     Compare performance of
+  newImpl --name compare --target           "nested.props.oldImpl" function to
+  nested.props bench.js                     "nested.props.newImpl" one exported
+                                            from "bench.js" file
+
+```
+
+## `metatests.speed()`
+
+Simple wrapper for `metatest.measure()`.
+Runs multiple functions specified amount of times measuring time and
+compares aggregated results directly by computing the increment percentage
+of the fastest run and operations per second for each function.
+
+## `metatests.measure()`
+
+More complex benchmarking tool needed for fine-grained benchmarking.
+Runs specified benchmark cases which must contain function and optionally,
+custom name, different argument groups, runCount per-function, preflight count
+per-function, total runs to make for each configuration, preflight count.
+
+Refer to the [API documentation for metatests.measure()][metatestsmeasureapi]
+for detailed method description.
+
+## `metatests.convertToCsv()`
+
+Extension to `metatests.measure()` to generate a csv file from benchmark
+results and compare them with a different one.
+This function allows making use of much more statistically correct tools
+to measure performance difference.
 
 [metatestsmeasureapi]: ../README.md#measurecases
 [t-test]: https://en.wikipedia.org/wiki/Student%27s_t-test#Equal_or_unequal_sample_sizes.2C_unequal_variances
