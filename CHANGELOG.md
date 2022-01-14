@@ -28,6 +28,10 @@ and this project adheres to
 - Comparison of `Map` and `Set` objects.
 - Printing of Error/Date/RegExp object in TapReporter for JS `vm` sandboxes
 
+### Removed
+
+- **BREAKING**: Dropped support for Node.js 10
+
 ## [0.7.2][] - 2020-07-27
 
 ### Added

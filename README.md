@@ -413,15 +413,16 @@ _Returns:_ [`<Function>`][function] function to pass to callback
 Create error-first callback wrapper to fail test if call fails.
 
 This will check for [`test.mustCall()`][test.mustcall()] the callback and if the
-call errored will use `{test.fail()}` and `{test.end()}`
+call errored will use [`test.fail()`][test.fail()] and
+[`test.end()`][test.end()]
 
 ##### ImperativeTest.prototype.contains(actual, subObj\[, message\[, sort\[, test\]\]\])
 
 - `actual`: `<any>` actual data
 - `subObj`: `<any>` expected properties
 - `message`: [`<string>`][string] description of the check, optional
-- `sort` <boolean | Function> if true or a sort function sort data properties,
-  default: false
+- `sort`: `<boolean | Function>` if true or a sort function sort data
+  properties, default: false
 - `test`: [`<Function>`][function] test function, default: compare.strictEqual
   - `actual`: `<any>`
   - `expected`: `<any>`
@@ -482,7 +483,7 @@ Fail if err is instance of Error.
 
 ##### ImperativeTest.prototype.fail(\[message\]\[, err\])
 
-- `message` <string | Error> failure message or error, optional
+- `message`: `<string | Error>` failure message or error, optional
 - `err`: [`<Error>`][error] error, optional
 
 Fail this test recording failure message.
@@ -524,7 +525,7 @@ Check if actual is equal to expected error.
 
 ##### ImperativeTest.prototype.isRejected(input, err)
 
-- `input` <Promise | Function> promise of function returning thenable
+- `input`: `<Promise | Function>` promise of function returning thenable
 - `err`: `<any>` value to be checked with [`test.isError()`][test.iserror()]
   against rejected value
 
@@ -532,7 +533,7 @@ Check that input rejects.
 
 ##### ImperativeTest.prototype.isResolved(input\[, expected\])
 
-- `input` <Promise | Function> promise of function returning thenable
+- `input`: `<Promise | Function>` promise of function returning thenable
 - `expected`: `<any>` if passed it will be checked with
   [`test.strictSame()`][test.strictsame()] against resolved value
 
@@ -615,7 +616,7 @@ Test whether input matches the provided RegExp.
 
 ##### ImperativeTest.prototype.rejects(input, err)
 
-- `input` <Promise | Function> promise of function returning thenable
+- `input`: `<Promise | Function>` promise of function returning thenable
 - `err`: `<any>` value to be checked with [`test.isError()`][test.iserror()]
   against rejected value
 
@@ -623,7 +624,7 @@ Check that input rejects.
 
 ##### ImperativeTest.prototype.resolves(input\[, expected\])
 
-- `input` <Promise | Function> promise of function returning thenable
+- `input`: `<Promise | Function>` promise of function returning thenable
 - `expected`: `<any>` if passed it will be checked with
   [`test.strictSame()`][test.strictsame()] against resolved value
 
@@ -723,7 +724,7 @@ Check that fn throws expected error.
 ##### ImperativeTest.prototype.type(obj, type\[, message\])
 
 - `obj`: `<any>` value to check
-- `type` <string | Function> class or class name to check
+- `type`: `<string | Function>` class or class name to check
 - `message`: [`<string>`][string] description of the check, optional
 
 Check if obj is of specified type.
@@ -778,5 +779,6 @@ Simple wrapper for [`test()`][test()] setting `async` option to `true`.
 [test.contains()]: #imperativetestprototypecontainsactual-subobj-message-sort-test
 [test.mustcall()]: #imperativetestprototypemustcallfn-count-name
 [test.iserror()]: #imperativetestprototypeiserroractual-expected-message
+[test.fail()]: #imperativetestprototypefailmessage-err
 [test.end()]: #imperativetestprototypeend
 [case()]: #casecaption-namespace-list-runner
