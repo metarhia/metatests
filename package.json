@@ -1,6 +1,6 @@
 {
   "name": "metatests",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "description": "Simple to use test engine for Metarhia technology stack",
   "license": "MIT",
@@ -35,6 +35,7 @@
   "files": [
     "bin/*.js",
     "lib/",
+    "benchmarks/compare.R",
     "types/"
   ],
   "scripts": {
