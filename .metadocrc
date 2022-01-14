@@ -2,7 +2,14 @@
   "headerFile": "doc/header.md",
   "minHeaderLevel": 3,
   "files": ["metatests.js"],
-  "prioritizedEntries": ["test", "testAsync", "testSync", "case", "ImperativeTest", "DeclarativeTest"],
+  "prioritizedEntries": [
+    "test",
+    "testAsync",
+    "testSync",
+    "case",
+    "ImperativeTest",
+    "DeclarativeTest"
+  ],
   "removeInterface": true,
   "customLinks": {
     "Runner": "#class-runnerrunner-extends-eventemitter",
@@ -15,7 +22,8 @@
     "test.fail()": "#imperativetestprototypefailmessage-err",
     "test.end()": "#imperativetestprototypeend",
     "case()": "#casecaption-namespace-list-runner",
-    "ImperativeTest": "class-imperativetest-extends-test"
+    "DeclarativeTest": "#class-declarativetest-extends-test",
+    "ImperativeTest": "#class-imperativetest-extends-test"
   },
   "outputFile": "README.md"
 }

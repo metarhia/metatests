@@ -56,104 +56,135 @@ technology stack built on the following principles:
 
 ## API
 
-- [Interface metatests](#interface-metatests)
-  - [case](#casecaption-namespace-list-runner)
-  - [DeclarativeTest](#class-declarativetest-extends-test)
-    - [DeclarativeTest.prototype.constructor](#declarativetestprototypeconstructorcaption-namespace-list-options)
-    - [DeclarativeTest.prototype.run](#declarativetestprototyperun)
-    - [DeclarativeTest.prototype.runNow](#declarativetestprototyperunnow)
-  - [equal](#equalval1-val2)
-  - [strictEqual](#strictequalval1-val2)
-  - [reporters.Reporter](#class-reportersreporter)
-    - [reporters.Reporter.prototype.constructor](#reportersreporterprototypeconstructoroptions)
-    - [reporters.Reporter.prototype.error](#reportersreporterprototypeerrortest-error)
-    - [reporters.Reporter.prototype.finish](#reportersreporterprototypefinish)
-    - [reporters.Reporter.prototype.log](#reportersreporterprototypelogargs)
-    - [reporters.Reporter.prototype.logComment](#reportersreporterprototypelogcommentargs)
-    - [reporters.Reporter.prototype.record](#reportersreporterprototyperecordtest)
-  - [reporters.ConciseReporter](#class-reportersconcisereporter-extends-reporter)
-    - [reporters.ConciseReporter.prototype.constructor](#reportersconcisereporterprototypeconstructoroptions)
-    - [reporters.ConciseReporter.prototype.error](#reportersconcisereporterprototypeerrortest-error)
-    - [reporters.ConciseReporter.prototype.finish](#reportersconcisereporterprototypefinish)
-    - [reporters.ConciseReporter.prototype.listFailure](#reportersconcisereporterprototypelistfailuretest-res-message)
-    - [reporters.ConciseReporter.prototype.parseTestResults](#reportersconcisereporterprototypeparsetestresultstest-subtest)
-    - [reporters.ConciseReporter.prototype.printAssertErrorSeparator](#reportersconcisereporterprototypeprintasserterrorseparator)
-    - [reporters.ConciseReporter.prototype.printSubtestSeparator](#reportersconcisereporterprototypeprintsubtestseparator)
-    - [reporters.ConciseReporter.prototype.printTestSeparator](#reportersconcisereporterprototypeprinttestseparator)
-    - [reporters.ConciseReporter.prototype.record](#reportersconcisereporterprototyperecordtest)
-  - [reporters.TapReporter](#class-reporterstapreporter-extends-reporter)
-    - [reporters.TapReporter.prototype.constructor](#reporterstapreporterprototypeconstructoroptions)
-    - [reporters.TapReporter.prototype.error](#reporterstapreporterprototypeerrortest-error)
-    - [reporters.TapReporter.prototype.finish](#reporterstapreporterprototypefinish)
-    - [reporters.TapReporter.prototype.listFailure](#reporterstapreporterprototypelistfailuretest-res-offset)
-    - [reporters.TapReporter.prototype.logComment](#reporterstapreporterprototypelogcommentargs)
-    - [reporters.TapReporter.prototype.parseTestResults](#reporterstapreporterprototypeparsetestresultstest-offset--0)
-    - [reporters.TapReporter.prototype.record](#reporterstapreporterprototyperecordtest)
-  - [runner.Runner](#class-runnerrunner-extends-eventemitter)
-    - [runner.Runner.prototype.constructor](#runnerrunnerprototypeconstructoroptions)
-    - [runner.Runner.prototype.addTest](#runnerrunnerprototypeaddtesttest)
-    - [runner.Runner.prototype.finish](#runnerrunnerprototypefinish)
-    - [runner.Runner.prototype.removeReporter](#runnerrunnerprototyperemovereporter)
-    - [runner.Runner.prototype.resume](#runnerrunnerprototyperesume)
-    - [runner.Runner.prototype.runTodo](#runnerrunnerprototyperuntodoactive--true)
-    - [runner.Runner.prototype.setReporter](#runnerrunnerprototypesetreporterreporter)
-    - [runner.Runner.prototype.wait](#runnerrunnerprototypewait)
-  - [runner.instance](#runnerinstance)
-  - [speed](#speedcaption-count-cases)
-  - [measure](#measurecases-options)
-  - [convertToCsv](#converttocsvresults)
-  - [ImperativeTest](#class-imperativetest-extends-test)
-    - [ImperativeTest.prototype.constructor](#imperativetestprototypeconstructorcaption-func-options)
-    - [ImperativeTest.prototype.afterEach](#imperativetestprototypeaftereachfunc)
-    - [ImperativeTest.prototype.assert](#imperativetestprototypeassertvalue-message)
-    - [ImperativeTest.prototype.assertNot](#imperativetestprototypeassertnotvalue-message)
-    - [ImperativeTest.prototype.bailout](#imperativetestprototypebailouterr-message)
-    - [ImperativeTest.prototype.beforeEach](#imperativetestprototypebeforeeachfunc)
-    - [ImperativeTest.prototype.case](#imperativetestprototypecasemessage-namespace-list-options--)
-    - [ImperativeTest.prototype.cb](#imperativetestprototypecbmsg-cb)
-    - [ImperativeTest.prototype.cbFail](#imperativetestprototypecbfailfail-cb-afterallcb)
-    - [ImperativeTest.prototype.contains](#imperativetestprototypecontainsactual-subobj-message-sort-test)
-    - [ImperativeTest.prototype.containsGreedy](#imperativetestprototypecontainsgreedyactual-subobj-message-sort-test)
-    - [ImperativeTest.prototype.doesNotThrow](#imperativetestprototypedoesnotthrowfn-message)
-    - [ImperativeTest.prototype.end](#imperativetestprototypeend)
-    - [ImperativeTest.prototype.endAfterSubtests](#imperativetestprototypeendaftersubtests)
-    - [ImperativeTest.prototype.equal](#imperativetestprototypeequalactual-expected-message)
-    - [ImperativeTest.prototype.error](#imperativetestprototypeerrorerr-message)
-    - [ImperativeTest.prototype.fail](#imperativetestprototypefailmessage-err)
-    - [ImperativeTest.prototype.is](#imperativetestprototypeischeckfn-val-message)
-    - [ImperativeTest.prototype.isArray](#imperativetestprototypeisarrayval-message)
-    - [ImperativeTest.prototype.isBuffer](#imperativetestprototypeisbufferval-message)
-    - [ImperativeTest.prototype.isError](#imperativetestprototypeiserroractual-expected-message)
-    - [ImperativeTest.prototype.isRejected](#imperativetestprototypeisrejectedinput-err)
-    - [ImperativeTest.prototype.isResolved](#imperativetestprototypeisresolvedinput-expected)
-    - [ImperativeTest.prototype.mustCall](#imperativetestprototypemustcallfn-count-name)
-    - [ImperativeTest.prototype.mustNotCall](#imperativetestprototypemustnotcallfn-name)
-    - [ImperativeTest.prototype.notEqual](#imperativetestprototypenotequalactual-expected-message)
-    - [ImperativeTest.prototype.notOk](#imperativetestprototypenotokvalue-message)
-    - [ImperativeTest.prototype.notSameTopology](#imperativetestprototypenotsametopologyobj1-obj2-message)
-    - [ImperativeTest.prototype.ok](#imperativetestprototypeokvalue-message)
-    - [ImperativeTest.prototype.on](#imperativetestprototypeonname-listener)
-    - [ImperativeTest.prototype.pass](#imperativetestprototypepassmessage)
-    - [ImperativeTest.prototype.plan](#imperativetestprototypeplann)
-    - [ImperativeTest.prototype.regex](#imperativetestprototyperegexregex-input-message)
-    - [ImperativeTest.prototype.rejects](#imperativetestprototyperejectsinput-err)
-    - [ImperativeTest.prototype.resolves](#imperativetestprototyperesolvesinput-expected)
-    - [ImperativeTest.prototype.run](#imperativetestprototyperun)
-    - [ImperativeTest.prototype.same](#imperativetestprototypesameactual-expected-message)
-    - [ImperativeTest.prototype.sameTopology](#imperativetestprototypesametopologyobj1-obj2-message)
-    - [ImperativeTest.prototype.strictEqual](#imperativetestprototypestrictequalactual-expected-message)
-    - [ImperativeTest.prototype.strictNotSame](#imperativetestprototypestrictnotsameactual-expected-message)
-    - [ImperativeTest.prototype.strictSame](#imperativetestprototypestrictsameactual-expected-message)
-    - [ImperativeTest.prototype.test](#imperativetestprototypetestcaption-func-options)
-    - [ImperativeTest.prototype.testAsync](#imperativetestprototypetestasyncmessage-func-options--)
-    - [ImperativeTest.prototype.testSync](#imperativetestprototypetestsyncmessage-func-options--)
-    - [ImperativeTest.prototype.throws](#imperativetestprototypethrowsfn-expected-message)
-    - [ImperativeTest.prototype.type](#imperativetestprototypetypeobj-type-message)
-  - [test](#testcaption-func-options-runner)
-  - [testSync](#testsynccaption-func-options---runner--runnerinstance)
-  - [testAsync](#testasynccaption-func-options---runner--runnerinstance)
+- [test](#testcaption-func-options-runner)
+- [testAsync](#testasynccaption-func-options---runner--runnerinstance)
+- [testSync](#testsynccaption-func-options---runner--runnerinstance)
+- [case](#casecaption-namespace-list-runner)
+- [ImperativeTest](#class-imperativetest-extends-test)
+- [DeclarativeTest](#class-declarativetest-extends-test)
+  - [DeclarativeTest.prototype.constructor](#declarativetestprototypeconstructorcaption-namespace-list-options)
+  - [DeclarativeTest.prototype.run](#declarativetestprototyperun)
+  - [DeclarativeTest.prototype.runNow](#declarativetestprototyperunnow)
+  - [ImperativeTest.prototype.afterEach](#imperativetestprototypeaftereachfunc)
+  - [ImperativeTest.prototype.assert](#imperativetestprototypeassertvalue-message)
+  - [ImperativeTest.prototype.assertNot](#imperativetestprototypeassertnotvalue-message)
+  - [ImperativeTest.prototype.bailout](#imperativetestprototypebailouterr-message)
+  - [ImperativeTest.prototype.beforeEach](#imperativetestprototypebeforeeachfunc)
+  - [ImperativeTest.prototype.case](#imperativetestprototypecasemessage-namespace-list-options--)
+  - [ImperativeTest.prototype.cb](#imperativetestprototypecbmsg-cb)
+  - [ImperativeTest.prototype.cbFail](#imperativetestprototypecbfailfail-cb-afterallcb)
+  - [ImperativeTest.prototype.constructor](#imperativetestprototypeconstructorcaption-func-options)
+  - [ImperativeTest.prototype.contains](#imperativetestprototypecontainsactual-subobj-message-sort-test)
+  - [ImperativeTest.prototype.containsGreedy](#imperativetestprototypecontainsgreedyactual-subobj-message-sort-test)
+  - [ImperativeTest.prototype.doesNotThrow](#imperativetestprototypedoesnotthrowfn-message)
+  - [ImperativeTest.prototype.end](#imperativetestprototypeend)
+  - [ImperativeTest.prototype.endAfterSubtests](#imperativetestprototypeendaftersubtests)
+  - [ImperativeTest.prototype.equal](#imperativetestprototypeequalactual-expected-message)
+  - [ImperativeTest.prototype.error](#imperativetestprototypeerrorerr-message)
+  - [ImperativeTest.prototype.fail](#imperativetestprototypefailmessage-err)
+  - [ImperativeTest.prototype.is](#imperativetestprototypeischeckfn-val-message)
+  - [ImperativeTest.prototype.isArray](#imperativetestprototypeisarrayval-message)
+  - [ImperativeTest.prototype.isBuffer](#imperativetestprototypeisbufferval-message)
+  - [ImperativeTest.prototype.isError](#imperativetestprototypeiserroractual-expected-message)
+  - [ImperativeTest.prototype.isRejected](#imperativetestprototypeisrejectedinput-err)
+  - [ImperativeTest.prototype.isResolved](#imperativetestprototypeisresolvedinput-expected)
+  - [ImperativeTest.prototype.mustCall](#imperativetestprototypemustcallfn-count-name)
+  - [ImperativeTest.prototype.mustNotCall](#imperativetestprototypemustnotcallfn-name)
+  - [ImperativeTest.prototype.notEqual](#imperativetestprototypenotequalactual-expected-message)
+  - [ImperativeTest.prototype.notOk](#imperativetestprototypenotokvalue-message)
+  - [ImperativeTest.prototype.notSameTopology](#imperativetestprototypenotsametopologyobj1-obj2-message)
+  - [ImperativeTest.prototype.ok](#imperativetestprototypeokvalue-message)
+  - [ImperativeTest.prototype.on](#imperativetestprototypeonname-listener)
+  - [ImperativeTest.prototype.pass](#imperativetestprototypepassmessage)
+  - [ImperativeTest.prototype.plan](#imperativetestprototypeplann)
+  - [ImperativeTest.prototype.regex](#imperativetestprototyperegexregex-input-message)
+  - [ImperativeTest.prototype.rejects](#imperativetestprototyperejectsinput-err)
+  - [ImperativeTest.prototype.resolves](#imperativetestprototyperesolvesinput-expected)
+  - [ImperativeTest.prototype.run](#imperativetestprototyperun)
+  - [ImperativeTest.prototype.same](#imperativetestprototypesameactual-expected-message)
+  - [ImperativeTest.prototype.sameTopology](#imperativetestprototypesametopologyobj1-obj2-message)
+  - [ImperativeTest.prototype.strictEqual](#imperativetestprototypestrictequalactual-expected-message)
+  - [ImperativeTest.prototype.strictNotSame](#imperativetestprototypestrictnotsameactual-expected-message)
+  - [ImperativeTest.prototype.strictSame](#imperativetestprototypestrictsameactual-expected-message)
+  - [ImperativeTest.prototype.test](#imperativetestprototypetestcaption-func-options)
+  - [ImperativeTest.prototype.testAsync](#imperativetestprototypetestasyncmessage-func-options--)
+  - [ImperativeTest.prototype.testSync](#imperativetestprototypetestsyncmessage-func-options--)
+  - [ImperativeTest.prototype.throws](#imperativetestprototypethrowsfn-expected-message)
+  - [ImperativeTest.prototype.type](#imperativetestprototypetypeobj-type-message)
+- [equal](#equalval1-val2)
+- [strictEqual](#strictequalval1-val2)
+- [reporters.Reporter](#class-reportersreporter)
+  - [reporters.Reporter.prototype.constructor](#reportersreporterprototypeconstructoroptions)
+  - [reporters.Reporter.prototype.error](#reportersreporterprototypeerrortest-error)
+  - [reporters.Reporter.prototype.finish](#reportersreporterprototypefinish)
+  - [reporters.Reporter.prototype.log](#reportersreporterprototypelogargs)
+  - [reporters.Reporter.prototype.logComment](#reportersreporterprototypelogcommentargs)
+  - [reporters.Reporter.prototype.record](#reportersreporterprototyperecordtest)
+- [reporters.ConciseReporter](#class-reportersconcisereporter-extends-reporter)
+  - [reporters.ConciseReporter.prototype.constructor](#reportersconcisereporterprototypeconstructoroptions)
+  - [reporters.ConciseReporter.prototype.error](#reportersconcisereporterprototypeerrortest-error)
+  - [reporters.ConciseReporter.prototype.finish](#reportersconcisereporterprototypefinish)
+  - [reporters.ConciseReporter.prototype.listFailure](#reportersconcisereporterprototypelistfailuretest-res-message)
+  - [reporters.ConciseReporter.prototype.parseTestResults](#reportersconcisereporterprototypeparsetestresultstest-subtest)
+  - [reporters.ConciseReporter.prototype.printAssertErrorSeparator](#reportersconcisereporterprototypeprintasserterrorseparator)
+  - [reporters.ConciseReporter.prototype.printSubtestSeparator](#reportersconcisereporterprototypeprintsubtestseparator)
+  - [reporters.ConciseReporter.prototype.printTestSeparator](#reportersconcisereporterprototypeprinttestseparator)
+  - [reporters.ConciseReporter.prototype.record](#reportersconcisereporterprototyperecordtest)
+- [reporters.TapReporter](#class-reporterstapreporter-extends-reporter)
+  - [reporters.TapReporter.prototype.constructor](#reporterstapreporterprototypeconstructoroptions)
+  - [reporters.TapReporter.prototype.error](#reporterstapreporterprototypeerrortest-error)
+  - [reporters.TapReporter.prototype.finish](#reporterstapreporterprototypefinish)
+  - [reporters.TapReporter.prototype.listFailure](#reporterstapreporterprototypelistfailuretest-res-offset)
+  - [reporters.TapReporter.prototype.logComment](#reporterstapreporterprototypelogcommentargs)
+  - [reporters.TapReporter.prototype.parseTestResults](#reporterstapreporterprototypeparsetestresultstest-offset--0)
+  - [reporters.TapReporter.prototype.record](#reporterstapreporterprototyperecordtest)
+- [runner.Runner](#class-runnerrunner-extends-eventemitter)
+  - [runner.Runner.prototype.constructor](#runnerrunnerprototypeconstructoroptions)
+  - [runner.Runner.prototype.addTest](#runnerrunnerprototypeaddtesttest)
+  - [runner.Runner.prototype.finish](#runnerrunnerprototypefinish)
+  - [runner.Runner.prototype.removeReporter](#runnerrunnerprototyperemovereporter)
+  - [runner.Runner.prototype.resume](#runnerrunnerprototyperesume)
+  - [runner.Runner.prototype.runTodo](#runnerrunnerprototyperuntodoactive--true)
+  - [runner.Runner.prototype.setReporter](#runnerrunnerprototypesetreporterreporter)
+  - [runner.Runner.prototype.wait](#runnerrunnerprototypewait)
+- [runner.instance](#runnerinstance)
+- [speed](#speedcaption-count-cases)
+- [measure](#measurecases-options)
+- [convertToCsv](#converttocsvresults)
 
-### Interface: metatests
+#### test(caption, func\[, options\[, runner\]\])
+
+- `caption`: [`<string>`][string] name of the test
+- `func`: [`<Function>`][function] test function
+  - `test`: [`<ImperativeTest>`][imperativetest] test instance
+- `options`: `<TestOptions>`
+  - `run`: [`<boolean>`][boolean] auto start test, default: true
+  - `async`: [`<boolean>`][boolean] if true do nothing, if false auto-end test
+    on nextTick after `func` run, default: true
+  - `timeout`: [`<number>`][number] time in milliseconds after which test is
+    considered timeouted.
+  - `parallelSubtests`: [`<boolean>`][boolean] if true subtests will be run in
+    parallel, otherwise subtests are run sequentially, default: false
+  - `dependentSubtests`: [`<boolean>`][boolean] if true each subtest will be
+    executed sequentially in order of addition to the parent test
+    short-circuiting if any subtest fails, default: false
+- `runner`: [`<Runner>`][runner] runner instance to use to run this test
+
+_Returns:_ [`<ImperativeTest>`][imperativetest] test instance
+
+Create a test case.
+
+#### testAsync(caption, func, options = {}, runner = runnerInstance)
+
+Create an asynchronous test
+
+Simple wrapper for [`test()`][test()] setting `async` option to `true`.
+
+#### testSync(caption, func, options = {}, runner = runnerInstance)
+
+Create a synchronous test
+
+Simple wrapper for [`test()`][test()] setting `async` option to `false`.
 
 #### case(caption, namespace, list, runner)
 
@@ -166,7 +197,11 @@ technology stack built on the following principles:
 - `runner`: [`<Runner>`][runner] runner for this case test, optional, default:
   `metatests.runner.instance`
 
-Create declarative test
+_Returns:_ [`<DeclarativeTest>`][declarativetest] test instance
+
+Create a declarative test
+
+#### class ImperativeTest extends Test
 
 #### class DeclarativeTest extends Test
 
@@ -176,171 +211,10 @@ Create declarative test
 
 ##### DeclarativeTest.prototype.runNow()
 
-#### equal(val1, val2)
-
-#### strictEqual(val1, val2)
-
-#### class reporters.Reporter
-
-##### reporters.Reporter.prototype.constructor(options)
-
-- `options`: [`<Object>`][object]
-  - `stream`: `<stream.Writable>` optional
-
-##### reporters.Reporter.prototype.error(test, error)
-
-- `test`: `<Test>`
-- `error`: [`<Error>`][error]
-
-Fail test with error
-
-##### reporters.Reporter.prototype.finish()
-
-##### reporters.Reporter.prototype.log(...args)
-
-##### reporters.Reporter.prototype.logComment(...args)
-
-##### reporters.Reporter.prototype.record(test)
-
-- `test`: `<Test>`
-
-Record test
-
-#### class reporters.ConciseReporter extends Reporter
-
-##### reporters.ConciseReporter.prototype.constructor(options)
-
-##### reporters.ConciseReporter.prototype.error(test, error)
-
-##### reporters.ConciseReporter.prototype.finish()
-
-##### reporters.ConciseReporter.prototype.listFailure(test, res, message)
-
-##### reporters.ConciseReporter.prototype.parseTestResults(test, subtest)
-
-##### reporters.ConciseReporter.prototype.printAssertErrorSeparator()
-
-##### reporters.ConciseReporter.prototype.printSubtestSeparator()
-
-##### reporters.ConciseReporter.prototype.printTestSeparator()
-
-##### reporters.ConciseReporter.prototype.record(test)
-
-#### class reporters.TapReporter extends Reporter
-
-##### reporters.TapReporter.prototype.constructor(options)
-
-##### reporters.TapReporter.prototype.error(test, error)
-
-##### reporters.TapReporter.prototype.finish()
-
-##### reporters.TapReporter.prototype.listFailure(test, res, offset)
-
-##### reporters.TapReporter.prototype.logComment(...args)
-
-##### reporters.TapReporter.prototype.parseTestResults(test, offset = 0)
-
-##### reporters.TapReporter.prototype.record(test)
-
-#### class runner.Runner extends EventEmitter
-
-##### runner.Runner.prototype.constructor(options)
-
-##### runner.Runner.prototype.addTest(test)
-
-##### runner.Runner.prototype.finish()
-
-##### runner.Runner.prototype.removeReporter()
-
-##### runner.Runner.prototype.resume()
-
-##### runner.Runner.prototype.runTodo(active = true)
-
-##### runner.Runner.prototype.setReporter(reporter)
-
-##### runner.Runner.prototype.wait()
-
-#### runner.instance
-
-- [`<Runner>`][runner]
-
-#### speed(caption, count, cases)
-
-- `caption`: [`<string>`][string] name of the benchmark
-- `count`: [`<number>`][number] amount of times ro run each function
-- `cases`: [`<Array>`][array] functions to check
-
-Microbenchmark each passed function and compare results.
-
-#### measure(cases\[, options\])
-
-- `cases`: [`<Array>`][array] cases to test, each case contains
-  - `fn`: [`<Function>`][function] function to check, will be called with each
-    args provided
-  - `name`: [`<string>`][string] case name, function.name by default
-  - `argCases`: [`<Array>`][array] array of arguments to create runs with. When
-    omitted `fn` will be run once without arguments. Total amount of runs will
-    be `runs * argCases.length`.
-  - `n`: [`<number>`][number] number of times to run the test, defaultCount from
-    options by default
-- `options`: [`<Object>`][object]
-  - `defaultCount`: [`<number>`][number] number of times to run the function by
-    default, default: 1e6
-  - `runs`: [`<number>`][number] number of times to run the case, default: 20
-  - `preflight`: [`<number>`][number] number of times to pre-run the case for
-    each set of arguments, default: 10
-  - `preflightCount`: [`<number>`][number] number of times to run the function
-    in the preflight stage, default: 1e4
-  - `listener`: [`<Object>`][object] appropriate function will be called to
-    report events, optional
-    - `preflight`: [`<Function>`][function] called when preflight is starting,
-      optional
-      - `name`: [`<string>`][string] case name
-      - `count`: [`<number>`][number] number of times it will be run
-      - `args`: [`<Array>`][array] function arguments
-    - `run`: [`<Function>`][function] called when run is starting, optional
-      - `name`: [`<string>`][string] case name
-      - `count`: [`<number>`][number] number of times it will be run
-      - `args`: [`<Array>`][array] function arguments
-    - `cycle`: [`<Function>`][function] called when run is done, optional
-      - `name`: [`<string>`][string] case name
-      - `result`: [`<Object>`][object] case results
-    - `done`: [`<Function>`][function] called when all runs for given
-      configurations are done, optional
-      - `name`: [`<string>`][string] case name
-      - `args`: [`<Array>`][array] current configuration
-      - `results`: [`<Array>`][array] results of all runs with this
-        configuration
-    - `finish`: [`<Function>`][function] called when measuring is finished,
-      optional
-      - `results`: [`<Array>`][array] all case results
-
-_Returns:_ [`<Array>`][array] results of all cases as objects of structure
-
-- `name`: [`<string>`][string] case name
-- `args`: [`<Array>`][array] arguments for this run
-- `count`: [`<number>`][number] number of times case was run
-- `time`: [`<number>`][number] time in nanoseconds it took to make `count` runs
-- `result`: `<any>` result of one of the runs
-
-Microbenchmark each passed configuration multiple times
-
-#### convertToCsv(results)
-
-- `results`: [`<Array>`][array] all results from `measure` run
-
-_Returns:_ [`<string>`][string] valid CSV representation of the results
-
-Convert metatests.measure result to csv.
-
-#### class ImperativeTest extends Test
-
-##### ImperativeTest.prototype.constructor(caption, func, options)
-
 ##### ImperativeTest.prototype.afterEach(func)
 
 - `func`: [`<Function>`][function]
-  - `subtest`: `<ImperativeTest>` test instance
+  - `subtest`: [`<ImperativeTest>`][imperativetest] test instance
   - `callback`: [`<Function>`][function]
   - _Returns:_ [`<Promise>`][promise]|`<void>`
 
@@ -375,7 +249,7 @@ If both `err` and `message` are provided `err.toString()` will be appended to
 ##### ImperativeTest.prototype.beforeEach(func)
 
 - `func`: [`<Function>`][function]
-  - `subtest`: `<ImperativeTest>` test instance
+  - `subtest`: [`<ImperativeTest>`][imperativetest] test instance
   - `callback`: [`<Function>`][function]
     - `context`: `<any>` context of the test. It will pe passed as a second
       argument to test function and is available at `test.context`
@@ -415,6 +289,8 @@ Create error-first callback wrapper to fail test if call fails.
 This will check for [`test.mustCall()`][test.mustcall()] the callback and if the
 call errored will use [`test.fail()`][test.fail()] and
 [`test.end()`][test.end()]
+
+##### ImperativeTest.prototype.constructor(caption, func, options)
 
 ##### ImperativeTest.prototype.contains(actual, subObj\[, message\[, sort\[, test\]\]\])
 
@@ -680,7 +556,7 @@ Compare actual and expected for strict equality.
 
 - `caption`: [`<string>`][string] name of the test
 - `func`: [`<Function>`][function] test function
-  - `test`: `<ImperativeTest>` test instance
+  - `test`: [`<ImperativeTest>`][imperativetest] test instance
 - `options`: `<TestOptions>`
   - `run`: [`<boolean>`][boolean] auto start test, default: true
   - `async`: [`<boolean>`][boolean] if true do nothing, if false auto-end test
@@ -693,7 +569,7 @@ Compare actual and expected for strict equality.
     executed sequentially in order of addition to the parent test
     short-circuiting if any subtest fails, default: false
 
-_Returns:_ `<ImperativeTest>` subtest instance
+_Returns:_ [`<ImperativeTest>`][imperativetest] subtest instance
 
 Create a subtest of this test.
 
@@ -729,39 +605,162 @@ Check that fn throws expected error.
 
 Check if obj is of specified type.
 
-#### test(caption, func\[, options\[, runner\]\])
+#### equal(val1, val2)
 
-- `caption`: [`<string>`][string] name of the test
-- `func`: [`<Function>`][function] test function
-  - `test`: `<ImperativeTest>` test instance
-- `options`: `<TestOptions>`
-  - `run`: [`<boolean>`][boolean] auto start test, default: true
-  - `async`: [`<boolean>`][boolean] if true do nothing, if false auto-end test
-    on nextTick after `func` run, default: true
-  - `timeout`: [`<number>`][number] time in milliseconds after which test is
-    considered timeouted.
-  - `parallelSubtests`: [`<boolean>`][boolean] if true subtests will be run in
-    parallel, otherwise subtests are run sequentially, default: false
-  - `dependentSubtests`: [`<boolean>`][boolean] if true each subtest will be
-    executed sequentially in order of addition to the parent test
-    short-circuiting if any subtest fails, default: false
-- `runner`: [`<Runner>`][runner] runner instance to use to run this test
+#### strictEqual(val1, val2)
 
-_Returns:_ `<ImperativeTest>` test instance
+#### class reporters.Reporter
 
-Create a test case.
+##### reporters.Reporter.prototype.constructor(options)
 
-#### testSync(caption, func, options = {}, runner = runnerInstance)
+- `options`: [`<Object>`][object]
+  - `stream`: `<stream.Writable>` optional
 
-Create a synchronous test
+##### reporters.Reporter.prototype.error(test, error)
 
-Simple wrapper for [`test()`][test()] setting `async` option to `false`.
+- `test`: `<Test>`
+- `error`: [`<Error>`][error]
 
-#### testAsync(caption, func, options = {}, runner = runnerInstance)
+Fail test with error
 
-Create an asynchronous test
+##### reporters.Reporter.prototype.finish()
 
-Simple wrapper for [`test()`][test()] setting `async` option to `true`.
+##### reporters.Reporter.prototype.log(...args)
+
+##### reporters.Reporter.prototype.logComment(...args)
+
+##### reporters.Reporter.prototype.record(test)
+
+- `test`: `<Test>`
+
+Record test
+
+#### class reporters.ConciseReporter extends Reporter
+
+##### reporters.ConciseReporter.prototype.constructor(options)
+
+##### reporters.ConciseReporter.prototype.error(test, error)
+
+##### reporters.ConciseReporter.prototype.finish()
+
+##### reporters.ConciseReporter.prototype.listFailure(test, res, message)
+
+##### reporters.ConciseReporter.prototype.parseTestResults(test, subtest)
+
+##### reporters.ConciseReporter.prototype.printAssertErrorSeparator()
+
+##### reporters.ConciseReporter.prototype.printSubtestSeparator()
+
+##### reporters.ConciseReporter.prototype.printTestSeparator()
+
+##### reporters.ConciseReporter.prototype.record(test)
+
+#### class reporters.TapReporter extends Reporter
+
+##### reporters.TapReporter.prototype.constructor(options)
+
+##### reporters.TapReporter.prototype.error(test, error)
+
+##### reporters.TapReporter.prototype.finish()
+
+##### reporters.TapReporter.prototype.listFailure(test, res, offset)
+
+##### reporters.TapReporter.prototype.logComment(...args)
+
+##### reporters.TapReporter.prototype.parseTestResults(test, offset = 0)
+
+##### reporters.TapReporter.prototype.record(test)
+
+#### class runner.Runner extends EventEmitter
+
+##### runner.Runner.prototype.constructor(options)
+
+##### runner.Runner.prototype.addTest(test)
+
+##### runner.Runner.prototype.finish()
+
+##### runner.Runner.prototype.removeReporter()
+
+##### runner.Runner.prototype.resume()
+
+##### runner.Runner.prototype.runTodo(active = true)
+
+##### runner.Runner.prototype.setReporter(reporter)
+
+##### runner.Runner.prototype.wait()
+
+#### runner.instance
+
+- [`<Runner>`][runner]
+
+#### speed(caption, count, cases)
+
+- `caption`: [`<string>`][string] name of the benchmark
+- `count`: [`<number>`][number] amount of times ro run each function
+- `cases`: [`<Array>`][array] functions to check
+
+Microbenchmark each passed function and compare results.
+
+#### measure(cases\[, options\])
+
+- `cases`: [`<Array>`][array] cases to test, each case contains
+  - `fn`: [`<Function>`][function] function to check, will be called with each
+    args provided
+  - `name`: [`<string>`][string] case name, function.name by default
+  - `argCases`: [`<Array>`][array] array of arguments to create runs with. When
+    omitted `fn` will be run once without arguments. Total amount of runs will
+    be `runs * argCases.length`.
+  - `n`: [`<number>`][number] number of times to run the test, defaultCount from
+    options by default
+- `options`: [`<Object>`][object]
+  - `defaultCount`: [`<number>`][number] number of times to run the function by
+    default, default: 1e6
+  - `runs`: [`<number>`][number] number of times to run the case, default: 20
+  - `preflight`: [`<number>`][number] number of times to pre-run the case for
+    each set of arguments, default: 10
+  - `preflightCount`: [`<number>`][number] number of times to run the function
+    in the preflight stage, default: 1e4
+  - `listener`: [`<Object>`][object] appropriate function will be called to
+    report events, optional
+    - `preflight`: [`<Function>`][function] called when preflight is starting,
+      optional
+      - `name`: [`<string>`][string] case name
+      - `count`: [`<number>`][number] number of times it will be run
+      - `args`: [`<Array>`][array] function arguments
+    - `run`: [`<Function>`][function] called when run is starting, optional
+      - `name`: [`<string>`][string] case name
+      - `count`: [`<number>`][number] number of times it will be run
+      - `args`: [`<Array>`][array] function arguments
+    - `cycle`: [`<Function>`][function] called when run is done, optional
+      - `name`: [`<string>`][string] case name
+      - `result`: [`<Object>`][object] case results
+    - `done`: [`<Function>`][function] called when all runs for given
+      configurations are done, optional
+      - `name`: [`<string>`][string] case name
+      - `args`: [`<Array>`][array] current configuration
+      - `results`: [`<Array>`][array] results of all runs with this
+        configuration
+    - `finish`: [`<Function>`][function] called when measuring is finished,
+      optional
+      - `results`: [`<Array>`][array] all case results
+
+_Returns:_ [`<Array>`][array] results of all cases as objects of structure
+
+- `name`: [`<string>`][string] case name
+- `args`: [`<Array>`][array] arguments for this run
+- `count`: [`<number>`][number] number of times case was run
+- `time`: [`<number>`][number] time in nanoseconds it took to make `count` runs
+- `result`: `<any>` result of one of the runs
+
+Microbenchmark each passed configuration multiple times
+
+#### convertToCsv(results)
+
+- `results`: [`<Array>`][array] all results from `measure` run
+
+_Returns:_ [`<string>`][string] valid CSV representation of the results
+
+Convert metatests.measure result to csv.
 
 [object]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
 [function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
@@ -782,3 +781,5 @@ Simple wrapper for [`test()`][test()] setting `async` option to `true`.
 [test.fail()]: #imperativetestprototypefailmessage-err
 [test.end()]: #imperativetestprototypeend
 [case()]: #casecaption-namespace-list-runner
+[declarativetest]: #class-declarativetest-extends-test
+[imperativetest]: #class-imperativetest-extends-test
