@@ -53,6 +53,7 @@
     "@metarhia/common": "^2.2.0",
     "tap-mocha-reporter": "^5.0.1",
     "tap-yaml": "^1.0.0",
+    "yaml": "^1.10.2",
     "yargs": "^15.4.1"
   },
   "devDependencies": {

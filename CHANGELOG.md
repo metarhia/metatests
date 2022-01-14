@@ -26,6 +26,7 @@ and this project adheres to
 ### Fixed
 
 - Comparison of `Map` and `Set` objects.
+- Printing of Error/Date/RegExp object in TapReporter for JS `vm` sandboxes
 
 ## [0.7.2][] - 2020-07-27
 
