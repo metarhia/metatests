@@ -227,7 +227,7 @@ export class ImperativeTest<C extends TestContext = {}> extends Test<
 export function test<C extends TestContext = {}, R extends Runner = Runner>(
   caption: string,
   func: (test: ImperativeTest) => any | Promise<any>,
-  options: ImperativeTestOptions,
+  options?: ImperativeTestOptions,
   runner?: R
 ): ImperativeTest<C>;
 
@@ -238,7 +238,7 @@ export function testAsync<
 >(
   caption: string,
   func: (test: ImperativeTest) => any | Promise<any>,
-  options: ImperativeTestOptions,
+  options?: ImperativeTestOptions,
   runner?: R
 ): ImperativeTest<C>;
 
@@ -246,6 +246,6 @@ export function testAsync<
 export function testSync<C extends TestContext = {}, R extends Runner = Runner>(
   caption: string,
   func: (test: ImperativeTest) => any | Promise<any>,
-  options: ImperativeTestOptions,
+  options?: ImperativeTestOptions,
   runner?: R
 ): ImperativeTest<C>;
