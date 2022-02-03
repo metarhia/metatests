@@ -11,6 +11,10 @@ and this project adheres to
 ### Added
 
 - extract contains/containsGreedy matchers to compare fns.
+- `test#defer(fn, { ignoreErrors: false })` to execute come function right
+  before the end of the test. It is useful for test clean up callbacks.
+  If the `fn` returns a `Promise` it will be waited upon and delay the test
+  finish.
 
 ### Fixed
 

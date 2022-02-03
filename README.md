@@ -114,6 +114,7 @@ technology stack built on the following principles:
     - [ImperativeTest.prototype.cbFail](#imperativetestprototypecbfailfail-cb-afterallcb)
     - [ImperativeTest.prototype.contains](#imperativetestprototypecontainsactual-subobj-message-sort-test)
     - [ImperativeTest.prototype.containsGreedy](#imperativetestprototypecontainsgreedyactual-subobj-message-sort-test)
+    - [ImperativeTest.prototype.defer](#imperativetestprototypedeferfn-options)
     - [ImperativeTest.prototype.doesNotThrow](#imperativetestprototypedoesnotthrowfn-message)
     - [ImperativeTest.prototype.end](#imperativetestprototypeend)
     - [ImperativeTest.prototype.endAfterSubtests](#imperativetestprototypeendaftersubtests)
@@ -448,6 +449,16 @@ Check greedily that actual contains all properties of subObj.
 
 Similar to [`test.contains()`][test.contains()] but will succeed if at least one
 of the properties in actual match the one in subObj.
+
+##### ImperativeTest.prototype.defer(fn, options)
+
+- `fn`: [`<Function>`][function] function to call before the end of test. Can
+  return a promise that will defer the end of test.
+- `options`: [`<Object>`][object]
+  - `ignoreErrors`: [`<boolean>`][boolean] ignore errors from fn function,
+    default: `false`
+
+Defer a function call until the 'before' end of test.
 
 ##### ImperativeTest.prototype.doesNotThrow(fn\[, message\])
 

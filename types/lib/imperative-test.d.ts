@@ -220,6 +220,12 @@ export class ImperativeTest<C extends TestContext = {}> extends Test<
   // Record a passing assertion.
   pass(message?: string): void;
 
+  // Defer a function call until the 'before' end of test.
+  defer<F extends () => any | Promise<any> = () => {}>(
+    fn: F,
+    options: { ignoreErrors?: boolean }
+  ): void;
+
   on(name: 'done', listener: (test: this) => void): this;
 }
 
