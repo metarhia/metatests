@@ -625,3 +625,84 @@ metatests.test('must support simple Set comparison failure', test => {
     test.end();
   });
 });
+
+metatests.testSync('must support error comparison in equal checks', test => {
+  test.equal({ a: new Error('error') }, { a: new Error('error') });
+  test.equal(
+    { a: Object.assign(new Error('error'), { b: 42 }) },
+    { a: Object.assign(new Error('error'), { b: 42 }) }
+  );
+});
+
+metatests.test(
+  'must support error comparison in equal checks failure',
+  test => {
+    const t = new metatests.ImperativeTest('equal err', t => {
+      t.equal({ a: new Error('error') }, { a: new Error('error1') });
+      t.end();
+    });
+    t.on('done', () => {
+      test.strictSame(t.success, false);
+      test.end();
+    });
+  }
+);
+
+metatests.test(
+  'must support error comparison in equal checks nested keys failure',
+  test => {
+    const t = new metatests.ImperativeTest('equal err', t => {
+      t.equal(
+        { a: Object.assign(new Error('error'), { b: 42 }) },
+        { a: new Error('error') }
+      );
+      t.end();
+    });
+    t.on('done', () => {
+      test.strictSame(t.success, false);
+      test.end();
+    });
+  }
+);
+
+metatests.testSync(
+  'must support error comparison in strictEqual checks',
+  test => {
+    test.strictEqual({ a: new Error('error') }, { a: new Error('error') });
+    test.strictEqual(
+      { a: Object.assign(new Error('error'), { b: 42 }) },
+      { a: Object.assign(new Error('error'), { b: 42 }) }
+    );
+  }
+);
+
+metatests.test(
+  'must support error comparison in equal checks failure',
+  test => {
+    const t = new metatests.ImperativeTest('strictEqual err', t => {
+      t.strictEqual({ a: new Error('error') }, { a: new Error('error1') });
+      t.end();
+    });
+    t.on('done', () => {
+      test.strictSame(t.success, false);
+      test.end();
+    });
+  }
+);
+
+metatests.test(
+  'must support error comparison in equal checks nested keys failure',
+  test => {
+    const t = new metatests.ImperativeTest('strictEqual err', t => {
+      t.strictEqual(
+        { a: Object.assign(new Error('error'), { b: 42 }) },
+        { a: new Error('error') }
+      );
+      t.end();
+    });
+    t.on('done', () => {
+      test.strictSame(t.success, false);
+      test.end();
+    });
+  }
+);

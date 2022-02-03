@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased][unreleased]
 
+### Fixed
+
+- comparison of errors in `compare.strictEqual`/`compare.equal`.
+
 ## [0.8.0][] - 2021-01-14
 
 ### Added

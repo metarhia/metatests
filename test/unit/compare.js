@@ -199,6 +199,21 @@ assert(
 );
 assert(!equal(JSON.stringify, () => {}));
 
+assert(equal({ a: new Error('error') }, { a: new Error('error') }));
+assert(
+  equal(
+    { a: Object.assign(new Error('error'), { b: 42 }) },
+    { a: Object.assign(new Error('error'), { b: 42 }) }
+  )
+);
+assert(!equal({ a: new Error('error') }, { a: new Error('error1') }));
+assert(
+  !equal(
+    { a: Object.assign(new Error('error'), { b: 42 }) },
+    { a: new Error('error') }
+  )
+);
+
 assert(strictEqual(1, 1));
 assert(!strictEqual(1, 2));
 
@@ -363,6 +378,21 @@ assert(
       [1, 'a'],
       [2, 'b'],
     ])
+  )
+);
+
+assert(strictEqual({ a: new Error('error') }, { a: new Error('error') }));
+assert(
+  strictEqual(
+    { a: Object.assign(new Error('error'), { b: 42 }) },
+    { a: Object.assign(new Error('error'), { b: 42 }) }
+  )
+);
+assert(!strictEqual({ a: new Error('error') }, { a: new Error('error1') }));
+assert(
+  !strictEqual(
+    { a: Object.assign(new Error('error'), { b: 42 }) },
+    { a: new Error('error') }
   )
 );
 
