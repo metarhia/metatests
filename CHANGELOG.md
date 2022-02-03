@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased][unreleased]
 
+### Added
+
+- extract contains/containsGreedy matchers to compare fns.
+
 ### Fixed
 
 - comparison of errors in `compare.strictEqual`/`compare.equal`.

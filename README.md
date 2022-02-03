@@ -423,7 +423,7 @@ call errored will use [`test.fail()`][test.fail()] and
 - `message`: [`<string>`][string] description of the check, optional
 - `sort`: `<boolean | Function>` if true or a sort function sort data
   properties, default: false
-- `test`: [`<Function>`][function] test function, default: compare.strictEqual
+- `cmp`: [`<Function>`][function] test function, default: compare.strictEqual
   - `actual`: `<any>`
   - `expected`: `<any>`
   - _Returns:_ [`<boolean>`][boolean] true if actual is equal to expected, false
@@ -438,7 +438,7 @@ Properties will be compared with test function.
 - `actual`: `<any>` actual data
 - `subObj`: `<any>` expected properties
 - `message`: [`<string>`][string] description of the check, optional
-- `test`: [`<Function>`][function] test function, default: compare.strictEqual
+- `cmp`: [`<Function>`][function] test function, default: compare.strictEqual
   - `actual`: `<any>`
   - `expected`: `<any>`
   - _Returns:_ [`<boolean>`][boolean] true if actual is equal to expected, false
