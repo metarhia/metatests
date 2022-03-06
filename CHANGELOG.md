@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased][unreleased]
 
+## [0.8.1][] - 2022-03-06
+
 ### Added
 
 - extract contains/containsGreedy matchers to compare fns.
@@ -577,7 +579,8 @@ and this project adheres to
 
 - The first version of the `metatests` package.
 
-[unreleased]: https://github.com/metarhia/metatests/compare/v0.8.0...HEAD
+[unreleased]: https://github.com/metarhia/metatests/compare/v0.8.1...HEAD
+[0.8.1]: https://github.com/metarhia/metatests/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/metarhia/metatests/compare/v0.7.2...v0.8.0
 [0.7.2]: https://github.com/metarhia/metatests/compare/v0.7.1...v0.7.2
 [0.7.1]: https://github.com/metarhia/metatests/compare/v0.7.0...v0.7.1
