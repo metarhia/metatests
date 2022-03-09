@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased][unreleased]
 
+### Fixed
+
+- bug where `test.endAfterSubtests()` would cause an error if the test was
+  finished before `endAfterSubtests` got a chance to process its checks.
+
 ## [0.8.1][] - 2022-03-06
 
 ### Added

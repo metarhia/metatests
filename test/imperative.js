@@ -91,6 +91,12 @@ metatests.test('nested test', t1 => {
   });
 });
 
+metatests.test('nested test that ends before endAfterSubtests', t1 => {
+  t1.strictSame(123, 123);
+  t1.endAfterSubtests();
+  t1.end();
+});
+
 metatests.testAsync('nested test that ends after each subtest', test => {
   let i = 0;
   test.strictSame(++i, 1);
