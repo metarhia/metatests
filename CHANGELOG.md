@@ -12,6 +12,8 @@ and this project adheres to
 
 - bug where `test.endAfterSubtests()` would cause an error if the test was
   finished before `endAfterSubtests` got a chance to process its checks.
+- remove warnings from `yaml` library that are not actionable right now
+  [see issue](https://github.com/metarhia/metatests/issues/265).
 
 ## [0.8.1][] - 2022-03-06
 
