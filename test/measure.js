@@ -24,7 +24,10 @@ metatests.testSync('Verify that metatests.measure works', test => {
     done: [],
     finish: [],
   };
-  const putToArr = name => (...args) => actualFromListener[name].push(args);
+  const putToArr =
+    name =>
+    (...args) =>
+      actualFromListener[name].push(args);
   const listener = {
     preflight: test.mustCall(putToArr('preflight'), 3),
     run: test.mustCall(putToArr('run'), 3),
