@@ -1,6 +1,6 @@
 {
   "name": "metatests",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
   "description": "Simple to use test engine for Metarhia technology stack",
   "license": "MIT",
