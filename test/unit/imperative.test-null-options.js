@@ -5,9 +5,9 @@ const { test } = require('../..');
 
 const subtest = test(
   'should not failed when the passed options is null',
-  t => {
-    t.pass();
-    t.end();
+  (test) => {
+    test.pass();
+    test.end();
   },
   null
 );
