@@ -13,7 +13,7 @@ export interface ImperativeTestResult {
 
 export interface ImperativeTestOptions<
   C extends TestContext = {},
-  R extends Runner = Runner
+  R extends Runner = Runner,
 > extends TestOptions<C, R> {
   run: boolean;
   async: boolean;
@@ -240,7 +240,7 @@ export function test<C extends TestContext = {}, R extends Runner = Runner>(
 // Create an asynchronous test
 export function testAsync<
   C extends TestContext = {},
-  R extends Runner = Runner
+  R extends Runner = Runner,
 >(
   caption: string,
   func: (test: ImperativeTest) => any | Promise<any>,

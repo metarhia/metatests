@@ -7,7 +7,7 @@ interface RunnerOptions {
 }
 
 export class Runner<
-  O extends RunnerOptions = RunnerOptions
+  O extends RunnerOptions = RunnerOptions,
 > extends events.EventEmitter {
   public options: O;
   public reporter: Reporter<ReporterOptions>;
