@@ -4,6 +4,7 @@ const assert = require('assert');
 const { DeclarativeTest } = require('../..');
 
 class CustomClass {
+  // eslint-disable-next-line class-methods-use-this
   bufferify(string) {
     return Buffer.from(string);
   }

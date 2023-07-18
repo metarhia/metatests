@@ -25,7 +25,12 @@ assert.throws(
   )
 );
 
-assert.doesNotThrow(() => {
-  const test = new ImperativeTest('', null, { parallelSubtests: true });
-  test.end();
-}, checkError(new Error('parallelSubtests and dependentSubtests are contradictory')));
+assert.doesNotThrow(
+  () => {
+    const test = new ImperativeTest('', null, { parallelSubtests: true });
+    test.end();
+  },
+  checkError(
+    new Error('parallelSubtests and dependentSubtests are contradictory')
+  )
+);

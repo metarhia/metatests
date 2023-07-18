@@ -6,10 +6,7 @@ const {
 
 module.exports = class MockReporter extends Reporter {
   record() {}
-
   error() {}
-
   finish() {}
-
   log() {}
 };

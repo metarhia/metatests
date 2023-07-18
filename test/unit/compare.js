@@ -176,10 +176,12 @@ assert(
   equal(
     (a, b) => {
       a += 3;
+      // eslint-disable-next-line no-invalid-this
       return this.c + a + b;
     },
     (a, b) => {
       a += 3;
+      // eslint-disable-next-line no-invalid-this
       return this.c + a + b;
     }
   )
@@ -308,10 +310,12 @@ assert(
   strictEqual(
     (a, b) => {
       a += 3;
+      // eslint-disable-next-line no-invalid-this
       return this.c + a + b;
     },
     (a, b) => {
       a += 3;
+      // eslint-disable-next-line no-invalid-this
       return this.c + a + b;
     }
   )
