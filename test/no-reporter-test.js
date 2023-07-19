@@ -17,7 +17,7 @@ if (process.argv[2] === 'child-success') {
   test.end();
   metatests.runner.instance.on('finish', hasFailures => {
     // this test must succeed if test has 'error' - the above end-after-end
-    process.exit(!hasFailures);
+    process.exit(hasFailures ? 0 : 1);
   });
 } else {
   test.plan(2);
