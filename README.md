@@ -1,10 +1,11 @@
 # metatests
 
-[![CI Status Badge](https://github.com/metarhia/metatests/workflows/Testing%20CI/badge.svg?branch=master)](https://github.com/metarhia/metatests/actions?query=workflow%3A%22Testing+CI%22+branch%3Amaster)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/79fc1a2a1b144e3c9283c681607b7c3f)](https://www.codacy.com/app/metarhia/metatests)
-[![NPM Version](https://badge.fury.io/js/metatests.svg)](https://badge.fury.io/js/metatests)
-[![NPM Downloads/Month](https://img.shields.io/npm/dm/metatests.svg)](https://www.npmjs.com/package/metatests)
-[![NPM Downloads](https://img.shields.io/npm/dt/metatests.svg)](https://www.npmjs.com/package/metatests)
+[![ci status](https://github.com/metarhia/metatests/workflows/Testing%20CI/badge.svg)](https://github.com/metarhia/metatests/actions?query=workflow%3A%22Testing+CI%22+branch%3Amaster)
+[![snyk](https://snyk.io/test/github/metarhia/metatests/badge.svg)](https://snyk.io/test/github/metarhia/metatests)
+[![npm version](https://badge.fury.io/js/metatests.svg)](https://badge.fury.io/js/metatests)
+[![npm downloads/month](https://img.shields.io/npm/dm/metatests.svg)](https://www.npmjs.com/package/metatests)
+[![npm downloads](https://img.shields.io/npm/dt/metatests.svg)](https://www.npmjs.com/package/metatests)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/metarhia/metatests/blob/master/LICENSE)
 
 `metatests` is an extremely simple to use test framework and runner for Metarhia
 technology stack built on the following principles:
