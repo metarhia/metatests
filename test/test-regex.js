@@ -2,7 +2,7 @@
 
 const metatests = require('..');
 
-metatests.testSync('imperative#regex', test => {
+metatests.testSync('imperative#regex', (test) => {
   const t = new metatests.ImperativeTest();
   const testRegex = (regex, input, success, message) => {
     t.regex(regex, input, message);

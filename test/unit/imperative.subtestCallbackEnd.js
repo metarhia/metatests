@@ -4,7 +4,7 @@ const assert = require('assert');
 const { ImperativeTest } = require('../..');
 
 const test = new ImperativeTest('test', () => {}, { async: true });
-const st = test.testSync('subtest', t => t.pass());
+const st = test.testSync('subtest', (t) => t.pass());
 
 st.on('done', () => {
   process.nextTick(() => {

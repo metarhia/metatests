@@ -5,17 +5,17 @@ const path = require('path');
 
 const metatests = require('..');
 
-metatests.test('exit code of a passing test must be 0', test => {
+metatests.test('exit code of a passing test must be 0', (test) => {
   const subtest = cp.fork(path.join(__dirname, 'assets'), [], {
     stdio: 'ignore',
   });
 
-  subtest.on('exit', code => {
+  subtest.on('exit', (code) => {
     test.equal(code, 0);
     test.end();
   });
 
-  subtest.on('error', error => {
+  subtest.on('error', (error) => {
     test.bailout(error.toString());
   });
 });

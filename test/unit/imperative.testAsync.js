@@ -4,7 +4,7 @@ const assert = require('assert');
 const { ImperativeTest } = require('../..');
 
 const test = new ImperativeTest();
-const subtest = test.testAsync('subtest async', t => {
+const subtest = test.testAsync('subtest async', (t) => {
   t.pass();
   t.end();
 });

@@ -16,7 +16,7 @@ export class DeclarativeTest extends Test<DeclarativeTestResult> {
     caption: string,
     namespace: Record<string, any>,
     list: Record<string, any[]>,
-    options: TestOptions
+    options: TestOptions,
   );
 }
 
@@ -25,7 +25,7 @@ declare function checkCase(
   caption: string,
   namespace: Record<string, any>,
   list: Record<string, any[]>,
-  runner: Runner
+  runner: Runner,
 ): DeclarativeTest;
 
 export { checkCase as case };

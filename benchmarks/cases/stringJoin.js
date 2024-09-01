@@ -10,9 +10,9 @@ for (let i = 0; i < 10; i++) {
   });
 }
 
-const rawJoin = () => clauses.map(c => `${c.a} ${c.b}`).join(', ');
+const rawJoin = () => clauses.map((c) => `${c.a} ${c.b}`).join(', ');
 
-const rawJoinSpread = () => [...clauses].map(c => `${c.a} ${c.b}`).join(', ');
+const rawJoinSpread = () => [...clauses].map((c) => `${c.a} ${c.b}`).join(', ');
 
 const reduceJoin = () => {
   const c = clauses[0];
@@ -24,7 +24,7 @@ const reduceJoin = () => {
 const reduceSliceStrJoin = () =>
   clauses.reduce((acc, c) => acc + `${c.a} ${c.b}, `, '').slice(0, -2);
 
-const mapper = v => `${v.a} ${v.b}`;
+const mapper = (v) => `${v.a} ${v.b}`;
 const manualWithMap = () => {
   let res = mapper(clauses[0]);
   for (let i = 1; i < clauses.length; i++) {
@@ -55,7 +55,7 @@ const manualJoinForOf = () => {
 
 const iterJoin = () =>
   iter(clauses)
-    .map(c => `${c.a} ${c.b}`)
+    .map((c) => `${c.a} ${c.b}`)
     .join(', ');
 
 module.exports = {

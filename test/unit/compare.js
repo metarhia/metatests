@@ -95,8 +95,8 @@ assert(
     new Map([
       [1, 'a'],
       [2, 'b'],
-    ])
-  )
+    ]),
+  ),
 );
 assert(
   !equal(
@@ -107,8 +107,8 @@ assert(
     new Map([
       [2, 'b'],
       [1, 'a'],
-    ])
-  )
+    ]),
+  ),
 );
 assert(
   !equal(
@@ -116,8 +116,8 @@ assert(
     new Map([
       [2, 'b'],
       [1, 'a'],
-    ])
-  )
+    ]),
+  ),
 );
 assert(
   !equal(
@@ -125,8 +125,8 @@ assert(
       [1, 'a'],
       [2, 'b'],
     ]),
-    new Map([[1, 'a']])
-  )
+    new Map([[1, 'a']]),
+  ),
 );
 assert(
   !equal(
@@ -137,8 +137,8 @@ assert(
     new Map([
       [1, 'a'],
       [2, 'b'],
-    ])
-  )
+    ]),
+  ),
 );
 
 assert(equal(new Set(), new Set()));
@@ -151,43 +151,41 @@ assert(!equal(new Set([1]), new Set([2])));
 assert(
   equal(
     () => {},
-    () => {}
-  )
+    () => {},
+  ),
 );
 assert(
   equal(
     () => 3,
-    () => 3
-  )
+    () => 3,
+  ),
 );
 assert(
   equal(
-    a => a,
-    a => a
-  )
+    (a) => a,
+    (a) => a,
+  ),
 );
 assert(
   equal(
     (a, b) => a + b,
-    (a, b) => a + b
-  )
+    (a, b) => a + b,
+  ),
 );
 assert(
   equal(
     (a, b) => {
       a += 3;
-      // eslint-disable-next-line no-invalid-this
       return this.c + a + b;
     },
     (a, b) => {
       a += 3;
-      // eslint-disable-next-line no-invalid-this
       return this.c + a + b;
-    }
-  )
+    },
+  ),
 );
 
-const func = a => a;
+const func = (a) => a;
 
 assert(equal(func, func));
 assert(!equal(console.log, console.dir));
@@ -196,8 +194,8 @@ assert(!equal(() => {}, null));
 assert(
   !equal(
     () => {},
-    a => ++a
-  )
+    (a) => ++a,
+  ),
 );
 assert(!equal(JSON.stringify, () => {}));
 
@@ -205,15 +203,15 @@ assert(equal({ a: new Error('error') }, { a: new Error('error') }));
 assert(
   equal(
     { a: Object.assign(new Error('error'), { b: 42 }) },
-    { a: Object.assign(new Error('error'), { b: 42 }) }
-  )
+    { a: Object.assign(new Error('error'), { b: 42 }) },
+  ),
 );
 assert(!equal({ a: new Error('error') }, { a: new Error('error1') }));
 assert(
   !equal(
     { a: Object.assign(new Error('error'), { b: 42 }) },
-    { a: new Error('error') }
-  )
+    { a: new Error('error') },
+  ),
 );
 
 assert(strictEqual(1, 1));
@@ -285,40 +283,38 @@ assert(!strictEqual([NaN, Infinity], [Infinity, NaN]));
 assert(
   strictEqual(
     () => {},
-    () => {}
-  )
+    () => {},
+  ),
 );
 assert(
   strictEqual(
     () => 3,
-    () => 3
-  )
+    () => 3,
+  ),
 );
 assert(
   strictEqual(
-    a => a,
-    a => a
-  )
+    (a) => a,
+    (a) => a,
+  ),
 );
 assert(
   strictEqual(
     (a, b) => a + b,
-    (a, b) => a + b
-  )
+    (a, b) => a + b,
+  ),
 );
 assert(
   strictEqual(
     (a, b) => {
       a += 3;
-      // eslint-disable-next-line no-invalid-this
       return this.c + a + b;
     },
     (a, b) => {
       a += 3;
-      // eslint-disable-next-line no-invalid-this
       return this.c + a + b;
-    }
-  )
+    },
+  ),
 );
 assert(strictEqual(func, func));
 assert(!strictEqual(console.log, console.dir));
@@ -339,8 +335,8 @@ assert(
     new Map([
       [1, 'a'],
       [2, 'b'],
-    ])
-  )
+    ]),
+  ),
 );
 assert(
   !strictEqual(
@@ -351,8 +347,8 @@ assert(
     new Map([
       [2, 'b'],
       [1, 'a'],
-    ])
-  )
+    ]),
+  ),
 );
 assert(
   !strictEqual(
@@ -360,8 +356,8 @@ assert(
     new Map([
       [2, 'b'],
       [1, 'a'],
-    ])
-  )
+    ]),
+  ),
 );
 assert(
   !strictEqual(
@@ -369,8 +365,8 @@ assert(
       [1, 'a'],
       [2, 'b'],
     ]),
-    new Map([[1, 'a']])
-  )
+    new Map([[1, 'a']]),
+  ),
 );
 assert(
   !strictEqual(
@@ -381,23 +377,23 @@ assert(
     new Map([
       [1, 'a'],
       [2, 'b'],
-    ])
-  )
+    ]),
+  ),
 );
 
 assert(strictEqual({ a: new Error('error') }, { a: new Error('error') }));
 assert(
   strictEqual(
     { a: Object.assign(new Error('error'), { b: 42 }) },
-    { a: Object.assign(new Error('error'), { b: 42 }) }
-  )
+    { a: Object.assign(new Error('error'), { b: 42 }) },
+  ),
 );
 assert(!strictEqual({ a: new Error('error') }, { a: new Error('error1') }));
 assert(
   !strictEqual(
     { a: Object.assign(new Error('error'), { b: 42 }) },
-    { a: new Error('error') }
-  )
+    { a: new Error('error') },
+  ),
 );
 
 assert(strictEqual(new Set(), new Set()));

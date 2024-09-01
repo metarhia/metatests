@@ -2,10 +2,10 @@
 
 const metatests = require('..');
 
-metatests.test('must support promise reject', test => {
+metatests.test('must support promise reject', (test) => {
   const err = new Error();
   const t = new metatests.ImperativeTest('Rejecting test', () =>
-    Promise.reject(err)
+    Promise.reject(err),
   );
   t.on('done', () => {
     test.assertNot(t.success);
@@ -16,7 +16,7 @@ metatests.test('must support promise reject', test => {
   });
 });
 
-metatests.test('must end on promise resolve', test => {
+metatests.test('must end on promise resolve', (test) => {
   const t = new metatests.ImperativeTest('Resolve test', async () => {});
   t.on('done', () => {
     test.assert(t.success);
@@ -25,7 +25,7 @@ metatests.test('must end on promise resolve', test => {
   });
 });
 
-metatests.test('must not end on plan tests with promise', test => {
+metatests.test('must not end on plan tests with promise', (test) => {
   const t = new metatests.ImperativeTest('Resolve test', () => {
     t.plan(1);
     setTimeout(() => {
@@ -39,10 +39,10 @@ metatests.test('must not end on plan tests with promise', test => {
   });
 });
 
-metatests.test('must endAfterSubtests on promise resolve', test => {
+metatests.test('must endAfterSubtests on promise resolve', (test) => {
   let subtest;
   const t = new metatests.ImperativeTest('Resolve test', async () => {
-    subtest = t.test('Waiting subtest', t => {
+    subtest = t.test('Waiting subtest', (t) => {
       setTimeout(() => t.end(), 100);
     });
   });

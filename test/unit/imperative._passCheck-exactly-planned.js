@@ -27,7 +27,7 @@ test.on('done', () => {
     type: 'test',
     expected: 1,
     actual: 1,
-    message: "Expected to pass 'plan' (1) number of asserts",
+    message: `Expected to pass 'plan' (1) number of asserts`,
     stack: null,
   });
 });

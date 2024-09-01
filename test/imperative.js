@@ -3,49 +3,49 @@
 const metatests = require('..');
 const vm = require('vm');
 
-metatests.testSync('strictSame', test => {
+metatests.testSync('strictSame', (test) => {
   test.strictSame(1, 1);
 });
 
-metatests.testSync('assert', test => {
+metatests.testSync('assert', (test) => {
   test.assert(1);
 });
 
-metatests.testSync('assertNot', test => {
+metatests.testSync('assertNot', (test) => {
   test.assertNot(0);
 });
 
-metatests.testSync('same', test => {
+metatests.testSync('same', (test) => {
   test.same(1, '1');
 });
 
-metatests.testSync('error', test => {
-  test.error({}, "that's ok");
+metatests.testSync('error', (test) => {
+  test.error({}, `that's ok`);
 });
 
-metatests.testSync('type', test => {
+metatests.testSync('type', (test) => {
   test.type(new Date(), 'Date');
   test.type(new Date(), 'object');
 });
 
-metatests.testSync('test.type with no constructor', test => {
+metatests.testSync('test.type with no constructor', (test) => {
   test.type(null, 'object');
   test.type(undefined, 'undefined');
   test.type(Object.create(null), 'object');
 });
 
-metatests.testAsync('sequential tests 1', test => {
+metatests.testAsync('sequential tests 1', (test) => {
   setTimeout(() => {
     test.ok(true);
     test.end();
   }, 1000);
 });
 
-metatests.testSync('sequential, must be possible to call end', test => {
+metatests.testSync('sequential, must be possible to call end', (test) => {
   test.end();
 });
 
-metatests.testSync('sequential tests must be ordered and sequential', test => {
+metatests.testSync('sequential tests must be ordered & sequential', (test) => {
   let i = 0;
   test.testSync('Seq1', () => test.strictSame(i++, 0));
   test.testSync('Seq2', () => test.strictSame(i++, 1));
@@ -56,34 +56,34 @@ metatests.testSync('sequential tests must be ordered and sequential', test => {
         if (test.done) {
           test.bailout('must not end before each subtest finishes (in order)');
         }
-      })
-    )
+      }),
+    ),
   );
 });
 
-metatests.test('test plan', test => {
+metatests.test('test plan', (test) => {
   test.plan(2);
   test.type(new Date(), 'Date');
   test.type(new Date(), 'object');
 });
 
-metatests.test('test must be async', test => {
+metatests.test('test must be async', (test) => {
   // this will throw if test is sync as it will end it on nextTick
   setTimeout(() => test.end(), 100);
 });
 
-metatests.testSync('test sync explicit', test => {
+metatests.testSync('test sync explicit', (test) => {
   let i = 0;
   test.strictSame(++i, 1);
-  test.testSync('nested sync explicit', test => {
+  test.testSync('nested sync explicit', (test) => {
     test.strictSame(++i, 2);
   });
 });
 
-metatests.test('nested test', t1 => {
+metatests.test('nested test', (t1) => {
   t1.strictSame(123, 123);
   t1.endAfterSubtests();
-  t1.test('Delayed subtest', t2 => {
+  t1.test('Delayed subtest', (t2) => {
     process.nextTick(() => {
       t2.strictSame(123, 123);
       t2.end();
@@ -91,20 +91,20 @@ metatests.test('nested test', t1 => {
   });
 });
 
-metatests.test('nested test that ends before endAfterSubtests', t1 => {
+metatests.test('nested test that ends before endAfterSubtests', (t1) => {
   t1.strictSame(123, 123);
   t1.endAfterSubtests();
   t1.end();
 });
 
-metatests.testAsync('nested test that ends after each subtest', test => {
+metatests.testAsync('nested test that ends after each subtest', (test) => {
   let i = 0;
   test.strictSame(++i, 1);
-  test.testSync('sequential subtest', t2 => {
+  test.testSync('sequential subtest', (t2) => {
     t2.strictSame(++i, 2);
     test.endAfterSubtests();
   });
-  test.testAsync('delayed subtest', t3 => {
+  test.testAsync('delayed subtest', (t3) => {
     setTimeout(() => {
       t3.strictSame(++i, 3);
       t3.end();
@@ -114,13 +114,13 @@ metatests.testAsync('nested test that ends after each subtest', test => {
 
 metatests.testSync(
   'todo must not fail',
-  test => {
+  (test) => {
     test.strictSame(13, 42);
   },
-  { todo: true }
+  { todo: true },
 );
 
-metatests.testSync('must not be todo by default', test => {
+metatests.testSync('must not be todo by default', (test) => {
   const t = new metatests.ImperativeTest();
   test.assertNot(t.todo);
   t.end();
@@ -128,21 +128,21 @@ metatests.testSync('must not be todo by default', test => {
 
 metatests.testSync(
   'test nested parallel',
-  test => {
+  (test) => {
     test.endAfterSubtests();
 
     let i = 0;
-    test.test('nested parallel 1', test => {
+    test.test('nested parallel 1', (test) => {
       test.strictSame(i, 0);
       test.on('done', () => process.nextTick(() => (i = 1)));
       test.end();
     });
-    test.test('nested parallel 2', test => {
+    test.test('nested parallel 2', (test) => {
       test.strictSame(i, 0);
       test.on('done', () => process.nextTick(() => (i = 1)));
       test.end();
     });
-    test.test('nested parallel 3', test => {
+    test.test('nested parallel 3', (test) => {
       test.strictSame(i, 0);
       test.on('done', () => process.nextTick(() => (i = 1)));
       test.end();
@@ -151,32 +151,32 @@ metatests.testSync(
       test.strictSame(i, 1);
     });
   },
-  { parallelSubtests: true }
+  { parallelSubtests: true },
 );
 
-metatests.testSync('beforeEach', test => {
+metatests.testSync('beforeEach', (test) => {
   let i = 0;
   test.beforeEach((t, callback) => {
     i = 42;
     callback();
   });
-  test.testSync(t => t.strictSame(i, 42));
+  test.testSync((t) => t.strictSame(i, 42));
 });
 
-metatests.testSync('passes options context', test => {
+metatests.testSync('passes options context', (test) => {
   const context = { a: 'a', b: 'b', c: 'c' };
   test.testSync('check passed args', (t, args) => t.strictSame(args, context), {
     context,
   });
 });
 
-metatests.testSync('beforeEach parameters', test => {
+metatests.testSync('beforeEach parameters', (test) => {
   const context = { a: 'a', b: 'b', c: 'c' };
   test.beforeEach((t, callback) => callback(context));
   test.testSync((t, args) => t.strictSame(args, context));
 });
 
-metatests.test('afterEach', test => {
+metatests.test('afterEach', (test) => {
   test.endAfterSubtests();
 
   let i = 0;
@@ -192,7 +192,7 @@ metatests.test('afterEach', test => {
   test.on('beforeDone', () => test.strictSame(i, 42));
 });
 
-metatests.testSync('test must fail if assertion failed', test => {
+metatests.testSync('test must fail if assertion failed', (test) => {
   const targetTest = new metatests.ImperativeTest('Failing test');
   targetTest.equal(1, 2);
   targetTest.end();
@@ -200,7 +200,7 @@ metatests.testSync('test must fail if assertion failed', test => {
   test.end();
 });
 
-metatests.testSync('test must not fail if no assertion failed', test => {
+metatests.testSync('test must not fail if no assertion failed', (test) => {
   const targetTest = new metatests.ImperativeTest('Passing test');
   targetTest.equal(1, 1);
   targetTest.end();
@@ -208,27 +208,27 @@ metatests.testSync('test must not fail if no assertion failed', test => {
   test.end();
 });
 
-metatests.testSync('throw with empty error', test => {
+metatests.testSync('throw with empty error', (test) => {
   test.throws(() => {
     throw new Error();
   });
 });
 
-metatests.testSync('throw with message error', test => {
+metatests.testSync('throw with message error', (test) => {
   const message = 'message';
   test.throws(() => {
     throw new Error(message);
   }, new Error(message));
 });
 
-metatests.testSync('throw with type error (compare to Error)', test => {
+metatests.testSync('throw with type error (compare to Error)', (test) => {
   const message = 'message';
   test.throws(() => {
     throw new TypeError(message);
   }, new Error(message));
 });
 
-metatests.testSync('doesNotThrow failure', test => {
+metatests.testSync('doesNotThrow failure', (test) => {
   const t = new metatests.ImperativeTest();
   t.doesNotThrow(() => {
     throw new Error();
@@ -239,36 +239,36 @@ metatests.testSync('doesNotThrow failure', test => {
   test.strictSame(t.results[0].message, 'message');
 });
 
-metatests.testSync('doesNotThrow success', test => {
+metatests.testSync('doesNotThrow success', (test) => {
   const t = new metatests.ImperativeTest();
   t.doesNotThrow(() => {}, 'message');
   t.end();
   test.assert(t.success);
 });
 
-metatests.testSync('isError no error provided', test => {
+metatests.testSync('isError no error provided', (test) => {
   const actual = new Error();
   test.isError(actual);
 });
 
-metatests.testSync('isError with error provided', test => {
+metatests.testSync('isError with error provided', (test) => {
   const actual = new TypeError();
   test.isError(actual, new TypeError());
 });
 
-metatests.testSync('testSync must return a test', test => {
+metatests.testSync('testSync must return a test', (test) => {
   const t = metatests.testSync();
   test.ok(t);
   t.end();
 });
 
-metatests.testSync('testAsync must return a test', test => {
+metatests.testSync('testAsync must return a test', (test) => {
   const t = metatests.testAsync();
   test.ok(t);
   t.end();
 });
 
-metatests.test('test.testAsync must be async', test => {
+metatests.test('test.testAsync must be async', (test) => {
   const t = new metatests.ImperativeTest('Sync test', undefined, {
     async: false,
   });
@@ -277,7 +277,7 @@ metatests.test('test.testAsync must be async', test => {
     setTimeout(() => {
       t.end();
       endCalled = true;
-    }, 10)
+    }, 10),
   );
   process.nextTick(() =>
     process.nextTick(() =>
@@ -285,20 +285,20 @@ metatests.test('test.testAsync must be async', test => {
         if (t.done && !endCalled) {
           test.bailout('must not finish before t.end() call');
         }
-      })
-    )
+      }),
+    ),
   );
   t.on('done', () => test.end());
 });
 
-metatests.test('must call done listener after test end', test => {
+metatests.test('must call done listener after test end', (test) => {
   const t = new metatests.ImperativeTest('Ended test');
   t.end();
   t.on('done', () => test.pass('must be called'));
   test.end();
 });
 
-metatests.test('must support timeout', test => {
+metatests.test('must support timeout', (test) => {
   const t = new metatests.ImperativeTest('Timing out test', () => {}, {
     timeout: 1,
   });
@@ -310,8 +310,8 @@ metatests.test('must support timeout', test => {
   });
 });
 
-metatests.test("'pass' result must not contain actual/expected", test => {
-  const t = new metatests.ImperativeTest('Pass test', t => {
+metatests.test(`'pass' result must not contain actual/expected`, (test) => {
+  const t = new metatests.ImperativeTest('Pass test', (t) => {
     t.pass('msg');
     t.end();
   });
@@ -319,17 +319,17 @@ metatests.test("'pass' result must not contain actual/expected", test => {
     test.strictSame(t.results[0].type, 'pass');
     test.strictSame(t.results[0].message, 'msg');
     test.assertNot(
-      Object.prototype.hasOwnProperty.call(t.results[0], 'actual')
+      Object.prototype.hasOwnProperty.call(t.results[0], 'actual'),
     );
     test.assertNot(
-      Object.prototype.hasOwnProperty.call(t.results[0], 'expected')
+      Object.prototype.hasOwnProperty.call(t.results[0], 'expected'),
     );
     test.end();
   });
 });
 
-metatests.test('must support test.plan', test => {
-  const t = new metatests.ImperativeTest('plan test', t => {
+metatests.test('must support test.plan', (test) => {
+  const t = new metatests.ImperativeTest('plan test', (t) => {
     t.plan(1);
     t.strictSame(2 + 2, 4);
   });
@@ -338,8 +338,8 @@ metatests.test('must support test.plan', test => {
   });
 });
 
-metatests.test('must support test.plan (async)', test => {
-  const t = new metatests.ImperativeTest('plan test', t => {
+metatests.test('must support test.plan (async)', (test) => {
+  const t = new metatests.ImperativeTest('plan test', (t) => {
     t.plan(2);
     t.strictSame(2 + 2, 4);
     process.nextTick(() => t.pass('pass'));
@@ -349,8 +349,8 @@ metatests.test('must support test.plan (async)', test => {
   });
 });
 
-metatests.test('must support mustCall', test => {
-  const t = new metatests.ImperativeTest('mustCall test', t => {
+metatests.test('must support mustCall', (test) => {
+  const t = new metatests.ImperativeTest('mustCall test', (t) => {
     const fn = t.mustCall(() => {}, 1);
     fn();
     t.end();
@@ -364,8 +364,8 @@ metatests.test('must support mustCall', test => {
   });
 });
 
-metatests.test('must support empty mustCall', test => {
-  const t = new metatests.ImperativeTest('mustCall test', t => {
+metatests.test('must support empty mustCall', (test) => {
+  const t = new metatests.ImperativeTest('mustCall test', (t) => {
     const fn = t.mustCall();
     fn();
     t.end();
@@ -379,8 +379,8 @@ metatests.test('must support empty mustCall', test => {
   });
 });
 
-metatests.test('must support mustCall (async)', test => {
-  const t = new metatests.ImperativeTest('mustCall test', t => {
+metatests.test('must support mustCall (async)', (test) => {
+  const t = new metatests.ImperativeTest('mustCall test', (t) => {
     const fn = t.mustCall(() => {}, 1);
     process.nextTick(() => fn());
     process.nextTick(() => process.nextTick(() => t.end()));
@@ -394,8 +394,8 @@ metatests.test('must support mustCall (async)', test => {
   });
 });
 
-metatests.test('must support mustCall (many)', test => {
-  const t = new metatests.ImperativeTest('mustCall test', t => {
+metatests.test('must support mustCall (many)', (test) => {
+  const t = new metatests.ImperativeTest('mustCall test', (t) => {
     const fn = t.mustCall(() => {}, 3);
     fn();
     fn();
@@ -411,8 +411,8 @@ metatests.test('must support mustCall (many)', test => {
   });
 });
 
-metatests.test('must support mustCall (fail)', test => {
-  const t = new metatests.ImperativeTest('mustCall test', t => {
+metatests.test('must support mustCall (fail)', (test) => {
+  const t = new metatests.ImperativeTest('mustCall test', (t) => {
     t.mustCall(() => {}, 1, 'name');
     t.end();
   });
@@ -421,8 +421,8 @@ metatests.test('must support mustCall (fail)', test => {
     test.strictSame(t.results[0].type, 'mustCall');
     test.strictSame(
       t.results[0].message,
-      "function 'name' was called 0 time(s) but " +
-        'was expected to be called 1 time(s)'
+      `function 'name' was called 0 time(s) but ` +
+        'was expected to be called 1 time(s)',
     );
     test.strictSame(t.results[0].actual, 0);
     test.strictSame(t.results[0].expected, 1);
@@ -430,8 +430,8 @@ metatests.test('must support mustCall (fail)', test => {
   });
 });
 
-metatests.test('must support mustNotCall', test => {
-  const t = new metatests.ImperativeTest('mustNotCall test', t => {
+metatests.test('must support mustNotCall', (test) => {
+  const t = new metatests.ImperativeTest('mustNotCall test', (t) => {
     t.mustNotCall(() => {});
     t.end();
   });
@@ -444,8 +444,8 @@ metatests.test('must support mustNotCall', test => {
   });
 });
 
-metatests.test('must support empty mustNotCall', test => {
-  const t = new metatests.ImperativeTest('mustNotCall test', t => {
+metatests.test('must support empty mustNotCall', (test) => {
+  const t = new metatests.ImperativeTest('mustNotCall test', (t) => {
     t.mustNotCall();
     t.end();
   });
@@ -458,8 +458,8 @@ metatests.test('must support empty mustNotCall', test => {
   });
 });
 
-metatests.test('must support mustNotCall (fail)', test => {
-  const t = new metatests.ImperativeTest('mustNotCall test', t => {
+metatests.test('must support mustNotCall (fail)', (test) => {
+  const t = new metatests.ImperativeTest('mustNotCall test', (t) => {
     const fn = t.mustNotCall(() => {}, 'name');
     fn();
     t.end();
@@ -469,8 +469,8 @@ metatests.test('must support mustNotCall (fail)', test => {
     test.strictSame(t.results[0].type, 'mustNotCall');
     test.strictSame(
       t.results[0].message,
-      "function 'name' was called 1 time(s) but " +
-        'was not expected to be called at all'
+      `function 'name' was called 1 time(s) but ` +
+        'was not expected to be called at all',
     );
     test.strictSame(t.results[0].actual, 1);
     test.strictSame(t.results[0].expected, 0);
@@ -478,30 +478,30 @@ metatests.test('must support mustNotCall (fail)', test => {
   });
 });
 
-metatests.testSync('mustCall wrapper must return same value', test => {
+metatests.testSync('mustCall wrapper must return same value', (test) => {
   const wrapped = test.mustCall(() => 42);
   test.strictSame(wrapped(), 42);
 });
 
-metatests.test('mustNotCall wrapper must return same value', test => {
+metatests.test('mustNotCall wrapper must return same value', (test) => {
   new metatests.ImperativeTest(
     'mustNotCall test',
-    t => {
+    (t) => {
       const wrapped = t.mustNotCall(() => 42);
       test.strictSame(wrapped(), 42);
       test.end();
     },
-    { async: false }
+    { async: false },
   );
 });
 
-metatests.test('failed todo subtest must not fail parent', test => {
+metatests.test('failed todo subtest must not fail parent', (test) => {
   const t = new metatests.ImperativeTest(
     'parent',
-    test => {
-      test.testSync('failed todo subtest', t => t.fail(), { todo: true });
+    (test) => {
+      test.testSync('failed todo subtest', (t) => t.fail(), { todo: true });
     },
-    { async: false }
+    { async: false },
   );
   t.on('done', () => {
     test.strictSame(t.success, true);
@@ -509,8 +509,8 @@ metatests.test('failed todo subtest must not fail parent', test => {
   });
 });
 
-metatests.test('must support Error from another context', test => {
-  const t = new metatests.ImperativeTest('mustNotCall test', t => {
+metatests.test('must support Error from another context', (test) => {
+  const t = new metatests.ImperativeTest('mustNotCall test', (t) => {
     let err = null;
     try {
       vm.runInNewContext('throw new Error()');
@@ -526,16 +526,16 @@ metatests.test('must support Error from another context', test => {
   });
 });
 
-metatests.test('must not run TODO subtests by default', test => {
+metatests.test('must not run TODO subtests by default', (test) => {
   let todoSubtestCalled = false;
-  const t = new metatests.ImperativeTest('parent test', t => {
+  const t = new metatests.ImperativeTest('parent test', (t) => {
     t.endAfterSubtests();
     t.testSync(
       'todo subtest',
       () => {
         todoSubtestCalled = true;
       },
-      { todo: true }
+      { todo: true },
     );
   });
   t.on('done', () => {
@@ -545,49 +545,49 @@ metatests.test('must not run TODO subtests by default', test => {
   });
 });
 
-metatests.testSync('must support simple contains', test => {
+metatests.testSync('must support simple contains', (test) => {
   test.contains({ a: 42, b: 13 }, { a: 42 });
 });
 
-metatests.testSync('must support contains comparator', test => {
+metatests.testSync('must support contains comparator', (test) => {
   test.contains(
     { a: 42, b: 13 },
     { a: 123 },
     '',
     false,
-    actual => actual === 42
+    (actual) => actual === 42,
   );
 });
 
-metatests.testSync('must support contains of errors', test => {
+metatests.testSync('must support contains of errors', (test) => {
   test.contains(new Error('hello'), { name: 'Error', message: 'hello' });
 });
 
 metatests.test(
   'must not call subtest function after test.end in beforeEach',
-  test => {
+  (test) => {
     test.endAfterSubtests();
     test.beforeEach((t, cb) => {
       t.end();
       cb();
     });
     test.test('subtest', test.mustNotCall());
-  }
+  },
 );
 
 if (__filename) {
-  metatests.testSync('test must contain `filepath` in metadata', test => {
+  metatests.testSync('test must contain `filepath` in metadata', (test) => {
     test.strictSame(test.metadata.filepath, __filename);
   });
 
-  metatests.testSync('test must contain `filepath` in metadata', test => {
+  metatests.testSync('test must contain `filepath` in metadata', (test) => {
     const t = new metatests.ImperativeTest();
     test.strictSame(t.metadata.filepath, __filename);
     t.end();
   });
 }
 
-metatests.testSync('must support simple Map comparison', test => {
+metatests.testSync('must support simple Map comparison', (test) => {
   test.strictEqual(
     new Map([
       [1, 'a'],
@@ -596,18 +596,18 @@ metatests.testSync('must support simple Map comparison', test => {
     new Map([
       [1, 'a'],
       [2, 'b'],
-    ])
+    ]),
   );
 });
 
-metatests.test('must support simple Map comparison failure', test => {
-  const t = new metatests.ImperativeTest('mustCall test', t => {
+metatests.test('must support simple Map comparison failure', (test) => {
+  const t = new metatests.ImperativeTest('mustCall test', (t) => {
     t.strictEqual(
       new Map([[1, 'a']]),
       new Map([
         [2, 'b'],
         [1, 'a'],
-      ])
+      ]),
     );
     t.end();
   });
@@ -617,12 +617,12 @@ metatests.test('must support simple Map comparison failure', test => {
   });
 });
 
-metatests.testSync('must support simple Set comparison', test => {
+metatests.testSync('must support simple Set comparison', (test) => {
   test.strictEqual(new Set([1, 2]), new Set([1, 2]));
 });
 
-metatests.test('must support simple Set comparison failure', test => {
-  const t = new metatests.ImperativeTest('mustCall test', t => {
+metatests.test('must support simple Set comparison failure', (test) => {
+  const t = new metatests.ImperativeTest('mustCall test', (t) => {
     t.strictEqual(new Set([1]), new Set([1, 2]));
     t.end();
   });
@@ -632,18 +632,18 @@ metatests.test('must support simple Set comparison failure', test => {
   });
 });
 
-metatests.testSync('must support error comparison in equal checks', test => {
+metatests.testSync('must support error comparison in equal checks', (test) => {
   test.equal({ a: new Error('error') }, { a: new Error('error') });
   test.equal(
     { a: Object.assign(new Error('error'), { b: 42 }) },
-    { a: Object.assign(new Error('error'), { b: 42 }) }
+    { a: Object.assign(new Error('error'), { b: 42 }) },
   );
 });
 
 metatests.test(
   'must support error comparison in equal checks failure',
-  test => {
-    const t = new metatests.ImperativeTest('equal err', t => {
+  (test) => {
+    const t = new metatests.ImperativeTest('equal err', (t) => {
       t.equal({ a: new Error('error') }, { a: new Error('error1') });
       t.end();
     });
@@ -651,16 +651,16 @@ metatests.test(
       test.strictSame(t.success, false);
       test.end();
     });
-  }
+  },
 );
 
 metatests.test(
   'must support error comparison in equal checks nested keys failure',
-  test => {
-    const t = new metatests.ImperativeTest('equal err', t => {
+  (test) => {
+    const t = new metatests.ImperativeTest('equal err', (t) => {
       t.equal(
         { a: Object.assign(new Error('error'), { b: 42 }) },
-        { a: new Error('error') }
+        { a: new Error('error') },
       );
       t.end();
     });
@@ -668,24 +668,24 @@ metatests.test(
       test.strictSame(t.success, false);
       test.end();
     });
-  }
+  },
 );
 
 metatests.testSync(
   'must support error comparison in strictEqual checks',
-  test => {
+  (test) => {
     test.strictEqual({ a: new Error('error') }, { a: new Error('error') });
     test.strictEqual(
       { a: Object.assign(new Error('error'), { b: 42 }) },
-      { a: Object.assign(new Error('error'), { b: 42 }) }
+      { a: Object.assign(new Error('error'), { b: 42 }) },
     );
-  }
+  },
 );
 
 metatests.test(
   'must support error comparison in equal checks failure',
-  test => {
-    const t = new metatests.ImperativeTest('strictEqual err', t => {
+  (test) => {
+    const t = new metatests.ImperativeTest('strictEqual err', (t) => {
       t.strictEqual({ a: new Error('error') }, { a: new Error('error1') });
       t.end();
     });
@@ -693,16 +693,16 @@ metatests.test(
       test.strictSame(t.success, false);
       test.end();
     });
-  }
+  },
 );
 
 metatests.test(
   'must support error comparison in equal checks nested keys failure',
-  test => {
-    const t = new metatests.ImperativeTest('strictEqual err', t => {
+  (test) => {
+    const t = new metatests.ImperativeTest('strictEqual err', (t) => {
       t.strictEqual(
         { a: Object.assign(new Error('error'), { b: 42 }) },
-        { a: new Error('error') }
+        { a: new Error('error') },
       );
       t.end();
     });
@@ -710,5 +710,5 @@ metatests.test(
       test.strictSame(t.success, false);
       test.end();
     });
-  }
+  },
 );

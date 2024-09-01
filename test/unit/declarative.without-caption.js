@@ -4,8 +4,8 @@ const assert = require('assert');
 const { DeclarativeTest } = require('../..');
 
 const namespace = {
-  inc: a => ++a,
-  dec: a => --a,
+  inc: (a) => ++a,
+  dec: (a) => --a,
 };
 const test = new DeclarativeTest(
   '',
@@ -13,7 +13,7 @@ const test = new DeclarativeTest(
   {
     'namespace.inc': [[1, 2]],
     'namespace.dec': [[1, 0]],
-  }
+  },
 );
 test.on('done', () => {
   const [incResult, decResult] = test.results;

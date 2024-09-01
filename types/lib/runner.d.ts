@@ -24,7 +24,7 @@ export class Runner<
   setReporter<O extends ReporterOptions>(reporter: Reporter<O>): void;
 
   addTest<R extends TestResult, O extends TestOptions, M extends TestMetadata>(
-    test: Test<R, O, M>
+    test: Test<R, O, M>,
   ): void;
 
   removeReporter(): void;

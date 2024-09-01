@@ -8,9 +8,9 @@ export function sameTopology(obj1: object, obj2: object): boolean;
 
 export function contains(
   sort?: boolean | Function,
-  nestedCompare?: (actual: any, expected: any) => boolean
+  nestedCompare?: (actual: any, expected: any) => boolean,
 ): (obj1: object | Array<any>, obj2: object | Array<any>) => boolean;
 
 export function containsGreedy(
-  nestedCompare?: (actual: any, expected: any) => boolean
+  nestedCompare?: (actual: any, expected: any) => boolean,
 ): (obj1: object | Array<any>, obj2: object | Array<any>) => boolean;

@@ -6,10 +6,10 @@ const metatests = require('..');
 
 const fixturesDir = path.join(__dirname, 'fixtures');
 
-metatests.test('Verify that metatests.speed works', test => {
+metatests.test('Verify that metatests.speed works', (test) => {
   const cp = fork(path.resolve(fixturesDir, 'speed.js'), { silent: true });
   let data = '';
-  cp.stdout.on('data', c => {
+  cp.stdout.on('data', (c) => {
     data += c.toString();
   });
   cp.stdout.on('end', () => {
@@ -18,7 +18,7 @@ metatests.test('Verify that metatests.speed works', test => {
     test.ok(/objectCreate\s+\d+ns\s+min\s+[\d.]+\s+ops\/s/.test(data));
     test.end();
   });
-  cp.on('exit', code => {
+  cp.on('exit', (code) => {
     test.strictSame(code, 0);
   });
 });

@@ -11,13 +11,13 @@ export class Reporter<O extends ReporterOptions> {
 
   // Record test
   record<R extends TestResult, O extends TestOptions, M extends TestMetadata>(
-    test: Test<R, O, M>
+    test: Test<R, O, M>,
   ): void;
 
   // Fail test with error
   error<R extends TestResult, O extends TestOptions, M extends TestMetadata>(
     test: Test<R, O, M>,
-    error: Error
+    error: Error,
   ): void;
 
   finish(): void;

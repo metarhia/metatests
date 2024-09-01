@@ -7,7 +7,7 @@ const test = new ImperativeTest();
 
 try {
   test.bailout('error message', 'just message');
-} catch (e) {
+} catch {
   const [result] = test.results;
   assert.strictEqual(result.message, 'error message');
 }

@@ -12,7 +12,7 @@ const test = checkCase(
   {
     'CustomClass.prototype.someMethod': [[null, () => true]],
   },
-  runner
+  runner,
 );
 test.on('done', () => {
   const [result] = test.results;

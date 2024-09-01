@@ -8,12 +8,12 @@ const namespace = {
   regexp: new RegExp('regexp'),
 };
 const test = new DeclarativeTest(
-  "target type 'value'",
+  `target type 'value'`,
   { namespace },
   {
     'namespace.string': [['__STRING__']],
     'namespace.regexp': [[new RegExp('regexp')]],
-  }
+  },
 );
 test.on('done', () => {
   const [stringTargetResult, regexpTargetResult] = test.results;

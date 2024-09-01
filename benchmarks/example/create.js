@@ -1,7 +1,8 @@
 'use strict';
 
 // Run this benchmark with
-// metatests measure benchmarks/example/create.js --new mixinObject --old defineObject --name create
+// metatests measure benchmarks/example/create.js
+//   --new mixinObject --old defineObject --name create
 // metatests speed benchmarks/example/create.js
 
 const defineObject = () => ({

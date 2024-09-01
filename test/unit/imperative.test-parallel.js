@@ -6,7 +6,7 @@ const { ImperativeTest } = require('../..');
 const testWithParallelSubtests = new ImperativeTest(
   'test with parallel subtests',
   null,
-  { parallelSubtests: true }
+  { parallelSubtests: true },
 );
 let beforeEachCalled = 0;
 testWithParallelSubtests.beforeEach((context, cb) => {
@@ -14,11 +14,11 @@ testWithParallelSubtests.beforeEach((context, cb) => {
   cb();
 });
 
-testWithParallelSubtests.test('subtest #1', t => {
+testWithParallelSubtests.test('subtest #1', (t) => {
   t.pass();
   t.end();
 });
-testWithParallelSubtests.test('subtest #2', t => {
+testWithParallelSubtests.test('subtest #2', (t) => {
   t.pass();
   t.end();
 });

@@ -164,7 +164,7 @@ check('mustCall', {
   type: 'mustCall',
   success: true,
   message:
-    "function 'anonymous' was called 1 time(s) " +
+    `function 'anonymous' was called 1 time(s) ` +
     'but was expected to be called 1 time(s)',
 });
 
@@ -174,7 +174,7 @@ check('mustCall', {
   type: 'mustCall',
   success: false,
   message:
-    "function 'anonymous' was called 0 time(s) " +
+    `function 'anonymous' was called 0 time(s) ` +
     'but was expected to be called 1 time(s)',
 });
 
@@ -184,7 +184,7 @@ check('mustNotCall', {
   type: 'mustNotCall',
   success: true,
   message:
-    "function 'anonymous' was called 0 time(s) " +
+    `function 'anonymous' was called 0 time(s) ` +
     'but was not expected to be called at all',
 });
 
@@ -195,7 +195,7 @@ check('mustNotCall', {
   type: 'mustNotCall',
   success: false,
   message:
-    "function 'anonymous' was called 1 time(s) " +
+    `function 'anonymous' was called 1 time(s) ` +
     'but was not expected to be called at all',
 });
 

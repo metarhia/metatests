@@ -14,7 +14,7 @@ test.once('error', (test, error) => {
     {
       name: 'Error',
       message: 'test._end() called after test has finished',
-    }
+    },
   );
 });
 

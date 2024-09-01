@@ -2,7 +2,7 @@
 
 const metatests = require('..');
 
-metatests.test('dependentSubtests and parallelSubtests are exclusive', test => {
+metatests.test('dependentSubtests & parallelSubtests are exclusive', (test) => {
   test.throws(() => {
     new metatests.ImperativeTest('throwing', () => {}, {
       parallelSubtests: true,
@@ -12,24 +12,24 @@ metatests.test('dependentSubtests and parallelSubtests are exclusive', test => {
   test.end();
 });
 
-metatests.test('must support dependentSubtests', test => {
+metatests.test('must support dependentSubtests', (test) => {
   const t = new metatests.ImperativeTest(
     'mustNotCall test',
-    t => {
+    (t) => {
       t.testSync(
         'successful subtest',
-        test.mustCall(t => t.pass())
+        test.mustCall((t) => t.pass()),
       );
       t.testSync(
         'failing subtest',
-        test.mustCall(t => t.fail())
+        test.mustCall((t) => t.fail()),
       );
       t.testSync(
         'successful subtest',
-        test.mustNotCall(t => t.pass())
+        test.mustNotCall((t) => t.pass()),
       );
     },
-    { async: false, dependentSubtests: true }
+    { async: false, dependentSubtests: true },
   );
   t.on('done', () => {
     test.strictSame(t.success, false);
@@ -37,10 +37,10 @@ metatests.test('must support dependentSubtests', test => {
   });
 });
 
-metatests.test('must not crash on exception in dependentSubtests', test => {
+metatests.test('must not crash on exception in dependentSubtests', (test) => {
   const t = new metatests.ImperativeTest(
     'parent test',
-    t => {
+    (t) => {
       t.endAfterSubtests();
       t.test(
         'throwing subtest',
@@ -48,11 +48,11 @@ metatests.test('must not crash on exception in dependentSubtests', test => {
           setImmediate(() => {
             throw new Error();
           });
-        })
+        }),
       );
       t.testSync('successful subtest', test.mustNotCall());
     },
-    { dependentSubtests: true }
+    { dependentSubtests: true },
   );
   t.on('done', () => {
     test.strictSame(t.success, false);

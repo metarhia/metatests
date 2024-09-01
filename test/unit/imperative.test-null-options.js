@@ -9,6 +9,6 @@ const subtest = test(
     test.pass();
     test.end();
   },
-  null
+  null,
 );
 assert.doesNotThrow(() => subtest);

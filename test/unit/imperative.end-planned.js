@@ -12,5 +12,5 @@ delete result.stack;
 assert.deepStrictEqual(result, {
   success: false,
   type: 'test',
-  message: "End called in a 'plan' test",
+  message: `End called in a 'plan' test`,
 });

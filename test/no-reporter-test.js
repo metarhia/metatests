@@ -15,17 +15,17 @@ if (process.argv[2] === 'child-success') {
   test.end();
   // intentional end-after-end to test runner for this case
   test.end();
-  metatests.runner.instance.on('finish', hasFailures => {
+  metatests.runner.instance.on('finish', (hasFailures) => {
     // this test must succeed if test has 'error' - the above end-after-end
     process.exit(hasFailures ? 0 : 1);
   });
 } else {
   test.plan(2);
-  ['child-success', 'child-failure'].forEach(name => {
+  ['child-success', 'child-failure'].forEach((name) => {
     const child = spawn(process.execPath, [__filename, name], {
       stdio: 'inherit',
     });
-    child.on('exit', code => {
+    child.on('exit', (code) => {
       test.strictSame(code, 0, `must not fail for ${name}`);
     });
   });

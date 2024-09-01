@@ -2,8 +2,8 @@
 
 const metatests = require('..');
 
-metatests.test('must support bailout', test => {
-  const t = new metatests.ImperativeTest('bailout test', t => {
+metatests.test('must support bailout', (test) => {
+  const t = new metatests.ImperativeTest('bailout test', (t) => {
     t.bailout();
     test.fail('must not be called');
     test.end();
@@ -15,9 +15,9 @@ metatests.test('must support bailout', test => {
   });
 });
 
-metatests.test('must support bailout message', test => {
+metatests.test('must support bailout message', (test) => {
   const message = 'message';
-  const t = new metatests.ImperativeTest('bailout test', t => {
+  const t = new metatests.ImperativeTest('bailout test', (t) => {
     t.bailout(message);
   });
   t.on('done', () => {
@@ -28,11 +28,11 @@ metatests.test('must support bailout message', test => {
   });
 });
 
-metatests.test('must correctly define error message', test => {
+metatests.test('must correctly define error message', (test) => {
   const message = 'error';
   const t = new metatests.ImperativeTest(
-    "test.bailout must treat 'err' as message if 'string' is passed",
-    t => t.bailout(message)
+    `test.bailout must treat 'err' as message if 'string' is passed`,
+    (t) => t.bailout(message),
   );
   t.on('done', () => {
     test.strictSame(t.success, false);
@@ -42,9 +42,9 @@ metatests.test('must correctly define error message', test => {
   });
 });
 
-metatests.test('must support bailout error', test => {
+metatests.test('must support bailout error', (test) => {
   const error = new Error('err');
-  const t = new metatests.ImperativeTest('bailout test', t => {
+  const t = new metatests.ImperativeTest('bailout test', (t) => {
     t.bailout(error);
   });
   t.on('done', () => {
@@ -56,10 +56,10 @@ metatests.test('must support bailout error', test => {
   });
 });
 
-metatests.test('must support bailout message and error', test => {
+metatests.test('must support bailout message and error', (test) => {
   const message = 'message';
   const error = new Error('err');
-  const t = new metatests.ImperativeTest('bailout test', t => {
+  const t = new metatests.ImperativeTest('bailout test', (t) => {
     t.bailout(error, message);
   });
   t.on('done', () => {

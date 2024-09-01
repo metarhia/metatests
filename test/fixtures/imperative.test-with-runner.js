@@ -12,13 +12,13 @@ const test = new ImperativeTest('test', null, {
 });
 let warned = false;
 
-process.on('warning', warn => {
+process.on('warning', (warn) => {
   if (warn.code !== 'METATESTS_TODO_IN_DEPENDENT_TEST') return;
   warned = true;
   assert.strictEqual(
     warn.message,
-    "Test 'subtest' is marked as TODO and will" +
-      ' not be run as Runner.runTodo is false.'
+    `Test 'subtest' is marked as TODO and will` +
+      ' not be run as Runner.runTodo is false.',
   );
 });
 

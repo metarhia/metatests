@@ -2,7 +2,7 @@
 
 const metatests = require('..');
 
-metatests.test('async test.reject test', test => {
+metatests.test('async test.reject test', (test) => {
   const err = new Error('error');
   const t = new metatests.ImperativeTest('Rejecting test', async () => {
     const e1 = await t.rejects(Promise.reject(err), err);
@@ -39,7 +39,7 @@ metatests.test('async test.reject test', test => {
   });
 });
 
-metatests.test('test.reject test must throw resolve', test => {
+metatests.test('test.reject test must throw resolve', (test) => {
   const res = 42;
   const t = new metatests.ImperativeTest('Rejecting test', async () => {
     try {
@@ -67,10 +67,10 @@ metatests.test('test.reject test must throw resolve', test => {
   });
 });
 
-metatests.test('test.reject subtest function', test => {
+metatests.test('test.reject subtest function', (test) => {
   const err = new Error('error');
   const t = new metatests.ImperativeTest('Rejecting test', () =>
-    t.rejects(() => Promise.reject(err), err)
+    t.rejects(() => Promise.reject(err), err),
   );
   t.on('done', () => {
     test.assert(t.success);
@@ -90,10 +90,10 @@ metatests.test('test.reject subtest function', test => {
   });
 });
 
-metatests.test('test.rejects no err', test => {
+metatests.test('test.rejects no err', (test) => {
   const err = new Error();
   const t = new metatests.ImperativeTest('Rejecting test', () =>
-    t.rejects(Promise.reject(err))
+    t.rejects(Promise.reject(err)),
   );
   t.on('done', () => {
     test.assert(t.success);
@@ -112,9 +112,9 @@ metatests.test('test.rejects no err', test => {
   });
 });
 
-metatests.test('test.rejected no err failed', test => {
+metatests.test('test.rejected no err failed', (test) => {
   const t = new metatests.ImperativeTest('Rejecting test', () =>
-    t.rejects(Promise.resolve(42))
+    t.rejects(Promise.resolve(42)),
   );
   t.on('done', () => {
     test.assertNot(t.success);

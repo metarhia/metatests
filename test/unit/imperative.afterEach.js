@@ -10,7 +10,7 @@ test.afterEach((test, cb) => {
   cb();
 });
 assert(test.afterEachFunc, 'must set afterEachFunc');
-test.testSync('successful subtest', t => t.pass());
+test.testSync('successful subtest', (t) => t.pass());
 test.on('done', () =>
-  assert(afterEachFuncCalled, 'must call afterEachFunc after test end')
+  assert(afterEachFuncCalled, 'must call afterEachFunc after test end'),
 );
