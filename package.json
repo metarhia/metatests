@@ -40,12 +40,12 @@
   ],
   "scripts": {
     "doc": "metadoc",
-    "test": "npm run -s lint && tsc -p types/tsconfig.json && node bin/cli.js test --exclude test/fixtures",
+    "test": "npm run lint && npm run types && node bin/cli.js test --exclude test/fixtures",
     "test:unit": "node test/unit",
-    "mutation": "stryker run",
     "perf": "./bin/cli.js benchmarks",
-    "lint": "eslint . && remark . && prettier --check \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/.*rc\" \"**/*.yml\" \"**/*.yaml\" \"**/*.ts\"",
-    "fix": "eslint --fix . && prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/.*rc\" \"**/*.yml\" \"**/*.yaml\" \"**/*.ts\""
+    "types": "tsc -p tsconfig.json",
+    "lint": "eslint . && prettier --check \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.ts\"",
+    "fix": "eslint . --fix && prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.ts\""
   },
   "engines": {
     "node": ">=14.0.0"
@@ -58,23 +58,10 @@
     "yargs": "^16.2.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.6",
-    "@commitlint/config-conventional": "^16.2.4",
-    "@metarhia/doc": "^0.7.0",
-    "@stryker-mutator/core": "^6.4.2",
-    "@types/node": "^14.18.53",
-    "@typescript-eslint/eslint-plugin": "^6.1.0",
-    "@typescript-eslint/parser": "^6.1.0",
-    "eslint": "^8.45.0",
-    "eslint-config-metarhia": "^8.2.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-prettier": "^5.0.0",
-    "husky": "^8.0.3",
-    "prettier": "^3.0.0",
-    "remark-cli": "^11.0.0",
-    "remark-preset-lint-metarhia": "^2.0.1",
-    "remark-validate-links": "^12.1.1",
-    "typescript": "^5.1.6"
+    "@types/node": "^22.5.1",
+    "eslint": "^9.9.1",
+    "eslint-config-metarhia": "^9.0.5",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
   }
 }
