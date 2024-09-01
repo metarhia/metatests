@@ -2,13 +2,13 @@
 
 const { test, ImperativeTest } = require('..');
 
-const f1 = x => x * 2;
+const f1 = (x) => x * 2;
 
 const namespace = { f1 };
 
-test('nested successful case', test => {
+test('nested successful case', (test) => {
   let nestedDeclarative = null;
-  const t = new ImperativeTest('parent', test => {
+  const t = new ImperativeTest('parent', (test) => {
     t.endAfterSubtests();
     nestedDeclarative = test.case('declarative', namespace, {
       f1: [
@@ -28,9 +28,9 @@ test('nested successful case', test => {
   });
 });
 
-test('nested failing case', test => {
+test('nested failing case', (test) => {
   let nestedDeclarative = null;
-  const t = new ImperativeTest('parent', test => {
+  const t = new ImperativeTest('parent', (test) => {
     t.endAfterSubtests();
     nestedDeclarative = test.case('declarative', namespace, {
       f1: [[1, 1]],

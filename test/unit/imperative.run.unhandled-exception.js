@@ -5,10 +5,10 @@ const { ImperativeTest } = require('../..');
 
 const bailoutingTest = new ImperativeTest(
   'throwing bailout error',
-  t => {
+  (t) => {
     t.bailout();
   },
-  { run: false }
+  { run: false },
 );
 
 bailoutingTest.on('done', () => {
@@ -20,7 +20,7 @@ const erroringTest = new ImperativeTest(
   () => {
     throw new Error();
   },
-  { run: false }
+  { run: false },
 );
 
 erroringTest.on('done', () => {

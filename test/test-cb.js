@@ -2,9 +2,9 @@
 
 const { test, ImperativeTest } = require('..');
 
-test('test.cb with message', test => {
+test('test.cb with message', (test) => {
   const message = 'hello';
-  const t = new ImperativeTest('cb test', t => {
+  const t = new ImperativeTest('cb test', (t) => {
     const cb = t.cb(message);
     cb(null);
     t.end();
@@ -15,9 +15,9 @@ test('test.cb with message', test => {
   });
 });
 
-test('test.cb with message and callback', test => {
+test('test.cb with message and callback', (test) => {
   const message = 'hello';
-  const t = new ImperativeTest('cb test', t => {
+  const t = new ImperativeTest('cb test', (t) => {
     const cb = t.cb(message, test.mustCall());
     cb(null);
     t.end();
@@ -28,8 +28,8 @@ test('test.cb with message and callback', test => {
   });
 });
 
-test('test.cb must assert mustCall', test => {
-  const t = new ImperativeTest('cb test', t => {
+test('test.cb must assert mustCall', (test) => {
+  const t = new ImperativeTest('cb test', (t) => {
     t.cb();
     t.end();
   });
@@ -43,16 +43,16 @@ test('test.cb must assert mustCall', test => {
   });
 });
 
-test('test.cb must forward error', test => {
+test('test.cb must forward error', (test) => {
   const message = 'hello';
-  const t = new ImperativeTest('cb test', t => {
+  const t = new ImperativeTest('cb test', (t) => {
     const error = new Error('err');
     const cb = t.cb(
       message,
-      test.mustCall(err => {
+      test.mustCall((err) => {
         test.isError(err, error);
         t.end();
-      })
+      }),
     );
     cb(error);
   });
@@ -62,15 +62,15 @@ test('test.cb must forward error', test => {
   });
 });
 
-test('test.cb must forward results', test => {
-  const t = new ImperativeTest('cb test', t => {
+test('test.cb must forward results', (test) => {
+  const t = new ImperativeTest('cb test', (t) => {
     const data = [1, 2, 3];
     const cb = t.cb(
       test.mustCall((err, ...res) => {
         test.error(err);
         test.strictSame(res, data);
         t.end();
-      })
+      }),
     );
     cb(null, ...data);
   });
@@ -80,10 +80,10 @@ test('test.cb must forward results', test => {
   });
 });
 
-test('test.cbFail must support message', test => {
+test('test.cbFail must support message', (test) => {
   const fail = 'hello';
   const err = new Error();
-  const t = new ImperativeTest('cbFail test', t => {
+  const t = new ImperativeTest('cbFail test', (t) => {
     const cb = t.cbFail(fail, test.mustNotCall());
     cb(err);
   });
@@ -96,8 +96,8 @@ test('test.cbFail must support message', test => {
   });
 });
 
-test('test.cbFail must assert mustCall', test => {
-  const t = new ImperativeTest('cbFail test', t => {
+test('test.cbFail must assert mustCall', (test) => {
+  const t = new ImperativeTest('cbFail test', (t) => {
     t.cbFail();
     t.end();
   });
@@ -111,14 +111,14 @@ test('test.cbFail must assert mustCall', test => {
   });
 });
 
-test('test.cbFail must forward results', test => {
+test('test.cbFail must forward results', (test) => {
   const data = [1, 2, 3];
-  const t = new ImperativeTest('cbFail test', t => {
+  const t = new ImperativeTest('cbFail test', (t) => {
     const cb = t.cbFail(
       test.mustCall((...res) => {
         test.strictSame(res, data);
         t.end();
-      })
+      }),
     );
     cb(null, ...data);
   });
@@ -128,9 +128,9 @@ test('test.cbFail must forward results', test => {
   });
 });
 
-test('test.cbFail must call afterAllCb on success', test => {
-  const t = new ImperativeTest('cbFail test', t => {
-    const cb = t.cbFail(test.mustCall(), err => {
+test('test.cbFail must call afterAllCb on success', (test) => {
+  const t = new ImperativeTest('cbFail test', (t) => {
+    const cb = t.cbFail(test.mustCall(), (err) => {
       test.error(err);
       t.end();
     });
@@ -142,17 +142,17 @@ test('test.cbFail must call afterAllCb on success', test => {
   });
 });
 
-test('test.cbFail must call afterAllCb on error', test => {
+test('test.cbFail must call afterAllCb on error', (test) => {
   const error = new Error('hello');
-  new ImperativeTest('cbFail test', t => {
+  new ImperativeTest('cbFail test', (t) => {
     const cb = t.cbFail(
       test.mustNotCall(),
-      test.mustCall(err => {
+      test.mustCall((err) => {
         test.strictSame(err, error);
         test.assert(t.done);
         test.assertNot(t.success);
         test.end();
-      })
+      }),
     );
     cb(error);
   });

@@ -3,7 +3,7 @@
 const { iter } = require('@metarhia/common');
 const metatests = require('..');
 
-const objectCreate = p => {
+const objectCreate = (p) => {
   const obj = {};
   obj.hello = 'world';
   obj.custom = p;
@@ -12,7 +12,7 @@ const objectCreate = p => {
 
 const eq = metatests.strictEqual;
 
-metatests.testSync('Verify that metatests.measure works', test => {
+metatests.testSync('Verify that metatests.measure works', (test) => {
   const cases = [
     { fn: objectCreate, argCases: [['a'], ['b']], n: 1e3 },
     { fn: objectCreate, name: 'hello' },
@@ -25,7 +25,7 @@ metatests.testSync('Verify that metatests.measure works', test => {
     finish: [],
   };
   const putToArr =
-    name =>
+    (name) =>
     (...args) =>
       actualFromListener[name].push(args);
   const listener = {
@@ -98,7 +98,7 @@ metatests.testSync('Verify that metatests.measure works', test => {
     });
 
   iter(expectedResults)
-    .zip(iter(actualFromListener.cycle.map(r => r[1])))
+    .zip(iter(actualFromListener.cycle.map((r) => r[1])))
     .forEach(([expected, actual]) => {
       test.contains(actual, expected);
     });
@@ -107,12 +107,12 @@ metatests.testSync('Verify that metatests.measure works', test => {
     { name: 'objectCreate', args: ['a'] },
     { name: 'objectCreate', args: ['b'] },
     { name: 'hello', args: undefined },
-  ]).forEach(target => {
+  ]).forEach((target) => {
     const expected = expectedResults.filter(
-      r => r.name === target.name && eq(r.args, target.args)
+      (r) => r.name === target.name && eq(r.args, target.args),
     );
     const actual = actualFromListener.done.find(
-      a => a[0] === target.name && eq(a[1], target.args)
+      (a) => a[0] === target.name && eq(a[1], target.args),
     )[2];
     iter(expected)
       .zip(actual)

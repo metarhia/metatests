@@ -61,17 +61,20 @@ const merge = (arr1 = [], arr2 = []) => common.merge(arr1, arr2);
 
 const exclude = (files, filterArr) =>
   filterArr
-    .map(p =>
+    .map((p) =>
       p
         .replace('/', path.sep)
         .replace(/[.+^${}()|[\]\\]/g, '\\$&')
         .replace('*', '.+')
-        .replace('?', '.')
+        .replace('?', '.'),
     )
-    .map(p => new RegExp(p))
-    .reduce((files, regexp) => files.filter(file => !regexp.test(file)), files);
+    .map((p) => new RegExp(p))
+    .reduce(
+      (files, regexp) => files.filter((file) => !regexp.test(file)),
+      files,
+    );
 
-const parseFile = file => {
+const parseFile = (file) => {
   const data = fs.readFileSync(path.resolve(file), 'utf8');
   switch (common.fileExt(file)) {
     case 'json':
@@ -84,11 +87,11 @@ const parseFile = file => {
   }
 };
 
-const loadFiles = files => {
+const loadFiles = (files) => {
   const result = [];
   common
     .iter(files)
-    .map(file => {
+    .map((file) => {
       if (fs.existsSync(file)) {
         return file;
       } else if (fs.existsSync(file + '.js')) {
@@ -103,9 +106,9 @@ const loadFiles = files => {
         return '';
       }
     })
-    .forEach(file => {
+    .forEach((file) => {
       if (fs.statSync(file).isDirectory()) {
-        const subfiles = fs.readdirSync(file).map(f => path.join(file, f));
+        const subfiles = fs.readdirSync(file).map((f) => path.join(file, f));
         result.push(...loadFiles(subfiles));
       } else if (['js', 'mjs', 'cjs'].includes(common.fileExt(file))) {
         result.push(file);
@@ -114,7 +117,7 @@ const loadFiles = files => {
   return result;
 };
 
-const getConfig = args => {
+const getConfig = (args) => {
   const config = args.config ? parseFile(args.config) : {};
 
   config.exclude = merge(config.exclude, args.exclude);
@@ -138,13 +141,13 @@ const runNode = (config, cb) => {
         type:
           config.reporter.split('-')[1] ||
           (process.stdout.isTTY ? 'classic' : 'tap'),
-      })
+      }),
     );
   } else if (config.reporter === 'concise') {
     runner.setReporter(new metatests.reporters.ConciseReporter());
   }
   if (config.runTodo) runner.runTodo();
-  runner.on('finish', hasFailures => {
+  runner.on('finish', (hasFailures) => {
     const msg = 'Tests finished. Waiting for process to finish.\n';
     printIfLogComment(config, 'default', msg);
     if (hasFailures) {
@@ -161,7 +164,7 @@ const runNode = (config, cb) => {
   });
   const msg = `\nNode ${process.version} (v8 ${process.versions.v8}):`;
   printIfLog(config, 'default', msg);
-  merge(config.files, config.nodeOnly).forEach(name => {
+  merge(config.files, config.nodeOnly).forEach((name) => {
     const file = path.isAbsolute(name) ? name : path.join(process.cwd(), name);
     if (file.endsWith('mjs')) {
       if (supportsESM) {
@@ -169,7 +172,7 @@ const runNode = (config, cb) => {
       } else {
         console.warn(
           `Warning: ignoring '${file}', current Node.js version doesn't ` +
-            'support dynamic import'
+            'support dynamic import',
         );
       }
     } else {
@@ -178,10 +181,10 @@ const runNode = (config, cb) => {
   });
 };
 
-const runTests = args => {
+const runTests = (args) => {
   const config = getConfig(args);
 
-  const onExit = code => {
+  const onExit = (code) => {
     printIfLogComment(config, 'default', 'Metatests finished with code', code);
     process.exit(code);
   };
@@ -197,7 +200,7 @@ const runTests = args => {
   runNode(config, onExit);
 };
 
-const handleBenchTarget = args => {
+const handleBenchTarget = (args) => {
   const res = require(path.join(process.cwd(), args.file));
   let target = args.target ? common.getByPath(res, args.target) : res;
   if (!Array.isArray(target)) {
@@ -205,14 +208,14 @@ const handleBenchTarget = args => {
     else if (typeof target === 'function') target = [target];
   }
   if (!target) {
-    console.error("File doesn't export correct target");
+    console.error(`File doesn't export correct target`);
     yargs.showHelp();
     process.exit(1);
   }
   return target;
 };
 
-const runSpeed = args => {
+const runSpeed = (args) => {
   const target = handleBenchTarget(args);
   if (!target) return;
   metatests.speed(args.caption, args.count, target);
@@ -249,13 +252,13 @@ function measureTarget(target, args) {
   };
   if (args.csv) {
     console.log(
-      ['name', 'configuration', 'rate', 'time'].map(JSON.stringify).join(', ')
+      ['name', 'configuration', 'rate', 'time'].map(JSON.stringify).join(', '),
     );
   }
   return metatests.measure(target, options);
 }
 
-const runMeasure = args => {
+const runMeasure = (args) => {
   if ((args.new && !args.old) || (args.old && !args.new)) {
     console.error('Measure --old --new must always be used together.');
     process.exit(1);
@@ -297,7 +300,7 @@ yargs
   .command(
     '*',
     'tests',
-    y => {
+    (y) => {
       y.usage('$0 [options] file.js [file.js...]')
         .usage('$0 [options] --config config.json')
         .option('exclude', {
@@ -341,17 +344,17 @@ yargs
             'case/function, an array of cases/functions or an object with ' +
             'properties. --target option can be used to get nested paths ' +
             'from exported object',
-          y =>
+          (y) =>
             y
               .example(
                 '$0 speed bench.js',
                 'Run simple benchmarks for every function exported from ' +
-                  '"bench.js"'
+                  '"bench.js"',
               )
               .example(
                 '$0 speed -n 1e7 bench.js',
                 'Run simple benchmarks with custom run count for every ' +
-                  'function exported from "bench.js"'
+                  'function exported from "bench.js"',
               )
               .option('caption', {
                 type: 'string',
@@ -369,7 +372,7 @@ yargs
                 type: 'string',
                 describe: 'Name of exported property to use for speed test',
               }),
-          runSpeed
+          runSpeed,
         )
         .command(
           'measure [options] <file>',
@@ -379,28 +382,29 @@ yargs
             'can be used to get nested paths from exported object. ' +
             'Two implementations can be compared with the use of ' +
             '--new and --old options',
-          y =>
+          (y) =>
             y
               .example(
                 '$0 measure --csv bench.js',
                 'Run benchmarks for all exported functions from "bench.js" ' +
-                  'file and output them in csv format'
+                  'file and output them in csv format',
               )
               .example(
                 '$0 measure --csv --preflight 5 --runs 20 -n 1e7 bench.js',
                 'Run benchmarks for all exported functions from "bench.js" ' +
-                  'file using custom options and output them in csv format'
+                  'file using custom options and output them in csv format',
               )
               .example(
-                '$0 measure --old oldImpl --new newImpl --name compare bench.js',
+                '$0 measure --old oldImpl --new newImpl --name compare ' +
+                  'bench.js',
                 'Compare performance of "oldImpl" function to "newImpl" one ' +
-                  'exported from "bench.js" file'
+                  'exported from "bench.js" file',
               )
               .example(
-                '$0 measure --old oldImpl --new newImpl --name compare --target ' +
-                  'nested.props bench.js',
+                '$0 measure --old oldImpl --new newImpl --name ' +
+                  'compare --target nested.props bench.js',
                 'Compare performance of "nested.props.oldImpl" function to ' +
-                  '"nested.props.newImpl" one exported from "bench.js" file'
+                  '"nested.props.newImpl" one exported from "bench.js" file',
               )
               .option('aggregate', {
                 alias: 'agg',
@@ -467,10 +471,10 @@ yargs
                 describe: 'Output every result during the benchmark run',
                 default: false,
               }),
-          runMeasure
+          runMeasure,
         );
     },
-    runTests
+    runTests,
   )
   .help()
   .alias('help', 'h').argv;

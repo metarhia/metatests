@@ -4,12 +4,12 @@ const assert = require('assert');
 const { ImperativeTest } = require('../../metatests');
 
 // A stub to support assert.throws in Node v6
-const checkError = expected => actual => {
+const checkError = (expected) => (actual) => {
   try {
     assert(actual instanceof expected.constructor);
     assert.strictEqual(actual.message, expected.message);
     return true;
-  } catch (e) {
+  } catch {
     return false;
   }
 };
@@ -21,8 +21,8 @@ assert.throws(
       dependentSubtests: true,
     }),
   checkError(
-    new Error('parallelSubtests and dependentSubtests are contradictory')
-  )
+    new Error('parallelSubtests and dependentSubtests are contradictory'),
+  ),
 );
 
 assert.doesNotThrow(
@@ -31,6 +31,6 @@ assert.doesNotThrow(
     test.end();
   },
   checkError(
-    new Error('parallelSubtests and dependentSubtests are contradictory')
-  )
+    new Error('parallelSubtests and dependentSubtests are contradictory'),
+  ),
 );

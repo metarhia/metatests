@@ -2,7 +2,7 @@
 
 const metatests = require('..');
 
-metatests.test('must correctly report plan after timeout', test => {
+metatests.test('must correctly report plan after timeout', (test) => {
   const t = metatests.test('async test immediate end');
 
   t.on('done', () => {

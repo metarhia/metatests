@@ -3,7 +3,7 @@
 const assert = require('assert');
 const { ImperativeTest } = require('../..');
 
-const syncTest = new ImperativeTest('run sync', t => t.pass(), {
+const syncTest = new ImperativeTest('run sync', (t) => t.pass(), {
   async: false,
   run: false,
 });
@@ -20,14 +20,14 @@ syncTest.run();
 
 process.nextTick(() => {
   assert.strictEqual(syncTest.waitingSubtests, true);
-  syncTest.test('subtest', t => t.pass());
+  syncTest.test('subtest', (t) => t.pass());
   process.nextTick(() => {
     assert(!onDoneCalled, 'must not call onDone');
     syncTest.end(); // this will also end the above subtest
   });
 });
 
-const asyncTest = new ImperativeTest('run async', t => t.pass(), {
+const asyncTest = new ImperativeTest('run async', (t) => t.pass(), {
   run: false,
 });
 

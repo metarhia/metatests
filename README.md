@@ -41,7 +41,7 @@ technology stack built on the following principles:
         // ...
       ],
       // ...
-    }
+    },
   );
   ```
 

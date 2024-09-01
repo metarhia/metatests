@@ -12,12 +12,12 @@ assert.deepStrictEqual(test.context, {}, 'default context');
 assert.strictEqual(
   test.options.parallelSubtests,
   false,
-  'default parallelSubtests'
+  'default parallelSubtests',
 );
 assert.strictEqual(
   test.options.dependentSubtests,
   false,
-  'default dependentSubtests'
+  'default dependentSubtests',
 );
 
 test.end();

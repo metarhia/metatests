@@ -32,14 +32,14 @@ export interface MeasureOptions {
 // Microbenchmark each passed configuration multiple times
 export function measure(
   cases: MeasureCase,
-  options?: MeasureOptions
+  options?: MeasureOptions,
 ): MeasureResult[];
 
 // Microbenchmark each passed function and compare results.
 export function speed(
   caption: string,
   count: number,
-  cases: Array<() => {}>
+  cases: Array<() => {}>,
 ): void;
 
 // Convert metatests.measure result to csv.

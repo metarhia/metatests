@@ -7,7 +7,7 @@ const test = new ImperativeTest();
 let ended = false;
 
 test.endAfterSubtests();
-test.testSync('subtest', t => t.pass());
+test.testSync('subtest', (t) => t.pass());
 test.on('done', () => {
   ended = true;
 });

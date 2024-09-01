@@ -2,19 +2,19 @@
 
 const metatests = require('..');
 
-metatests.test('async test.beforeEach promise resolve', test => {
+metatests.test('async test.beforeEach promise resolve', (test) => {
   let called = false;
-  test.beforeEach(async t => {
+  test.beforeEach(async (t) => {
     t.assert(42);
     called = true;
   });
-  test.testSync(t => {
+  test.testSync((t) => {
     t.assert(called);
   });
   test.endAfterSubtests();
 });
 
-metatests.test('async test.beforeEach promise reject must fail test', test => {
+metatests.test('async test.beforeEach promise reject must fail', (test) => {
   const t = new metatests.ImperativeTest('Rejecting beforeEach test', () => {
     t.beforeEach(async () => {
       throw 42;
@@ -32,7 +32,7 @@ metatests.test('async test.beforeEach promise reject must fail test', test => {
   });
 });
 
-metatests.test('test.beforeEach promise reject must fail test', test => {
+metatests.test('test.beforeEach promise reject must fail test', (test) => {
   const t = new metatests.ImperativeTest('Rejecting beforeEach test', () => {
     t.beforeEach(() => Promise.reject(42));
     t.testSync(() => {});

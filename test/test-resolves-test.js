@@ -2,7 +2,7 @@
 
 const metatests = require('..');
 
-metatests.test('async test.resolve subtest', test => {
+metatests.test('async test.resolve subtest', (test) => {
   const res = 42;
   const t = new metatests.ImperativeTest('Resolving test', async () => {
     const res1 = await t.resolves(Promise.resolve(res), res);
@@ -36,7 +36,7 @@ metatests.test('async test.resolve subtest', test => {
   });
 });
 
-metatests.test('test.resolve must throw on reject', test => {
+metatests.test('test.resolve must throw on reject', (test) => {
   const err = new Error('error');
   const t = new metatests.ImperativeTest('Resolving test', async () => {
     try {
@@ -64,10 +64,10 @@ metatests.test('test.resolve must throw on reject', test => {
   });
 });
 
-metatests.test('test.resolve subtest function', test => {
+metatests.test('test.resolve subtest function', (test) => {
   const res = 42;
   const t = new metatests.ImperativeTest('Resolving test', () =>
-    t.resolves(() => Promise.resolve(res), res)
+    t.resolves(() => Promise.resolve(res), res),
   );
   t.on('done', () => {
     test.assert(t.success);
@@ -85,9 +85,9 @@ metatests.test('test.resolve subtest function', test => {
   });
 });
 
-metatests.test('test.resolves no expected', test => {
+metatests.test('test.resolves no expected', (test) => {
   const t = new metatests.ImperativeTest('Resolving test', () =>
-    t.resolves(Promise.resolve(42))
+    t.resolves(Promise.resolve(42)),
   );
   t.on('done', () => {
     test.assert(t.success);
@@ -101,9 +101,9 @@ metatests.test('test.resolves no expected', test => {
   });
 });
 
-metatests.test('test.resolve expected undefined', test => {
+metatests.test('test.resolve expected undefined', (test) => {
   const t = new metatests.ImperativeTest('Resolving test', () =>
-    t.resolves(Promise.resolve(), undefined)
+    t.resolves(Promise.resolve(), undefined),
   );
   t.on('done', () => {
     test.assert(t.success);
@@ -123,9 +123,9 @@ metatests.test('test.resolve expected undefined', test => {
   });
 });
 
-metatests.test('test.resolve expected undefined failed', test => {
+metatests.test('test.resolve expected undefined failed', (test) => {
   const t = new metatests.ImperativeTest('Resolving test', () =>
-    t.resolves(Promise.resolve(42), undefined)
+    t.resolves(Promise.resolve(42), undefined),
   );
   t.on('done', () => {
     test.assertNot(t.success);
@@ -145,9 +145,9 @@ metatests.test('test.resolve expected undefined failed', test => {
   });
 });
 
-metatests.test('test.resolves no expected failed', test => {
+metatests.test('test.resolves no expected failed', (test) => {
   const t = new metatests.ImperativeTest('Resolving test', () =>
-    t.resolves(Promise.reject(42))
+    t.resolves(Promise.reject(42)),
   );
   t.on('done', () => {
     test.assertNot(t.success);

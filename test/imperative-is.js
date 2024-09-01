@@ -2,8 +2,8 @@
 
 const metatests = require('..');
 
-metatests.testSync('imperative#is', test => {
-  const moreThan3 = v => v > 3;
+metatests.testSync('imperative#is', (test) => {
+  const moreThan3 = (v) => v > 3;
 
   const t = new metatests.ImperativeTest();
   t.is(moreThan3, 1);
@@ -32,7 +32,7 @@ metatests.testSync('imperative#is', test => {
   });
 });
 
-metatests.testSync('imperative#isArray', test => {
+metatests.testSync('imperative#isArray', (test) => {
   const t = new metatests.ImperativeTest();
   t.isArray([]);
   t.isArray([], 'hello');
@@ -60,7 +60,7 @@ metatests.testSync('imperative#isArray', test => {
   });
 });
 
-metatests.testSync('imperative#isBuffer', test => {
+metatests.testSync('imperative#isBuffer', (test) => {
   const t = new metatests.ImperativeTest();
   t.isBuffer(Buffer.from(''));
   t.isBuffer(Buffer.from(''), 'hello');

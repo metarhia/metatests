@@ -4,8 +4,8 @@ const assert = require('assert');
 const { ImperativeTest } = require('../../metatests');
 
 const test = new ImperativeTest('', null);
-const st1 = test.testSync('successful subtest', t => t.pass());
-const st2 = test.testSync('failing subtest', t => t.fail());
+const st1 = test.testSync('successful subtest', (t) => t.pass());
+const st2 = test.testSync('failing subtest', (t) => t.fail());
 test.on('done', () => {
   const subtest1res = {
     type: 'subtest',

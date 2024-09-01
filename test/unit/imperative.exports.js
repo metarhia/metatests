@@ -22,7 +22,7 @@ const todoTest = imperative.test(
   'todo test',
   null,
   { todo: true },
-  runnerInstance
+  runnerInstance,
 );
 assert.strictEqual(todoTest, null);
 

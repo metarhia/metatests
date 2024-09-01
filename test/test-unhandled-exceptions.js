@@ -2,14 +2,14 @@
 
 const { test, ImperativeTest } = require('../metatests');
 
-test('must catch unhandledExceptions', test => {
+test('must catch unhandledExceptions', (test) => {
   const error = new Error('Error');
   const t = new ImperativeTest(
     'Throwing test',
     () => {
       throw error;
     },
-    { async: false }
+    { async: false },
   );
 
   t.on('done', () => {
@@ -23,13 +23,13 @@ test('must catch unhandledExceptions', test => {
   });
 });
 
-test('must catch "null" unhandledException', test => {
+test('must catch "null" unhandledException', (test) => {
   const t = new ImperativeTest(
     'Throwing null',
     () => {
       throw null;
     },
-    { async: false }
+    { async: false },
   );
 
   t.on('done', () => {

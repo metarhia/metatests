@@ -31,7 +31,7 @@ export class ImperativeTest<C extends TestContext = {}> extends Test<
   constructor(
     caption: string,
     func: (test: ImperativeTest) => any | Promise<any>,
-    options: ImperativeTestOptions
+    options: ImperativeTestOptions,
   );
 
   // Mark this test to call end after its subtests are done.
@@ -41,14 +41,14 @@ export class ImperativeTest<C extends TestContext = {}> extends Test<
   beforeEach(
     func: (
       subtest: ImperativeTest,
-      callback: (context: this['context']) => void
-    ) => void
+      callback: (context: this['context']) => void,
+    ) => void,
   ): void;
   beforeEach(func: (subtest: ImperativeTest) => Promise<this['context']>): void;
 
   // Set a function to run after each subtest.
   afterEach(
-    func: (subtest: ImperativeTest, callback: () => void) => void
+    func: (subtest: ImperativeTest, callback: () => void) => void,
   ): void;
   afterEach(func: (subtest: ImperativeTest) => Promise<void>): void;
 
@@ -56,21 +56,21 @@ export class ImperativeTest<C extends TestContext = {}> extends Test<
   test<C extends TestContext = {}>(
     message: string,
     func: (test: ImperativeTest<C>) => any | Promise<any>,
-    options: ImperativeTestOptions<C>
+    options: ImperativeTestOptions<C>,
   ): ImperativeTest<C>;
 
   // Create an asynchronous subtest of this test.
   testAsync<C extends TestContext = {}>(
     message: string,
     func: (test: ImperativeTest<C>) => any | Promise<any>,
-    options: ImperativeTestOptions<C>
+    options: ImperativeTestOptions<C>,
   ): ImperativeTest<C>;
 
   // Create a synchronous subtest of this test
   testSync<C extends TestContext = {}>(
     message: string,
     func: (test: ImperativeTest<C>) => any | Promise<any>,
-    options: ImperativeTestOptions<C>
+    options: ImperativeTestOptions<C>,
   ): ImperativeTest<C>;
 
   // Create a declarative `{case()}` subtest of this test.
@@ -78,7 +78,7 @@ export class ImperativeTest<C extends TestContext = {}> extends Test<
     caption: string,
     namespace: Record<string, any>,
     list: Record<string, any[]>,
-    options: TestOptions
+    options: TestOptions,
   ): DeclarativeTest;
 
   // Compare actual and expected for non-strict equality.
@@ -137,7 +137,7 @@ export class ImperativeTest<C extends TestContext = {}> extends Test<
   mustCall<F extends () => {} = () => {}>(
     fn?: F,
     count?: number,
-    name?: string
+    name?: string,
   ): F;
 
   // Check that fn is not called.
@@ -149,7 +149,7 @@ export class ImperativeTest<C extends TestContext = {}> extends Test<
     subObj: S,
     message?: string,
     sort?: boolean,
-    test?: (a: T, b: T) => boolean
+    test?: (a: T, b: T) => boolean,
   ): void;
 
   // Check greedily that actual contains all properties of subObj.
@@ -157,7 +157,7 @@ export class ImperativeTest<C extends TestContext = {}> extends Test<
     actual: A,
     subObj: S,
     message?: string,
-    test?: (a: T, b: T) => boolean
+    test?: (a: T, b: T) => boolean,
   ): void;
 
   // Fail this test and throw an error.
@@ -174,12 +174,12 @@ export class ImperativeTest<C extends TestContext = {}> extends Test<
   cbFail<A extends any[], R, F extends (err: Error, ...args: A) => R>(
     fail: string,
     cb: F,
-    afterAllCb: () => void
+    afterAllCb: () => void,
   ): (...args: A) => R;
   // Create error-first callback wrapper to fail test if call fails.
   cbFail<A extends any[], R, F extends (err: Error, ...args: A) => R>(
     cb: F,
-    afterAllCb: () => void
+    afterAllCb: () => void,
   ): (...args: A) => R;
 
   // Verify that input resolves.
@@ -187,18 +187,18 @@ export class ImperativeTest<C extends TestContext = {}> extends Test<
   // Verify that input resolves.
   isResolved<T>(
     input: Promise<T> | (() => Promise<T>),
-    expected?: T
+    expected?: T,
   ): Promise<T>;
 
   // Check that input rejects.
   rejects<T, E extends Error>(
     input: Promise<T> | (() => Promise<T>),
-    err: Error
+    err: Error,
   ): Promise<E>;
   // Check that input rejects.
   isRejected<T, E extends Error>(
     input: Promise<T> | (() => Promise<T>),
-    err: Error
+    err: Error,
   ): Promise<E>;
 
   // Check whether `val` satisfies custom `checkFn` condition.
@@ -223,7 +223,7 @@ export class ImperativeTest<C extends TestContext = {}> extends Test<
   // Defer a function call until the 'before' end of test.
   defer<F extends () => any | Promise<any> = () => {}>(
     fn: F,
-    options: { ignoreErrors?: boolean }
+    options: { ignoreErrors?: boolean },
   ): void;
 
   on(name: 'done', listener: (test: this) => void): this;
@@ -234,7 +234,7 @@ export function test<C extends TestContext = {}, R extends Runner = Runner>(
   caption: string,
   func: (test: ImperativeTest) => any | Promise<any>,
   options?: ImperativeTestOptions,
-  runner?: R
+  runner?: R,
 ): ImperativeTest<C>;
 
 // Create an asynchronous test
@@ -245,7 +245,7 @@ export function testAsync<
   caption: string,
   func: (test: ImperativeTest) => any | Promise<any>,
   options?: ImperativeTestOptions,
-  runner?: R
+  runner?: R,
 ): ImperativeTest<C>;
 
 // Create a synchronous test
@@ -253,5 +253,5 @@ export function testSync<C extends TestContext = {}, R extends Runner = Runner>(
   caption: string,
   func: (test: ImperativeTest) => any | Promise<any>,
   options?: ImperativeTestOptions,
-  runner?: R
+  runner?: R,
 ): ImperativeTest<C>;

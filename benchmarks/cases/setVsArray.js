@@ -1,6 +1,6 @@
 'use strict';
 
-const create = size => {
+const create = (size) => {
   const search = [];
   for (let i = 0; i < size; i++) {
     search.push('abc' + Math.random());

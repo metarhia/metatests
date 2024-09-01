@@ -18,8 +18,8 @@ const metatests = require('..');
 
     return [obj1, obj2];
   },
-].forEach(f => {
-  metatests.testSync('test.sameTopology', test => {
+].forEach((f) => {
+  metatests.testSync('test.sameTopology', (test) => {
     const [obj1, obj2] = f();
     test.log('Input:', obj1, obj2);
     test.sameTopology(obj1, obj2);
@@ -39,8 +39,8 @@ const metatests = require('..');
 
     return [obj1, obj2];
   },
-].forEach(f => {
-  metatests.testSync('test.notSameTopology', test => {
+].forEach((f) => {
+  metatests.testSync('test.notSameTopology', (test) => {
     const [obj1, obj2] = f();
     test.log('Input:', obj1, obj2);
     test.notSameTopology(obj1, obj2);

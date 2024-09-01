@@ -2,8 +2,8 @@
 
 const metatests = require('..');
 
-metatests.test('must support test.fail()', test => {
-  const t = new metatests.ImperativeTest('Failing test', t => {
+metatests.test('must support test.fail()', (test) => {
+  const t = new metatests.ImperativeTest('Failing test', (t) => {
     t.fail('msg');
     t.end();
   });
@@ -16,9 +16,9 @@ metatests.test('must support test.fail()', test => {
   });
 });
 
-metatests.test('must support test.fail(msg, err)', test => {
+metatests.test('must support test.fail(msg, err)', (test) => {
   const err = new Error('error');
-  const t = new metatests.ImperativeTest('Failing test', t => {
+  const t = new metatests.ImperativeTest('Failing test', (t) => {
     t.fail('msg', err);
     t.end();
   });
@@ -31,9 +31,9 @@ metatests.test('must support test.fail(msg, err)', test => {
   });
 });
 
-metatests.test('must support test.fail(err)', test => {
+metatests.test('must support test.fail(err)', (test) => {
   const err = new Error('error');
-  const t = new metatests.ImperativeTest('Failing test', t => {
+  const t = new metatests.ImperativeTest('Failing test', (t) => {
     t.fail(err);
     t.end();
   });

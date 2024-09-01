@@ -2,18 +2,18 @@
 
 const metatests = require('..');
 
-metatests.test('async test.defer promise resolve', test => {
+metatests.test('async test.defer promise resolve', (test) => {
   let calledDefer = false;
   let deferDone = false;
   let calledAfter = false;
   const state = { a: 42 };
-  const t = new metatests.ImperativeTest('Resolve defer', t => {
+  const t = new metatests.ImperativeTest('Resolve defer', (t) => {
     t.afterEach(async () => {
       calledAfter = true;
       test.strictEqual(state.a, 42);
       test.assert(deferDone, 'defer must finish before afterEach');
     });
-    t.test(async subtest => {
+    t.test(async (subtest) => {
       state.a = 24;
       subtest.defer(async () => {
         calledDefer = true;
@@ -37,19 +37,19 @@ metatests.test('async test.defer promise resolve', test => {
   });
 });
 
-metatests.test('async test.defer promise reject', test => {
+metatests.test('async test.defer promise reject', (test) => {
   let calledDefer1 = false;
   let calledDefer2 = false;
   let calledAfter = false;
   const state = { a: 42 };
-  const t = new metatests.ImperativeTest('Rejecting defer test', t => {
+  const t = new metatests.ImperativeTest('Rejecting defer test', (t) => {
     t.afterEach(async () => {
       calledAfter = true;
       test.strictEqual(state.a, 33);
       test.assert(calledDefer1, 'defer1 must finish before afterEach');
       test.assert(calledDefer2, 'defer2 must finish before afterEach');
     });
-    t.test(async subtest => {
+    t.test(async (subtest) => {
       state.a = 24;
       subtest.defer(async () => {
         calledDefer1 = true;
@@ -88,23 +88,23 @@ metatests.test('async test.defer promise reject', test => {
   });
 });
 
-metatests.test('async test.defer promise reject ignore', test => {
+metatests.test('async test.defer promise reject ignore', (test) => {
   let calledDefer = false;
   let calledAfter = false;
   const state = { a: 42 };
-  const t = new metatests.ImperativeTest('Rejecting defer test', t => {
+  const t = new metatests.ImperativeTest('Rejecting defer test', (t) => {
     t.afterEach(async () => {
       calledAfter = true;
       test.strictEqual(state.a, 24);
     });
-    t.test(async subtest => {
+    t.test(async (subtest) => {
       state.a = 24;
       subtest.defer(
         async () => {
           calledDefer = true;
           await Promise.reject(new Error('Defer failed'));
         },
-        { ignoreErrors: true }
+        { ignoreErrors: true },
       );
       subtest.pass();
     });

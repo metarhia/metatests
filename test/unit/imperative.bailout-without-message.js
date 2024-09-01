@@ -8,7 +8,7 @@ const test = new ImperativeTest();
 try {
   test.bailout();
   assert(false, 'must throw an error');
-} catch (e) {
+} catch {
   const [result] = test.results;
   assert.strictEqual(result.type, 'bailout');
   assert.strictEqual(result.success, false);

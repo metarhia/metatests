@@ -14,11 +14,11 @@ test.on('beforeDone', () => {
   beforeDoneEmitted = true;
 });
 
-const subtest = test.testSync('subtest', t => t.pass());
+const subtest = test.testSync('subtest', (t) => t.pass());
 test._end();
 
 test.on('done', () => {
-  assert(beforeDoneEmitted, "test must emit 'beforeDone'");
+  assert(beforeDoneEmitted, `test must emit 'beforeDone'`);
   assert(!afterEachCalled, 'afterEach must not be called');
   const expectedResults = {
     type: 'subtest',

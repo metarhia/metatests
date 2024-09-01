@@ -2,9 +2,9 @@
 
 const metatests = require('..');
 
-const f1 = x => x * 2;
-const f2 = x => x + 3;
-const f3 = x => x;
+const f1 = (x) => x * 2;
+const f2 = (x) => x + 3;
+const f3 = (x) => x;
 
 const namespace = { submodule: { f1, f2, f3 } };
 

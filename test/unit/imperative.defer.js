@@ -14,7 +14,7 @@ test.afterEach((test, cb) => {
 });
 assert(test.afterEachFunc, 'must set afterEachFunc');
 const state = { a: 42 };
-test.test('successful subtest', async t => {
+test.test('successful subtest', async (t) => {
   state.a = 24;
   t.defer(async () => {
     deferFuncCalled = true;

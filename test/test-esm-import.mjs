@@ -1,4 +1,4 @@
-import metatests, {
+import {
   test,
   testSync,
   testAsync,
@@ -10,21 +10,21 @@ import metatests, {
   ImperativeTest,
 } from '../metatests.mjs';
 
-test('must support named imports: test', test => {
+test('must support named imports: test', (test) => {
   test.strictSame(2 + 2, 4);
   test.end();
 });
 
-testSync('must support named imports: testSync', test => {
+testSync('must support named imports: testSync', (test) => {
   test.strictSame(2 + 2, 4);
 });
 
-testAsync('must support named imports: testAsync', test => {
+testAsync('must support named imports: testAsync', (test) => {
   test.strictSame(2 + 2, 4);
   test.end();
 });
 
-testSync('must support other named imports', test => {
+testSync('must support other named imports', (test) => {
   test.type(caseTest, 'function');
   test.type(speed, 'function');
   test.type(measure, 'function');

@@ -4,7 +4,6 @@ const assert = require('assert');
 const { DeclarativeTest } = require('../..');
 
 class CustomClass {
-  // eslint-disable-next-line class-methods-use-this
   bufferify(string) {
     return Buffer.from(string);
   }
@@ -15,7 +14,7 @@ const test = new DeclarativeTest('method', namespace, {
     [
       new CustomClass(),
       '__DATA__',
-      result => Buffer.from('__DATA__').equals(result),
+      (result) => Buffer.from('__DATA__').equals(result),
     ],
   ],
 });
@@ -28,6 +27,6 @@ test.on('done', () => {
   assert.strictEqual(result.expected, 'function');
   assert.strictEqual(
     result.message,
-    'method of CustomClass: {}.bufferify("__DATA__")'
+    'method of CustomClass: {}.bufferify("__DATA__")',
   );
 });
