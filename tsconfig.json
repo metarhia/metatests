@@ -8,5 +8,5 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true
   },
-  "include": ["types/lib/**/*.d.ts"]
+  "include": ["types/*.d.ts"]
 }
