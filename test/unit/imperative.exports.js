@@ -1,7 +1,7 @@
 'use strict';
 
-const assert = require('assert');
-const imperative = require('../../lib/imperative-test');
+const assert = require('node:assert');
+const imperative = require('../../lib/imperative-test.js');
 const {
   runner: { Runner },
 } = require('../..');

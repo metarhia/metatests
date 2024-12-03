@@ -1,8 +1,7 @@
 'use strict';
 
-const assert = require('assert');
+const assert = require('node:assert');
 const Test = require('../../lib/test.js');
-const { emptiness } = require('@metarhia/common');
 
 const test = new Test();
 test.on('error', emptiness);

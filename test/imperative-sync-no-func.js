@@ -1,6 +1,6 @@
 'use strict';
 
-const { testSync } = require('../');
+const { testSync } = require('..');
 
 const test = testSync('Empty test');
 test.assert(true);

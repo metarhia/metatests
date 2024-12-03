@@ -2,7 +2,7 @@
 
 const {
   runner: { Runner },
-} = require('../../metatests');
+} = require('../../metatests.js');
 
 const runner = new Runner();
 runner.removeReporter();

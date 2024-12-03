@@ -1,7 +1,7 @@
 'use strict';
 
-const assert = require('assert');
-const { ImperativeTest } = require('../../metatests');
+const assert = require('node:assert');
+const { ImperativeTest } = require('../../metatests.js');
 
 // A stub to support assert.throws in Node v6
 const checkError = (expected) => (actual) => {

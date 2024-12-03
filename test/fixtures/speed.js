@@ -1,6 +1,6 @@
 'use strict';
 
-const metatests = require('../../metatests');
+const metatests = require('../../metatests.js');
 
 const objectCreate = () => {
   const obj = Object.create(null);

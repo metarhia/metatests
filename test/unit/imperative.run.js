@@ -1,6 +1,6 @@
 'use strict';
 
-const assert = require('assert');
+const assert = require('node:assert');
 const { ImperativeTest } = require('../..');
 
 const syncTest = new ImperativeTest('run sync', (t) => t.pass(), {

@@ -1,7 +1,7 @@
 'use strict';
 
-const metatests = require('../');
-const { spawn } = require('child_process');
+const metatests = require('..');
+const { spawn } = require('node:child_process');
 
 const test = metatests.test('must not fail when reporter is null');
 

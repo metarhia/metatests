@@ -1,7 +1,7 @@
 'use strict';
 
-const assert = require('assert');
-const { ImperativeTest } = require('../..');
+const assert = require('node:assert');
+const { ImperativeTest } = require('../...js');
 
 const test = new ImperativeTest();
 test.plan(1);

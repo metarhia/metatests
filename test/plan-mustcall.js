@@ -1,6 +1,6 @@
 'use strict';
 
-const { test } = require('../');
+const { test } = require('..');
 
 test('must support test.plan + test.mustCall', (test) => {
   test.plan(4);
