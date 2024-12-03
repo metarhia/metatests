@@ -1,6 +1,6 @@
 'use strict';
 
-const { test, ImperativeTest } = require('../metatests');
+const { test, ImperativeTest } = require('../metatests.js');
 
 test('must catch unhandledExceptions', (test) => {
   const error = new Error('Error');

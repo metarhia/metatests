@@ -1,8 +1,8 @@
 'use strict';
 
-const path = require('path');
-const assert = require('assert');
-const cp = require('child_process');
+const path = require('node:path');
+const assert = require('node:assert');
+const cp = require('node:child_process');
 
 const fixturesDir = path.join(__dirname, '..', 'fixtures');
 

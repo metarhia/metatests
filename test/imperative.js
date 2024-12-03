@@ -1,7 +1,7 @@
 'use strict';
 
 const metatests = require('..');
-const vm = require('vm');
+const vm = require('node:vm');
 
 metatests.testSync('strictSame', (test) => {
   test.strictSame(1, 1);

@@ -1,7 +1,7 @@
 'use strict';
 
 const metatests = require('..');
-const { compareValues } = require('../lib/utils');
+const { compareValues } = require('../lib/utils.js');
 
 const test = metatests.testSync('test.contains/containsGreedy', null, {
   parallelSubtests: true,

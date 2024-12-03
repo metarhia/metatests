@@ -1,7 +1,7 @@
 'use strict';
 
-const { fork } = require('child_process');
-const path = require('path');
+const { fork } = require('node:child_process');
+const path = require('node:path');
 const metatests = require('..');
 
 const fixturesDir = path.join(__dirname, 'fixtures');

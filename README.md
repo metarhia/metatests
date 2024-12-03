@@ -46,14 +46,8 @@ technology stack built on the following principles:
   );
   ```
 
-  ([Prior art](https://github.com/metarhia/impress/blob/a457976b86f6a846c922f9435ab33f20dfaaad30/tests/unittests/api.common.test.js))
-
 - The framework must work in Node.js and browsers (using Webpack or any other
   module bundler that supports CommonJS modules and emulates Node.js globals).
-
-## Contributors
-
-- See github for full [contributors list](https://github.com/metarhia/metatests/graphs/contributors)
 
 ## API
 
@@ -794,3 +788,8 @@ Simple wrapper for [`test()`][test()] setting `async` option to `true`.
 [test.fail()]: #imperativetestprototypefailmessage-err
 [test.end()]: #imperativetestprototypeend
 [case()]: #casecaption-namespace-list-runner
+
+## Contributors
+
+- See github for full [contributors list](https://github.com/metarhia/metatests/graphs/contributors)
+- ([Prior art](https://github.com/metarhia/impress/blob/a457976b86f6a846c922f9435ab33f20dfaaad30/tests/unittests/api.common.test.js))

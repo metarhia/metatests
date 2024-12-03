@@ -35,32 +35,21 @@
   "files": [
     "bin/*.js",
     "lib/",
-    "benchmarks/compare.R",
     "types/"
   ],
   "scripts": {
-    "doc": "metadoc",
-    "test": "npm run lint && npm run types && node bin/cli.js test --exclude test/fixtures",
-    "test:unit": "node test/unit",
-    "perf": "./bin/cli.js benchmarks",
+    "test": "npm run lint && npm run types && node --test",
     "types": "tsc -p tsconfig.json",
     "lint": "eslint . && prettier --check \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.ts\"",
     "fix": "eslint . --fix && prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.ts\""
   },
   "engines": {
-    "node": "18 || 20 || 21 || 22"
-  },
-  "dependencies": {
-    "@metarhia/common": "^2.2.2",
-    "tap-mocha-reporter": "^5.0.3",
-    "tap-yaml": "^1.0.2",
-    "yaml": "^2.5.0",
-    "yargs": "^17.7.2"
+    "node": "18 || 20 || 21 || 22 || 23"
   },
   "devDependencies": {
     "@types/node": "^22.5.1",
-    "eslint": "^9.9.1",
-    "eslint-config-metarhia": "^9.0.5",
+    "eslint": "^9.10.0",
+    "eslint-config-metarhia": "^9.0.7",
     "prettier": "^3.3.3",
     "typescript": "^5.5.4"
   }

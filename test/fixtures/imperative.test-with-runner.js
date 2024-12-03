@@ -1,10 +1,10 @@
 'use strict';
 
-const assert = require('assert');
+const assert = require('node:assert');
 const {
   ImperativeTest,
   runner: { Runner },
-} = require('../../metatests');
+} = require('../../metatests.js');
 
 const test = new ImperativeTest('test', null, {
   dependentSubtests: true,

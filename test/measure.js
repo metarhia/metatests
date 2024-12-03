@@ -1,6 +1,5 @@
 'use strict';
 
-const { iter } = require('@metarhia/common');
 const metatests = require('..');
 
 const objectCreate = (p) => {

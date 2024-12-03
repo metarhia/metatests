@@ -1,7 +1,6 @@
 'use strict';
 
-const assert = require('assert');
-const { last } = require('@metarhia/common');
+const assert = require('node:assert');
 const { ImperativeTest } = require('../..');
 
 const test = new ImperativeTest();

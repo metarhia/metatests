@@ -1,13 +1,13 @@
 'use strict';
 
-const assert = require('assert');
+const assert = require('node:assert');
 
 const {
   equal,
   strictEqual,
   errorCompare,
   sameTopology,
-} = require('../../lib/compare');
+} = require('../../lib/compare.js');
 
 assert(equal(1, 1));
 assert(!equal(1, 2));

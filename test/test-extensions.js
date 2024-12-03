@@ -1,9 +1,9 @@
 'use strict';
 
-const { fork } = require('child_process');
-const path = require('path');
+const { fork } = require('node:child_process');
+const path = require('node:path');
 
-const { test } = require('../metatests');
+const { test } = require('../metatests.js');
 
 const cliFile = path.join(__dirname, '..', 'bin', 'cli.js');
 const fixturesDir = path.join(__dirname, 'fixtures');
