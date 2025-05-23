@@ -48,7 +48,7 @@
     "fix": "eslint . --fix && prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \"**/*.ts\""
   },
   "engines": {
-    "node": "18 || 20 || 21 || 22"
+    "node": "18 || 20 || 21 || 22 || 23 || 24"
   },
   "dependencies": {
     "@metarhia/common": "^2.2.2",
