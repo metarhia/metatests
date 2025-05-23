@@ -8,6 +8,15 @@ and this project adheres to
 
 ## [Unreleased][unreleased]
 
+## [0.9.1][] - 2025-05-23
+
+- Add node.js 23 and 24 to CI
+- Update dependencies
+
+## [0.9.0][] - 2024-09-01
+
+- Update dependencies
+
 ## [0.8.2][] - 2022-03-17
 
 ### Fixed
@@ -588,7 +597,9 @@ and this project adheres to
 
 - The first version of the `metatests` package.
 
-[unreleased]: https://github.com/metarhia/metatests/compare/v0.8.2...HEAD
+[unreleased]: https://github.com/metarhia/metatests/compare/v0.9.1...HEAD
+[0.9.1]: https://github.com/metarhia/metatests/compare/v0.9.0...v0.9.1
+[0.9.0]: https://github.com/metarhia/metatests/compare/v0.8.2...v0.9.0
 [0.8.2]: https://github.com/metarhia/metatests/compare/v0.8.1...v0.8.2
 [0.8.1]: https://github.com/metarhia/metatests/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/metarhia/metatests/compare/v0.7.2...v0.8.0
