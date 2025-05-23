@@ -58,10 +58,10 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@types/node": "^22.5.1",
-    "eslint": "^9.9.1",
-    "eslint-config-metarhia": "^9.0.5",
-    "prettier": "^3.3.3",
-    "typescript": "^5.5.4"
+    "@types/node": "^22.15.21",
+    "eslint": "^9.27.0",
+    "eslint-config-metarhia": "^9.1.1",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
   }
 }
