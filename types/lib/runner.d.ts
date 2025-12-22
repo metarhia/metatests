@@ -6,9 +6,9 @@ interface RunnerOptions {
   runTodo: boolean;
 }
 
-export class Runner<
-  O extends RunnerOptions = RunnerOptions,
-> extends events.EventEmitter {
+export class Runner<O extends RunnerOptions = RunnerOptions>
+  extends events.EventEmitter
+{
   public options: O;
   public reporter: Reporter<ReporterOptions>;
   public finished: boolean;

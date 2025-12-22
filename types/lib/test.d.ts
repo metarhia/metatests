@@ -20,7 +20,9 @@ export class Test<
   R extends TestResult = TestResult,
   O extends TestOptions = TestOptions,
   M extends TestMetadata = TestMetadata,
-> extends events.EventEmitter {
+>
+  extends events.EventEmitter
+{
   public caption: string;
   public results: R[];
   public done: boolean;
