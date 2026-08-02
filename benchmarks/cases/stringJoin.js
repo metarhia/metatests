@@ -5,8 +5,8 @@ const { iter } = require('@metarhia/common');
 const clauses = [];
 for (let i = 0; i < 10; i++) {
   clauses.push({
-    a: 'abc' + Math.random(),
-    b: 'hello: ' + Math.random(),
+    a: `abc${Math.random()}`,
+    b: `hello: ${Math.random()}`,
   });
 }
 
@@ -18,18 +18,18 @@ const reduceJoin = () => {
   const c = clauses[0];
   return clauses
     .slice(1)
-    .reduce((acc, c) => acc + `, ${c.a} ${c.b}`, `${c.a} ${c.b}`);
+    .reduce((acc, c) => `${acc}, ${c.a} ${c.b}`, `${c.a} ${c.b}`);
 };
 
 const reduceSliceStrJoin = () =>
-  clauses.reduce((acc, c) => acc + `${c.a} ${c.b}, `, '').slice(0, -2);
+  clauses.reduce((acc, c) => `${acc}${c.a} ${c.b}, `, '').slice(0, -2);
 
 const mapper = (v) => `${v.a} ${v.b}`;
 const manualWithMap = () => {
   let res = mapper(clauses[0]);
   for (let i = 1; i < clauses.length; i++) {
     const c = clauses[i];
-    res += ', ' + mapper(c);
+    res += `, ${mapper(c)}`;
   }
   return res;
 };
