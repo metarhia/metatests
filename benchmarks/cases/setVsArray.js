@@ -3,7 +3,7 @@
 const create = (size) => {
   const search = [];
   for (let i = 0; i < size; i++) {
-    search.push('abc' + Math.random());
+    search.push(`abc${Math.random()}`);
   }
 
   const target1 = search[Math.floor(size * 0.1)];

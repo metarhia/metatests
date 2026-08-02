@@ -159,7 +159,7 @@ const checkResult = (test, res, type, subObj, actual, success = true) => {
 ].forEach(({ msg, inverse, subObj, actual, sort, expectedRes, actualRes }) => {
   actual = actual(subObj);
 
-  test.testSync('test.contains ' + msg, (t) => {
+  test.testSync(`test.contains ${msg}`, (t) => {
     t.contains(actual, subObj, null, sort);
     checkResult(
       t,
@@ -170,7 +170,7 @@ const checkResult = (test, res, type, subObj, actual, success = true) => {
     );
   });
 
-  test.testSync('test.contains negative ' + msg, (t) => {
+  test.testSync(`test.contains negative ${msg}`, (t) => {
     const sub = new metatests.ImperativeTest();
     sub.contains(subObj, actual, null, sort);
     sub.end();
@@ -185,12 +185,12 @@ const checkResult = (test, res, type, subObj, actual, success = true) => {
     );
   });
 
-  test.testSync('test.containsGreedy ' + msg, (t) => {
+  test.testSync(`test.containsGreedy ${msg}`, (t) => {
     t.containsGreedy(actual, subObj);
     checkResult(t, t.results[0], 'containsGreedy', subObj, actual);
   });
 
-  test.testSync('test.containsGreedy negative ' + msg, (t) => {
+  test.testSync(`test.containsGreedy negative ${msg}`, (t) => {
     const sub = new metatests.ImperativeTest();
     sub.containsGreedy(subObj, actual);
     sub.end();

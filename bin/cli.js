@@ -94,12 +94,12 @@ const loadFiles = (files) => {
     .map((file) => {
       if (fs.existsSync(file)) {
         return file;
-      } else if (fs.existsSync(file + '.js')) {
-        return file + '.js';
-      } else if (fs.existsSync(file + '.cjs')) {
-        return file + '.cjs';
-      } else if (fs.existsSync(file + '.mjs')) {
-        return file + '.mjs';
+      } else if (fs.existsSync(`${file}.js`)) {
+        return `${file}.js`;
+      } else if (fs.existsSync(`${file}.cjs`)) {
+        return `${file}.cjs`;
+      } else if (fs.existsSync(`${file}.mjs`)) {
+        return `${file}.mjs`;
       } else {
         console.error('File does not exist:', file);
         process.exit(1);
@@ -168,7 +168,7 @@ const runNode = (config, cb) => {
     const file = path.isAbsolute(name) ? name : path.join(process.cwd(), name);
     if (file.endsWith('mjs')) {
       if (supportsESM) {
-        import('file://' + file);
+        import(`file://${file}`);
       } else {
         console.warn(
           `Warning: ignoring '${file}', current Node.js version doesn't ` +
@@ -234,7 +234,7 @@ function measureTarget(target, args) {
           out = resultToCsv(r);
         } else if (args.verbose) {
           let args = r.args && r.args.map(util.inspect).join(' ');
-          if (args) args = '\targs=' + args;
+          if (args) args = `\targs=${args}`;
           const ops = roundTo(r.count / (r.time / NS_PER_SEC), 2);
           out = `${name}\tn=${r.count}${args}:\t\t${r.time}ns, ${ops}ops/s`;
         }
@@ -244,8 +244,8 @@ function measureTarget(target, args) {
         if (args.csv) return;
         const agg = aggregateResults(results)[0];
         const name = agg.name.padEnd(15, ' ');
-        const ops = roundTo(agg.ops, 2) + ' ops/s ';
-        const rme = '±' + roundTo(agg.stats.relativeMarginOfError, 2) + '%';
+        const ops = `${roundTo(agg.ops, 2)} ops/s `;
+        const rme = `±${roundTo(agg.stats.relativeMarginOfError, 2)}%`;
         console.log(name + ops + rme);
       },
     },
