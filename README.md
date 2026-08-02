@@ -794,3 +794,9 @@ Simple wrapper for [`test()`][test()] setting `async` option to `true`.
 [test.fail()]: #imperativetestprototypefailmessage-err
 [test.end()]: #imperativetestprototypeend
 [case()]: #casecaption-namespace-list-runner
+
+## License & Contributors
+
+Copyright (c) 2012-2026 [Metarhia and other contributors, see LICENSE and list](https://github.com/metarhia/metautil/graphs/contributors).
+Metatests is [MIT licensed](./LICENSE).\
+Metatests is a part of [Metarhia](https://github.com/metarhia) technology stack.
